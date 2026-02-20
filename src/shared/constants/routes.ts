@@ -8,7 +8,7 @@ export const ROUTES = {
   LOGIN: '/login',
   SIGNUP: '/signup',
   SEARCH: '/search',
-  PROFILE: '/profile/:accountname',
+  PROFILE: '/profile',
   POST: {
     DETAIL: '/post/:post_id',
     UPLOAD: '/upload',

@@ -7,7 +7,7 @@
   --color-foreground: light-dark(222.2 84% 4.9%, 210 40% 98%);
 
   /* Border & Input */
-  --color-border: light-dark(214.3 31.8% 91.4%, 217.2 32.6% 17.5%);
+  --color-border: #d1d5db; /* Tailwind의 gray-300 */
 }
 
 /* Base styles */

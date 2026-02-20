@@ -4,6 +4,7 @@ import { RootLayout } from '@/app/RootLayout';
 import { HomePage } from '@/pages/home';
 import { NotFoundPage } from '@/pages/not-found';
 import { ProfilePage } from '@/pages/profile';
+import { SignInPage } from '@/pages/signin';
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
         element: <ProfilePage />,
       },
     ],
+  },
+  {
+    path: 'signin',
+    element: <SignInPage />,
   },
   {
     path: '*',

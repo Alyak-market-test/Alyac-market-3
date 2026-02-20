@@ -1,10 +1,7 @@
 import * as React from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
-export * from './ui/button';
-export * from './ui/dialog';
-export * from './ui/input';
 function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
   return (
     <input

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { Slot } from 'radix-ui';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 // 버튼 사용할 페이지에 아래 import문 추가
 // import { Button } from '@/shared/ui/button'

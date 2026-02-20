@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { UploadImage } from '@/shared/ui/UploadImage';
 import postAlbum1 from '@/shared/ui/icons/icon-post-album-off.png';
 import postList1 from '@/shared/ui/icons/icon-post-list-off.png';
-import uploadImage from '@/shared/ui/icons/upload-image.png';
 
 // 임시 더미 데이터 - 나중에 API 연동 시 교체
 const DUMMY_USER = {
@@ -36,18 +36,8 @@ export function ProfilePage() {
             <span className="text-sm text-gray-500">Followers</span>
           </div>
 
-          {/* 프로필 이미지 */}
-          <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100">
-            {DUMMY_USER?.image ? (
-              <img
-                src={DUMMY_USER.image}
-                alt={DUMMY_USER.username}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <img src={uploadImage} alt="기본 프로필" className="h-full w-full object-cover" />
-            )}
-          </div>
+          {/* 아바타 - 프로필 이미지 */}
+          <UploadImage src={DUMMY_USER.image} alt={DUMMY_USER.username} size="lg" />
 
           {/* 팔로잉 */}
           <div className="flex flex-col items-center">

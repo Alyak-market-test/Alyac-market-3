@@ -1,18 +1,21 @@
 interface UploadImageProps {
   src?: string | null;
   alt?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  iconSize?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   className?: string;
 }
 
 const sizeMap = {
   sm: 'h-10 w-10',
   md: 'h-16 w-16',
-  lg: 'h-24 w-24',
+  lg: 'h-18 w-18',
+  xl: 'h-24 w-24',
+  xxl: 'w-32 h-32',
 };
 
 interface DefaultImageProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 }
 
 function DefaultImage({ size = 'md' }: DefaultImageProps) {
@@ -55,11 +58,16 @@ export function UploadImage({
   src,
   alt = '프로필 이미지',
   size = 'md',
+  iconSize = size,
   className = '',
 }: UploadImageProps) {
   return (
     <div className={`overflow-hidden rounded-full bg-gray-100 ${sizeMap[size]} ${className}`}>
-      {src ? <img src={src} alt={alt} className="h-full w-full object-cover" /> : <DefaultImage />}
+      {src ? (
+        <img src={src} alt={alt} className="h-full w-full object-cover" />
+      ) : (
+        <DefaultImage size={iconSize} />
+      )}
     </div>
   );
 }

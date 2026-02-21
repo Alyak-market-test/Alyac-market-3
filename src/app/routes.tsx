@@ -4,6 +4,7 @@ import { RootLayout } from '@/app/RootLayout';
 import { HomePage } from '@/pages/home';
 import { NotFoundPage } from '@/pages/not-found';
 import { ProfilePage } from '@/pages/profile';
+import ProfileModification from '@/pages/profile/modification';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ export const router = createBrowserRouter([
       {
         path: 'profile',
         element: <ProfilePage />,
+      },
+
+      {
+        path: 'profile/modification',
+        element: <ProfileModification />,
       },
     ],
   },

@@ -14,10 +14,7 @@ export function HomePage() {
   }, []);
 
   return (
-    <div
-      className="relative h-screen w-full overflow-hidden"
-      style={{ backgroundColor: '#23D038' }}
-    >
+    <div className="relative h-screen w-full overflow-hidden bg-green-500">
       <SplashScreen logoSrc="/src/shared/ui/icons/full-logo-alyac-no-text.png" />
 
       <div

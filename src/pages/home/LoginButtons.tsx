@@ -1,0 +1,74 @@
+export function LoginButtons() {
+  return (
+    <div className="flex flex-col items-center gap-4">
+      {/* 카카오 */}
+      <button className="flex w-80 cursor-pointer items-center rounded-full border border-gray-200 px-6 py-4 transition-all hover:bg-yellow-100 active:scale-95">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18 8.50003C18.0034 9.8199 17.6951 11.1219 17.1 12.3C16.3944 13.7118 15.3098 14.8992 13.9674 15.7293C12.6251 16.5594 11.0782 16.9994 9.5 17C8.18013 17.0035 6.87812 16.6951 5.7 16.1L0 18L1.9 12.3C1.30493 11.1219 0.996559 9.8199 1 8.50003C1.00061 6.92179 1.44061 5.37488 2.27072 4.03258C3.10083 2.69028 4.28825 1.6056 5.7 0.900029C6.87812 0.30496 8.18013 -0.00341276 9.5 2.84881e-05H10C12.0843 0.11502 14.053 0.99479 15.5291 2.47089C17.0052 3.94699 17.885 5.91568 18 8.00003V8.50003Z"
+            fill="#F2C94C"
+          />
+        </svg>
+        <span className="flex-1 text-center text-sm">카카오톡 계정으로 로그인</span>
+      </button>
+
+      {/* 구글 */}
+      <button className="flex w-80 cursor-pointer items-center rounded-full border border-gray-200 px-6 py-4 transition-all hover:bg-gray-50 active:scale-95">
+        <svg
+          width="18"
+          height="19"
+          viewBox="0 0 18 19"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.9999 9.4023C17.9999 8.79693 17.9463 8.22222 17.8543 7.66283H9.19531V11.1188H14.1532C13.9309 12.2529 13.2796 13.2107 12.3141 13.8621V16.1609H15.2719C17.0037 14.5594 17.9999 12.1992 17.9999 9.4023Z"
+            fill="#4285F4"
+          />
+          <path
+            d="M9.19542 18.3908C11.6782 18.3908 13.7548 17.5632 15.272 16.1609L12.3142 13.8621C11.4866 14.4138 10.4368 14.751 9.19542 14.751C6.79695 14.751 4.7663 13.1341 4.03833 10.9502H0.988525V13.318C2.4981 16.3219 5.60155 18.3908 9.19542 18.3908Z"
+            fill="#34A853"
+          />
+          <path
+            d="M4.03831 10.9502C3.84674 10.3985 3.74712 9.80842 3.74712 9.19539C3.74712 8.58237 3.8544 7.99233 4.03831 7.44061V5.07279H0.988505C0.360152 6.31417 0 7.7088 0 9.19539C0 10.682 0.360152 12.0766 0.988505 13.318L4.03831 10.9502Z"
+            fill="#FBBC05"
+          />
+          <path
+            d="M9.19542 3.63984C10.5517 3.63984 11.7625 4.10728 12.7203 5.01916L15.341 2.39847C13.7548 0.911878 11.6782 0 9.19542 0C5.60155 0 2.4981 2.06897 0.988525 5.0728L4.03833 7.44061C4.7663 5.2567 6.79695 3.63984 9.19542 3.63984Z"
+            fill="#EA4335"
+          />
+        </svg>
+        <span className="flex-1 text-center text-sm">구글 계정으로 로그인</span>
+      </button>
+
+      {/* 페이스북 */}
+      <button className="flex w-80 cursor-pointer items-center rounded-full border border-gray-200 px-6 py-4 transition-all hover:bg-blue-50 active:scale-95">
+        <svg
+          width="11"
+          height="20"
+          viewBox="0 0 11 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11 0H8C6.67392 0 5.40215 0.526784 4.46447 1.46447C3.52678 2.40215 3 3.67392 3 5V8H0V12H3V20H7V12H10L11 8H7V5C7 4.73478 7.10536 4.48043 7.29289 4.29289C7.48043 4.10536 7.73478 4 8 4H11V0Z"
+            fill="#2D9CDB"
+          />
+        </svg>
+        <span className="flex-1 text-center text-sm">페이스북 계정으로 로그인</span>
+      </button>
+
+      <div className="mt-2 flex justify-center gap-4 text-sm text-gray-400">
+        <button className="hover:text-gray-600">이메일로 로그인</button>
+        <span>|</span>
+        <button className="hover:text-gray-600">회원가입</button>
+      </div>
+    </div>
+  );
+}

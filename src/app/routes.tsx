@@ -13,17 +13,15 @@ import { SignUpPage } from '@/pages/signup';
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: <HomePage />,
+  },
+  {
     element: <RootLayout />,
     children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
       {
         path: 'profile',
         element: <ProfilePage />,
       },
-
       {
         path: 'profile/modification',
         element: <ProfileModification />,

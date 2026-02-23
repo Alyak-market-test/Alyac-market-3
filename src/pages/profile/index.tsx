@@ -59,7 +59,7 @@ export function ProfilePage() {
             프로필 수정
           </button>
           <button
-            onClick={() => navigate('/products/new')}
+            onClick={() => navigate('/products/productAdd')}
             className="flex-1 rounded-full border border-gray-300 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
           >
             상품 등록

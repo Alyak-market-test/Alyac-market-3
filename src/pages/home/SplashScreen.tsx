@@ -1,11 +1,11 @@
-interface SplashScreenProps {
-  logoSrc: string;
-}
+import { LogoFullIcon } from '@/shared/icons/LogoFullIcon';
 
-export function SplashScreen({ logoSrc }: SplashScreenProps) {
+const SplashScreen = () => {
   return (
-    <div className="flex h-1/2 items-center justify-center">
-      <img src={logoSrc} alt="알약마켓" className="h-32 w-32" />
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-white">
+      <LogoFullIcon width={199} height={220} />
     </div>
   );
-}
+};
+
+export default SplashScreen;

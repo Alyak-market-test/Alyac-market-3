@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '@/shared/constants/routes';
-import { ChatIcon, EditIcon, HomeIcon, ProfileIcon } from '@/shared/ui/icons';
+import { ChatIcon, EditIcon, HomeIcon, ProfileIcon } from '@/shared/icons';
 
 export function BottomNav() {
   const location = useLocation();

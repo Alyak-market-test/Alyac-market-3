@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import PostAlbumIcon from '@/shared/icons/PostAlbumIcon';
 import PostListIcon from '@/shared/icons/PostListIcon';
 import { UploadImage } from '@/shared/ui/UploadImage';
+import { TopBasicNav } from '@/shared/ui/nav/TopBasicNav';
 
 // 임시 더미 데이터 - 나중에 API 연동 시 교체
 const DUMMY_USER = {
@@ -26,7 +27,9 @@ export function ProfilePage() {
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
 
   return (
-    <div className="relative mx-auto flex min-h-screen flex-col bg-white">
+    <div className="mx-auto flex min-h-screen flex-col bg-white">
+      <TopBasicNav onBack={() => navigate(-1)} />
+
       {/* 프로필 정보 */}
       <section className="flex flex-col items-center px-4 py-6">
         <div className="mb-4 flex items-center gap-12">

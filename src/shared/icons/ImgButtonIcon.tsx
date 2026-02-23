@@ -1,0 +1,41 @@
+interface IconProps {
+  className?: string;
+  fill?: string;
+  stroke?: string;
+}
+
+export function ImgButtonIcon({ className, fill = '#C4C4C4', stroke = 'white' }: IconProps) {
+  return (
+    <svg
+      width="36"
+      height="36"
+      viewBox="0 0 36 36"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <circle cx="18" cy="18" r="18" fill={fill} />
+      <path
+        d="M24.4167 9.75H11.5833C10.5708 9.75 9.75 10.5708 9.75 11.5833V24.4167C9.75 25.4292 10.5708 26.25 11.5833 26.25H24.4167C25.4292 26.25 26.25 25.4292 26.25 24.4167V11.5833C26.25 10.5708 25.4292 9.75 24.4167 9.75Z"
+        stroke={stroke}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.7917 16.1667C15.5511 16.1667 16.1667 15.551 16.1667 14.7917C16.1667 14.0323 15.5511 13.4167 14.7917 13.4167C14.0324 13.4167 13.4167 14.0323 13.4167 14.7917C13.4167 15.551 14.0324 16.1667 14.7917 16.1667Z"
+        stroke={stroke}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M26.2499 20.75L21.6666 16.1667L11.5833 26.25"
+        stroke={stroke}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

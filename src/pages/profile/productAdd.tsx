@@ -1,32 +1,38 @@
 import { useState } from 'react';
 
-import { Button } from '@/shared';
-import { ArrowLeftIcon } from '@/shared/icons';
+import { useNavigate } from 'react-router-dom';
+
+import { ImgButtonIcon } from '@/shared/icons/ImgButtonIcon';
+import { TopUploadNav } from '@/shared/ui/nav/TopUploadNav';
 
 export function ProductAdd() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [saleUrl, setSaleUrl] = useState('');
 
+  const isDisabled = name.trim() === '' || price.trim() === '';
+
+  const handleSave = () => {
+    if (name.trim() === '') return;
+    // TODO : 실제 저장 로직 (API 연동 후 구현)
+    navigate(-1);
+  };
+
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <header className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
-        <button
-          onClick={() => window.history.back()}
-          aria-label="뒤로가기"
-          className="cursor-pointer rounded-md p-1 transition-colors hover:bg-gray-100"
-        >
-          <ArrowLeftIcon />
-        </button>
-        <Button onClick={() => window.history.back()} className="text-sm">
-          저장
-        </Button>
-      </header>
-      product add
+    <div className="mb-15 flex min-h-screen flex-col bg-white">
+      <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} disabled={isDisabled} />
       <div className="flex flex-col gap-10 px-7">
         {/* 상품 이미지 업로드*/}
         <div className="relative">
-          <div className="flex h-58 w-full cursor-pointer items-center justify-center rounded-md bg-gray-100 transition-colors"></div>
+          <p className="mt-4 text-sm text-gray-500">이미지 등록</p>
+          <div className="mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-100 transition-colors">
+            <ImgButtonIcon
+              fill="#FFFF"
+              stroke="#767676"
+              className="absolute right-3 bottom-3 h-11 w-11 rounded-full shadow-md"
+            />
+          </div>
         </div>
         {/* 상품명 */}
         <div className="flex flex-col gap-3">
@@ -88,7 +94,6 @@ export function ProductAdd() {
                 URL형식이 올바르지 않습니다. (http:// 또는 https://로 시작해야 합니다.)
               </p>
             )}
-
           <p className="text-sm text-gray-400">선택 사항 (http:// 또는 https://로 시작)</p>
         </div>
       </div>

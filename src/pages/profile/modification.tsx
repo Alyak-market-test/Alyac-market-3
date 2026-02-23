@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UploadImage } from '@/shared/ui/UploadImage';
+import { TopUploadNav } from '@/shared/ui/nav/TopUploadNav';
 
 // 임시 더미 데이터 - 나중에 API 연동 시 교체
 const DUMMY_USER = {
@@ -26,37 +27,14 @@ export function ProfileModification() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
       {/* 헤더 */}
-      <header className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
-        <button
-          onClick={() => navigate(-1)}
-          aria-label="뒤로가기"
-          className="cursor-pointer rounded-md p-1 transition-colors hover:bg-gray-100"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M15 19L8 12L15 5"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-
-        <button
-          onClick={handleSave}
-          className="text-md rounded-full bg-green-500 px-5 py-1.5 font-semibold text-white transition hover:bg-green-600"
-        >
-          저장
-        </button>
-      </header>
+      <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} />
 
       <div className="flex justify-center py-10">
         <div className="relative">
           {/* 프로필 이미지 업로드 */}
           <UploadImage src={DUMMY_USER.image} alt={DUMMY_USER.username} size="xxl" iconSize="lg" />
 
-          <button className="absolute right-0 bottom-0 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-green-500 text-white shadow transition hover:bg-green-600">
+          <button className="absolute right-0 bottom-0 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-green-500 text-white shadow transition">
             <svg
               width="50"
               height="50"

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import PostAlbumIcon from '@/shared/icons/PostAlbumIcon';
 import PostListIcon from '@/shared/icons/PostListIcon';
 import { UploadImage } from '@/shared/ui/UploadImage';
+import { TopBasicNav } from '@/shared/ui/nav/TopBasicNav';
 
 // 임시 더미 데이터 - 나중에 API 연동 시 교체
 const DUMMY_USER = {
@@ -13,6 +14,7 @@ const DUMMY_USER = {
   followers: 0,
   followings: 0,
   image: null, // null이면 기본 이모지 표시
+  intro: '자기소개 입력란입니다.',
 };
 // 게시물이 없을 때
 const DUMMY_POSTS: { id: number; content: string; likes: number; comments: number }[] = [];
@@ -26,7 +28,9 @@ export function ProfilePage() {
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
 
   return (
-    <div className="relative mx-auto flex min-h-screen flex-col bg-white">
+    <div className="mx-auto flex min-h-screen flex-col bg-white">
+      <TopBasicNav onBack={() => navigate(-1)} />
+
       {/* 프로필 정보 */}
       <section className="flex flex-col items-center px-4 py-6">
         <div className="mb-4 flex items-center gap-12">
@@ -48,7 +52,8 @@ export function ProfilePage() {
 
         {/* 이름 & 아이디 */}
         <p className="text-base font-semibold">{DUMMY_USER.name}</p>
-        <p className="text-sm text-gray-400">{DUMMY_USER.username}</p>
+        <p className="mb-2 text-sm text-gray-400">{DUMMY_USER.username}</p>
+        <p className="text-sm">{DUMMY_USER.intro}</p>
 
         {/* 버튼 */}
         <div className="mt-4 flex w-full gap-3">
@@ -63,6 +68,12 @@ export function ProfilePage() {
             className="flex-1 rounded-full border border-gray-300 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
           >
             상품 등록
+          </button>
+          <button
+            onClick={() => navigate('/profile/yourProfile')}
+            className="flex-1 rounded-full border border-gray-300 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+          >
+            your profile 임시 페이지
           </button>
         </div>
       </section>

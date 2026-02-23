@@ -8,6 +8,7 @@ import { ProfileModification } from '@/pages/profile/modification';
 import { ProductAdd } from '@/pages/profile/productAdd';
 import { YourProfilePage } from '@/pages/profile/yourProfile';
 import { SignInPage } from '@/pages/signin';
+import { SignUpPage } from '@/pages/signup';
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
   {
     path: 'signin',
     element: <SignInPage />,
+  },
+  {
+    path: 'signup',
+    element: <SignUpPage />,
   },
   {
     path: '*',

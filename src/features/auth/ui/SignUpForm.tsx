@@ -3,37 +3,29 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { useSignIn } from '@/entities/auth';
 import { Button } from '@/shared/ui/button';
 
-const signInSchema = z.object({
-  email: z.string().email('올바른 이메일을 입력하세요'),
-  password: z.string().min(6, '비밀번호는 최소 6자 이상입니다'),
+const signUpSchema = z.object({
+  email: z.string().email('*이미 가입된 이메일 주소입니다.'),
+  password: z.string().min(6, '*비밀번호는 6자 이상이어야 합니다.'),
 });
 
-type SignInFormData = z.infer<typeof signInSchema>;
+type SignUpFormData = z.infer<typeof signUpSchema>;
 
-export function SignInForm() {
+export function SignUpForm() {
   const navigate = useNavigate();
-  const signInMutation = useSignIn();
 
-  const form = useForm<SignInFormData>({
-    resolver: zodResolver(signInSchema),
+  const form = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  const onSubmit = (data: SignInFormData) => {
-    signInMutation.mutate(data, {
-      onSuccess: () => {
-        navigate('/feed');
-      },
-      onError: (error) => {
-        alert('로그인 실패: ' + error.message);
-      },
-    });
+  const onSubmit = (data: SignUpFormData) => {
+    console.log(data);
+    navigate('/signup/profile');
   };
 
   return (
@@ -42,11 +34,11 @@ export function SignInForm() {
         <label className="text-sm text-gray-500">이메일</label>
         <input
           {...form.register('email')}
-          placeholder="alyac@estSecurity.com"
+          placeholder="이메일 주소를 입력해 주세요."
           className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.email && (
-          <span className="text-xs text-red-500">{form.formState.errors.email.message}</span>
+          <span className="text-xs text-green-500">{form.formState.errors.email.message}</span>
         )}
       </div>
 
@@ -55,11 +47,11 @@ export function SignInForm() {
         <input
           {...form.register('password')}
           type="password"
-          placeholder="······"
+          placeholder="비밀번호를 설정해 주세요."
           className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.password && (
-          <span className="text-xs text-red-500">{form.formState.errors.password.message}</span>
+          <span className="text-xs text-green-500">{form.formState.errors.password.message}</span>
         )}
       </div>
 
@@ -67,14 +59,10 @@ export function SignInForm() {
         type="submit"
         variant={form.formState.isValid ? 'primary' : 'primaryDisabled'}
         size="L"
-        disabled={signInMutation.isPending}
         className="w-full"
       >
-        {signInMutation.isPending ? '로그인 중...' : '로그인'}
+        다음
       </Button>
-      <button type="button" className="text-sm text-gray-500" onClick={() => navigate('/signup')}>
-        이메일로 회원가입
-      </button>
     </form>
   );
 }

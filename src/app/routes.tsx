@@ -6,6 +6,7 @@ import { NotFoundPage } from '@/pages/not-found';
 import { ProfilePage } from '@/pages/profile';
 import { ProfileModification } from '@/pages/profile/modification';
 import { SignInPage } from '@/pages/signin';
+import { SignUpPage } from '@/pages/signup';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
   {
     path: 'signin',
     element: <SignInPage />,
+  },
+  {
+    path: 'signup',
+    element: <SignUpPage />,
   },
   {
     path: '*',

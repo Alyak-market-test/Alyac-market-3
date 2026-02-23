@@ -3,6 +3,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import { RootLayout } from '@/app/RootLayout';
 import { HomePage } from '@/pages/home';
 import { NotFoundPage } from '@/pages/not-found';
+import { ProfilePage } from '@/pages/profile';
+import { ProfileModification } from '@/pages/profile/modification';
+import { SignInPage } from '@/pages/signin';
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +16,20 @@ export const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      {
+        path: 'profile',
+        element: <ProfilePage />,
+      },
+
+      {
+        path: 'profile/modification',
+        element: <ProfileModification />,
+      },
     ],
+  },
+  {
+    path: 'signin',
+    element: <SignInPage />,
   },
   {
     path: '*',

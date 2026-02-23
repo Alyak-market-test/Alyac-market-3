@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+import { Button } from '@/shared';
+import { ArrowLeftIcon } from '@/shared/icons';
+
 export function ProductAdd() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -7,6 +10,18 @@ export function ProductAdd() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
+      <header className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
+        <button
+          onClick={() => window.history.back()}
+          aria-label="뒤로가기"
+          className="cursor-pointer rounded-md p-1 transition-colors hover:bg-gray-100"
+        >
+          <ArrowLeftIcon />
+        </button>
+        <Button onClick={() => window.history.back()} className="text-sm">
+          저장
+        </Button>
+      </header>
       product add
       <div className="flex flex-col gap-10 px-7">
         {/* 상품 이미지 업로드*/}

@@ -5,6 +5,7 @@ import { HomePage } from '@/pages/home';
 import { NotFoundPage } from '@/pages/not-found';
 import { ProfilePage } from '@/pages/profile';
 import { ProfileModification } from '@/pages/profile/modification';
+import { ProductAdd } from '@/pages/profile/productAdd';
 import { SignInPage } from '@/pages/signin';
 
 export const router = createBrowserRouter([
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: 'profile/modification',
         element: <ProfileModification />,
+      },
+      {
+        path: 'profile/productAdd',
+        element: <ProductAdd />,
       },
     ],
   },

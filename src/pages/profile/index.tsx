@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import postAlbum1 from '@/shared/ui/icons/icon-post-album-off.png';
-import postList1 from '@/shared/ui/icons/icon-post-list-off.png';
-import uploadImage from '@/shared/ui/icons/upload-image.png';
+import PostAlbumIcon from '@/shared/icons/PostAlbumIcon';
+import PostListIcon from '@/shared/icons/PostListIcon';
+import { UploadImage } from '@/shared/ui/UploadImage';
 
 // 임시 더미 데이터 - 나중에 API 연동 시 교체
 const DUMMY_USER = {
@@ -36,18 +36,8 @@ export function ProfilePage() {
             <span className="text-sm text-gray-500">Followers</span>
           </div>
 
-          {/* 프로필 이미지 */}
-          <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100">
-            {DUMMY_USER?.image ? (
-              <img
-                src={DUMMY_USER.image}
-                alt={DUMMY_USER.username}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <img src={uploadImage} alt="기본 프로필" className="h-full w-full object-cover" />
-            )}
-          </div>
+          {/* 아바타 - 프로필 이미지 */}
+          <UploadImage src={DUMMY_USER.image} alt={DUMMY_USER.username} size="xl" iconSize="md" />
 
           {/* 팔로잉 */}
           <div className="flex flex-col items-center">
@@ -63,7 +53,7 @@ export function ProfilePage() {
         {/* 버튼 */}
         <div className="mt-4 flex w-full gap-3">
           <button
-            onClick={() => navigate('/profile/edit')}
+            onClick={() => navigate('/profile/modification')}
             className="flex-1 rounded-full border border-gray-300 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
           >
             프로필 수정
@@ -77,14 +67,14 @@ export function ProfilePage() {
         </div>
       </section>
 
-      {/*post list-album */}
-      <div className="mt-6 flex justify-end border-t border-b">
-        <button onClick={() => setViewMode('list')} className="m-5">
-          <img src={postList1} alt="게시글 목록" />
-        </button>
-        <button onClick={() => setViewMode('grid')} className="mr-8">
-          <img src={postAlbum1} alt="게시글 앨범" />
-        </button>
+      {/* post list-album */}
+      <div className="mt-6 flex items-center justify-end border-t border-b">
+        <div className="mt-4 mb-4">
+          <PostListIcon isActive={viewMode === 'list'} onClick={() => setViewMode('list')} />
+        </div>
+        <div className="mr-3 ml-1">
+          <PostAlbumIcon isActive={viewMode === 'grid'} onClick={() => setViewMode('grid')} />
+        </div>
       </div>
 
       {/* 게시물 목록 */}

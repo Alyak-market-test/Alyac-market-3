@@ -1,5 +1,5 @@
-import { ArrowLeftIcon } from '@/shared/ui/icons/ArrowLeftIcon';
-import { MoreVerticalIcon } from '@/shared/ui/icons/MoreVerticalIcon';
+import { ArrowLeftIcon } from '@/shared/icons/ArrowLeftIcon';
+import { MoreVerticalIcon } from '@/shared/icons/MoreVerticalIcon';
 
 interface TopBasicNavProps {
   title?: string;

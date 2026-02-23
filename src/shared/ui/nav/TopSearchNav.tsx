@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from '@/shared/ui/icons/ArrowLeftIcon';
+import { ArrowLeftIcon } from '@/shared/icons/ArrowLeftIcon';
 
 interface TopSearchNavProps {
   value: string;

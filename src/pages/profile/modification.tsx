@@ -25,6 +25,7 @@ export function ProfileModification() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
+      {/* 헤더 */}
       <header className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
         <button
           onClick={() => navigate(-1)}
@@ -51,10 +52,11 @@ export function ProfileModification() {
       </header>
 
       <div className="flex justify-center py-10">
-        <div className="cursor relative">
+        <div className="relative">
+          {/* 프로필 이미지 업로드 */}
           <UploadImage src={DUMMY_USER.image} alt={DUMMY_USER.username} size="xxl" iconSize="lg" />
 
-          <button className="absolute right-0 bottom-0 flex h-11 w-11 items-center justify-center rounded-full bg-green-500 text-white shadow transition hover:bg-green-600">
+          <button className="absolute right-0 bottom-0 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-green-500 text-white shadow transition hover:bg-green-600">
             <svg
               width="50"
               height="50"
@@ -90,6 +92,7 @@ export function ProfileModification() {
       </div>
 
       <div className="flex flex-col gap-10 px-7">
+        {/* 사용자 이름 */}
         <div className="flex flex-col gap-3">
           <label className="text-sm text-black">사용자 이름</label>
           <input
@@ -98,9 +101,7 @@ export function ProfileModification() {
             onChange={(e) => setName(e.target.value)}
             placeholder="이름을 입력하세요."
             className={`text-md border-b py-2 transition-colors outline-none ${
-              name.trim() === ''
-                ? 'border-red-400 focus:border-red-400'
-                : 'border-gray-300 focus:border-green-500'
+              name.trim() === '' ? 'border-red-400' : 'border-gray-300'
             }`}
           />
           {name.trim() === '' && (
@@ -109,6 +110,7 @@ export function ProfileModification() {
         </div>
 
         <div className="flex flex-col gap-1">
+          {/* 계정 ID는 변경 불가 - disabled 처리 */}
           <label className="text-sm text-black">계정 ID</label>
           <input
             type="text"
@@ -120,6 +122,7 @@ export function ProfileModification() {
         </div>
 
         <div className="flex flex-col gap-1">
+          {/* 자기 소개 */}
           <label className="text-sm text-black">소개</label>
           <input
             type="text"
@@ -128,7 +131,7 @@ export function ProfileModification() {
               if (e.target.value.length <= 60) setBio(e.target.value);
             }}
             placeholder="간단한 자기 소개를 입력하세요."
-            className="text-md border-b border-gray-300 py-2 outline-none focus:border-green-500"
+            className="text-md border-b border-gray-300 py-2 outline-none"
           />
           <p className="text-sm text-gray-400">최대 60자</p>
         </div>

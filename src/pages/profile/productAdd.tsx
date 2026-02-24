@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { ImageUpload } from '@/features/upload/ui/ImageUpload';
 import { ImgButtonIcon } from '@/shared/icons/ImgButtonIcon';
 import { TopUploadNav } from '@/shared/ui/nav/TopUploadNav';
 
@@ -10,8 +11,10 @@ export function ProductAdd() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [saleUrl, setSaleUrl] = useState('');
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const imageInputRef = useRef<HTMLInputElement>(null) as React.RefObject<HTMLInputElement>;
 
-  const isDisabled = name.trim() === '' || price.trim() === '';
+  const isDisabled = name.trim() === '' || price.trim() === '' || imageUrls.length === 0;
 
   const handleSave = () => {
     if (name.trim() === '') return;
@@ -26,14 +29,23 @@ export function ProductAdd() {
         {/* 상품 이미지 업로드*/}
         <div className="relative">
           <p className="mt-4 text-sm text-gray-500">이미지 등록</p>
-          <div className="mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-100 transition-colors">
+          <div
+            className="mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-100 transition-colors"
+            onClick={() => imageInputRef.current?.click()}
+          >
             <ImgButtonIcon
               fill="#FFFF"
               stroke="#767676"
-              className="absolute right-3 bottom-3 h-11 w-11 rounded-full shadow-md"
+              className="absolute right-3 bottom-3 h-11 w-11 cursor-pointer rounded-full shadow-md"
             />
           </div>
+          <ImageUpload
+            onUploadComplete={(urls) => setImageUrls(urls)}
+            maxFiles={3}
+            inputRef={imageInputRef}
+          />
         </div>
+
         {/* 상품명 */}
         <div className="flex flex-col gap-3">
           <label className="text-sm text-black">상품명</label>

@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+
 export function LoginButtons() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center gap-4">
       {/* 카카오 */}
@@ -65,9 +68,13 @@ export function LoginButtons() {
       </button>
 
       <div className="mt-2 flex justify-center gap-4 text-sm text-gray-400">
-        <button className="hover:text-gray-600">이메일로 로그인</button>
+        <button onClick={() => navigate('/signin')} className="hover:text-gray-600">
+          이메일로 로그인
+        </button>
         <span>|</span>
-        <button className="hover:text-gray-600">회원가입</button>
+        <button onClick={() => navigate('/signup')} className="hover:text-gray-600">
+          회원가입
+        </button>
       </div>
     </div>
   );

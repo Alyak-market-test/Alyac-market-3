@@ -29,11 +29,11 @@ export const router = createBrowserRouter([
         element: <ProfilePage />,
       },
       {
-        path: 'profile/modification',
+        path: 'profile-modification',
         element: <ProfileModification />,
       },
       {
-        path: 'profile/productAdd',
+        path: 'product-add',
         element: <ProductAdd />,
       },
       {

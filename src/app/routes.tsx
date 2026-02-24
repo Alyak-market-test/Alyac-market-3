@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { RootLayout } from '@/app/RootLayout';
+import { FeedPage } from '@/pages/feed';
 import { HomePage } from '@/pages/home';
 import { NotFoundPage } from '@/pages/not-found';
 import { ProfilePage } from '@/pages/profile';
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
   {
     path: 'signup',
     element: <SignUpPage />,
+  },
+  {
+    path: 'feed',
+    element: <FeedPage />,
   },
   {
     path: '*',

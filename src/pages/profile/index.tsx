@@ -58,13 +58,13 @@ export function ProfilePage() {
         {/* 버튼 */}
         <div className="mt-4 flex w-full gap-3">
           <button
-            onClick={() => navigate('/profile/modification')}
+            onClick={() => navigate('/profile-modification')}
             className="flex-1 rounded-full border border-gray-300 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
           >
             프로필 수정
           </button>
           <button
-            onClick={() => navigate('/profile/productAdd')}
+            onClick={() => navigate('/product-add')}
             className="flex-1 rounded-full border border-gray-300 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
           >
             상품 등록

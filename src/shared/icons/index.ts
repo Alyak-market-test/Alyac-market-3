@@ -5,3 +5,6 @@ export { ProfileIcon } from './ProfileIcon';
 export { ArrowLeftIcon } from './ArrowLeftIcon';
 export { MoreVerticalIcon } from './MoreVerticalIcon';
 export { SearchIcon } from './SearchIcon';
+export { HeartIcon } from './HeartIcon';
+export { CommentIcon } from './CommentIcon';
+export { LogoGrayIcon } from './LogoGrayIcon';

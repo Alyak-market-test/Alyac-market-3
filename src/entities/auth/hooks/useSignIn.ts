@@ -7,7 +7,7 @@ export const useSignIn = () => {
   return useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
-      saveToken(data.user.token, data.user.refreshToken);
+      saveToken(data.user.accessToken, data.user.refreshToken);
     },
   });
 };

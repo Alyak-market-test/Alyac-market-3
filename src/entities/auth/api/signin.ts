@@ -7,7 +7,7 @@ export interface SignInRequest {
 
 export interface SignInResponse {
   user: {
-    token: string;
+    accessToken: string;
     refreshToken: string;
     accountname: string;
     username: string;

@@ -64,7 +64,7 @@ api.interceptors.response.use(
           { headers: { Authorization: `Bearer ${refreshToken}` } },
         );
 
-        const { token: newToken, refreshToken: newRefreshToken } = response.data;
+        const { accessToken: newToken, refreshToken: newRefreshToken } = response.data;
         saveToken(newToken, newRefreshToken);
         onTokenRefreshed(newToken);
 

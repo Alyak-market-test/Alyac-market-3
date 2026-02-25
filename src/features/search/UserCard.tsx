@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import { UploadImage } from '@/shared/ui/UploadImage';
+
 interface User {
   _id: string;
   username: string;
@@ -9,11 +11,26 @@ interface User {
 
 interface UserCardProps {
   user: User;
+  keyword?: string;
   onClick?: () => void;
 }
 
-export function UserCard({ user, onClick }: UserCardProps) {
+export function UserCard({ user, keyword = '', onClick }: UserCardProps) {
   const navigate = useNavigate();
+
+  const highlight = (text: string) => {
+    if (!keyword) return text;
+    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
+    return parts.map((part, i) =>
+      part.toLowerCase() === keyword.toLowerCase() ? (
+        <span key={i} className="text-green-500">
+          {part}
+        </span>
+      ) : (
+        part
+      ),
+    );
+  };
 
   return (
     <div
@@ -31,27 +48,12 @@ export function UserCard({ user, onClick }: UserCardProps) {
             className="h-full w-full rounded-full object-cover"
           />
         ) : (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
-              stroke="#aaa"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
-              stroke="#aaa"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <UploadImage src={undefined} size="sm" />
         )}
       </div>
       <div>
-        <p className="text-sm font-medium">{user.username}</p>
-        <p className="text-xs text-gray-400">@{user.accountname}</p>
+        <p className="text-sm font-medium">{highlight(user.username)}</p>
+        <p className="text-xs text-gray-400">@{highlight(user.accountname)}</p>
       </div>
     </div>
   );

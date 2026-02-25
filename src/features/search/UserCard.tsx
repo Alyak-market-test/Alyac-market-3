@@ -9,15 +9,19 @@ interface User {
 
 interface UserCardProps {
   user: User;
+  onClick?: () => void;
 }
 
-export function UserCard({ user }: UserCardProps) {
+export function UserCard({ user, onClick }: UserCardProps) {
   const navigate = useNavigate();
 
   return (
     <div
       className="flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-gray-50"
-      onClick={() => navigate('/profile/yourProfile')}
+      onClick={() => {
+        onClick?.();
+        navigate('/profile/yourProfile');
+      }}
     >
       <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-200">
         {user.image ? (

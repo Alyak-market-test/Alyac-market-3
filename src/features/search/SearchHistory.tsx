@@ -14,10 +14,9 @@ export function SearchHistory({ history, onSelect, onRemove }: SearchHistoryProp
         <div
           key={item}
           className="flex cursor-pointer items-center justify-between px-4 py-3 hover:bg-gray-50"
+          onClick={() => onSelect(item)}
         >
-          <span className="text-sm" onClick={() => onSelect(item)}>
-            {item}
-          </span>
+          <span className="text-sm">{item}</span>
           <button className="text-gray-300 hover:text-gray-500" onClick={() => onRemove(item)}>
             ✕
           </button>

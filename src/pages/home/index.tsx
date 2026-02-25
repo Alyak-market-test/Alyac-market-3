@@ -6,6 +6,8 @@ import { SnsButton, SplashScreen } from '@/features/home/ui';
 import { LogoIcon } from '@/shared/icons/LogoIcon';
 import { Button } from '@/shared/ui/button';
 
+const SPLASH_DURATION = 1500;
+
 export function HomePage() {
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
@@ -13,21 +15,21 @@ export function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLogin(true);
-    }, 1500);
+    }, SPLASH_DURATION);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      <div className={`transition-opacity duration-700 ${showLogin ? 'opacity-0' : 'opacity-100'}`}>
-        <SplashScreen />
-      </div>
-
+      {!showLogin && (
+        <div className="transition-opacity duration-700">
+          <SplashScreen />
+        </div>
+      )}
       <div
         className={`absolute inset-0 flex flex-col transition-transform duration-1000 ${
           showLogin ? 'translate-y-0' : 'translate-y-full'
-        }`}
-        style={{ backgroundColor: '#23D038' }}
+        } bg-[#23D038]`}
       >
         <div className="flex h-[45%] items-center justify-center">
           <LogoIcon width={97} height={153} />

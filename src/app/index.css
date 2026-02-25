@@ -1,16 +1,49 @@
 @import 'tailwindcss';
 
-/* Tailwind v4: @theme 블록으로 커스텀 설정 */
 @theme {
   /* Background & Foreground */
-  --color-background: light-dark(0 0% 100%, 222.2 84% 4.9%);
-  --color-foreground: light-dark(222.2 84% 4.9%, 210 40% 98%);
+  --color-background: light-dark(#ffffff, #0a0f1e);
+  --color-foreground: light-dark(#0f172a, #f8fafc);
+
+  /* Card */
+  --color-card: light-dark(#ffffff, #0a0f1e);
+  --color-card-foreground: light-dark(#0f172a, #f8fafc);
+
+  /* Popover */
+  --color-popover: light-dark(#ffffff, #0a0f1e);
+  --color-popover-foreground: light-dark(#0f172a, #f8fafc);
+
+  /* Primary (브랜드 그린) */
+  --color-primary: light-dark(#11cc27, #11cc27);
+  --color-primary-foreground: light-dark(#ffffff, #ffffff);
+
+  /* Secondary */
+  --color-secondary: light-dark(#f1f5f9, #1e293b);
+  --color-secondary-foreground: light-dark(#0f172a, #f8fafc);
+
+  /* Muted */
+  --color-muted: light-dark(#f1f5f9, #1e293b);
+  --color-muted-foreground: light-dark(#767676, #94a3b8);
+
+  /* Accent */
+  --color-accent: light-dark(#f1f5f9, #1e293b);
+  --color-accent-foreground: light-dark(#0f172a, #f8fafc);
+
+  /* Destructive */
+  --color-destructive: light-dark(#ef4444, #7f1d1d);
+  --color-destructive-foreground: light-dark(#ffffff, #ffffff);
 
   /* Border & Input */
-  --color-border: #d1d5db; /* Tailwind의 gray-300 */
+  --color-border: light-dark(#e2e8f0, #1e293b);
+  --color-input: light-dark(#e2e8f0, #1e293b);
+  --color-ring: light-dark(#11cc27, #11cc27);
+
+  /* Border Radius */
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
 }
 
-/* Base styles */
 :root {
   color-scheme: light;
 }

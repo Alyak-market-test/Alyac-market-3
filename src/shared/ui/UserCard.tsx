@@ -20,17 +20,17 @@ export function UserCard({
   return (
     <div className="flex items-center justify-between px-4 py-3">
       <div className="flex cursor-pointer items-center gap-3" onClick={onClick}>
-        <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100">
+        <div className="bg-muted h-10 w-10 shrink-0 overflow-hidden rounded-full">
           {profileImage ? (
             <img src={profileImage} alt={username} className="h-full w-full object-cover" />
           ) : (
-            <div className="h-full w-full bg-gray-200" />
+            <div className="bg-muted h-full w-full" />
           )}
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-gray-900">{username}</span>
-          <span className="text-xs text-gray-400">@ {accountname}</span>
+          <span className="text-foreground text-sm font-medium">{username}</span>
+          <span className="text-muted-foreground text-xs">@ {accountname}</span>
         </div>
       </div>
 

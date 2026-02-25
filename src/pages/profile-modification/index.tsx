@@ -36,7 +36,7 @@ export function ProfileModification() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <div className="bg-background flex min-h-screen flex-col">
       {/* 헤더 */}
       <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} />
 
@@ -83,14 +83,14 @@ export function ProfileModification() {
       <div className="flex flex-col gap-10 px-7">
         {/* 사용자 이름 */}
         <div className="flex flex-col gap-3">
-          <label className="text-sm text-black">사용자 이름</label>
+          <label className="text-foreground text-sm">사용자 이름</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="이름을 입력하세요."
             className={`text-md border-b py-2 transition-colors outline-none ${
-              name.trim() === '' ? 'border-red-400' : 'border-gray-300'
+              name.trim() === '' ? 'border-red-400' : 'border-border'
             }`}
           />
           {name.trim() === '' && (
@@ -100,19 +100,19 @@ export function ProfileModification() {
 
         <div className="flex flex-col gap-1">
           {/* 계정 ID는 변경 불가 - disabled 처리 */}
-          <label className="text-sm text-black">계정 ID</label>
+          <label className="text-foreground text-sm">계정 ID</label>
           <input
             type="text"
             value={accountname}
             disabled
-            className="text-md cursor-not-allowed border-b border-gray-300 py-2 text-gray-400 outline-none"
+            className="text-md border-border text-muted-foreground cursor-not-allowed border-b py-2 outline-none"
           />
-          <p className="text-sm text-gray-400">계정 ID는 변경할 수 없습니다.</p>
+          <p className="text-muted-foreground text-sm">계정 ID는 변경할 수 없습니다.</p>
         </div>
 
         <div className="flex flex-col gap-1">
           {/* 자기 소개 */}
-          <label className="text-sm text-black">소개</label>
+          <label className="text-foreground text-sm">소개</label>
           <input
             type="text"
             value={bio}
@@ -120,9 +120,9 @@ export function ProfileModification() {
               if (e.target.value.length <= 60) setBio(e.target.value);
             }}
             placeholder="간단한 자기 소개를 입력하세요."
-            className="text-md border-b border-gray-300 py-2 outline-none"
+            className="text-md border-border border-b py-2 outline-none"
           />
-          <p className="text-sm text-gray-400">최대 60자</p>
+          <p className="text-muted-foreground text-sm">최대 60자</p>
         </div>
       </div>
     </div>

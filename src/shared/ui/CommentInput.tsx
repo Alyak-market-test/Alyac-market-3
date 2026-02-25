@@ -7,12 +7,12 @@ interface CommentInputProps {
 
 export function CommentInput({ value, onChange, onSubmit, profileImage }: CommentInputProps) {
   return (
-    <div className="flex items-center gap-3 border-t bg-white px-4 py-3">
-      <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100">
+    <div className="bg-background flex items-center gap-3 border-t px-4 py-3">
+      <div className="bg-muted h-8 w-8 shrink-0 overflow-hidden rounded-full">
         {profileImage ? (
           <img src={profileImage} alt="프로필" className="h-full w-full object-cover" />
         ) : (
-          <div className="h-full w-full bg-gray-200" />
+          <div className="bg-muted h-full w-full" />
         )}
       </div>
 
@@ -21,13 +21,13 @@ export function CommentInput({ value, onChange, onSubmit, profileImage }: Commen
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="댓글 입력하기..."
-        className="flex-1 text-sm text-gray-700 outline-none placeholder:text-gray-400"
+        className="text-foreground placeholder:text-muted-foreground flex-1 text-sm outline-none"
       />
 
       <button
         onClick={onSubmit}
         disabled={!value.trim()}
-        className="text-sm font-medium text-[#11CC27] disabled:text-gray-300"
+        className="disabled:text-muted-foreground text-sm font-medium text-[#11CC27]"
       >
         게시
       </button>

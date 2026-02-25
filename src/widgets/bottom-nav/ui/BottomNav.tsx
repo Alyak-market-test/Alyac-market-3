@@ -9,7 +9,7 @@ export function BottomNav() {
   const path = location.pathname;
 
   return (
-    <nav className="fixed right-0 bottom-0 left-0 flex h-16 items-center justify-around border-t bg-white">
+    <nav className="bg-background fixed right-0 bottom-0 left-0 flex h-16 items-center justify-around border-t">
       {/*홈*/}
       <button className="flex flex-col items-center" onClick={() => navigate(ROUTES.FEED)}>
         <HomeIcon active={path === ROUTES.FEED} className="w-6" />

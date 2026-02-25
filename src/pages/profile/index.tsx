@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '@/features/auth';
 
+import { useAuth } from '@/features/auth';
 import { MyButtons } from '@/features/profile/components/MyButtons';
 import { PostSection } from '@/features/profile/components/PostSection';
 import { ProfileInfo } from '@/features/profile/components/ProfileInfo';
 import { ProfileStats } from '@/features/profile/components/ProfileStats';
 import { YourButtons } from '@/features/profile/components/YourButtons';
 import { useProfile } from '@/features/profile/hooks/UseProfile';
+import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { TopBasicNav } from '@/shared/ui/nav/TopBasicNav';
 
 // 게시물이 없을 때
@@ -28,7 +29,7 @@ export function ProfilePage() {
   const post: [] = []; // TODO: 게시글 데이터 API 연동
 
   return (
-    <div className="mx-auto flex min-h-screen flex-col bg-white">
+    <div className="bg-background mx-auto flex min-h-screen flex-col">
       <TopBasicNav onBack={() => navigate(-1)} onMore={() => setShowLogoutModal(true)} />
 
       {/* 공통 - 프로필 정보 */}
@@ -57,20 +58,25 @@ export function ProfilePage() {
       {/* post - list or album */}
       <PostSection posts={post} viewMode={viewMode} onViewModeChange={setViewMode} />
       {showLogoutModal && (
-  <div
-    className="fixed inset-0 z-50 flex items-end justify-center bg-black/40"
-    onClick={() => setShowLogoutModal(false)}
-  >
-    <div className="w-full rounded-t-2xl bg-white p-6" onClick={(e) => e.stopPropagation()}>
-      <button onClick={logout} className="w-full py-3 text-center text-base font-medium text-red-500">
-        로그아웃
-      </button>
-      <button onClick={() => setShowLogoutModal(false)} className="mt-2 w-full py-3 text-center text-base text-gray-500">
-        취소
-      </button>
-    </div>
-  </div>
-)}
+        <div className="fixed inset-0 z-50" onClick={() => setShowLogoutModal(false)}>
+          <div
+            className="bg-background absolute top-14 right-4 w-44 rounded-xl shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="text-foreground w-full px-4 py-3 text-left text-sm">
+              설정 및 개인정보
+            </button>
+            <div className="flex items-center justify-between px-4 py-2">
+              <span className="text-foreground text-sm">테마</span>
+
+              <ThemeToggle />
+            </div>
+            <button onClick={logout} className="text-foreground w-full px-4 py-3 text-left text-sm">
+              로그아웃
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

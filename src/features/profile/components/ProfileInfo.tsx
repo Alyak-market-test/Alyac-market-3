@@ -11,7 +11,7 @@ export function ProfileInfo({ username, accountname, intro }: ProfileInfoProps) 
   return (
     <>
       <p className="text-base font-semibold">{username}</p>
-      <p className="m-1.5 text-sm text-gray-400">@{accountname}</p>
+      <p className="text-muted-foreground m-1.5 text-sm">@{accountname}</p>
       <p className="text-sm">{intro}</p>
     </>
   );

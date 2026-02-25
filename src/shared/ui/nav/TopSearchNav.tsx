@@ -14,7 +14,7 @@ export function TopSearchNav({
   placeholder = '계정 검색',
 }: TopSearchNavProps) {
   return (
-    <header className="gap3 px4 flex h-14 items-center border-b bg-white">
+    <header className="gap3 px4 bg-background flex h-14 items-center border-b">
       <button onClick={onBack}>
         <ArrowLeftIcon />
       </button>
@@ -24,7 +24,7 @@ export function TopSearchNav({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="flex-1 text-sm text-gray-700 outline-none placeholder:text-gray-400"
+        className="text-foreground placeholder:text-muted-foreground flex-1 text-sm outline-none"
       />
     </header>
   );

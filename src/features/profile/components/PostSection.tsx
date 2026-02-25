@@ -23,10 +23,10 @@ export function PostSection({ posts, viewMode, onViewModeChange }: PostSectionPr
       <main className="flex-1">
         {posts.length === 0 ? (
           <div className="flex h-full items-center justify-center py-32">
-            <p className="text-sm text-gray-900">작성한 게시물이 없습니다</p>
+            <p className="text-foreground text-sm">작성한 게시물이 없습니다</p>
           </div>
         ) : viewMode === 'list' ? (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-border divide-y">
             {posts.map((post) => (
               <div key={post.id} className="px-4 py-4">
                 <p className="text-sm">{post.content}</p>

@@ -23,14 +23,14 @@ export function ProductAdd() {
   };
 
   return (
-    <div className="mb-15 flex min-h-screen flex-col bg-white">
+    <div className="bg-background mb-15 flex min-h-screen flex-col">
       <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} disabled={isDisabled} />
       <div className="flex flex-col gap-10 px-7">
         {/* 상품 이미지 업로드*/}
         <div className="relative">
-          <p className="mt-4 text-sm text-gray-500">이미지 등록</p>
+          <p className="text-muted-foreground mt-4 text-sm">이미지 등록</p>
           <div
-            className="mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-100 transition-colors"
+            className="bg-muted mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg transition-colors"
             onClick={() => imageInputRef.current?.click()}
           >
             <ImgButtonIcon
@@ -48,14 +48,14 @@ export function ProductAdd() {
 
         {/* 상품명 */}
         <div className="flex flex-col gap-3">
-          <label className="text-sm text-black">상품명</label>
+          <label className="text-foreground text-sm">상품명</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="2~15자 이내여야 합니다."
             className={`text-md border-b py-2 transition-colors outline-none ${
-              name.trim() === '' ? 'border-red-400' : 'border-gray-300'
+              name.trim() === '' ? 'border-red-400' : 'border-border'
             }`}
           />
           {name.trim() === '' && <p className="text-sm text-red-500">상품명을 입력해주세요.</p>}
@@ -66,7 +66,7 @@ export function ProductAdd() {
 
         {/* 가격 */}
         <div className="flex flex-col gap-3">
-          <label className="text-sm text-black">가격</label>
+          <label className="text-foreground text-sm">가격</label>
           <input
             type="text"
             inputMode="numeric"
@@ -77,7 +77,7 @@ export function ProductAdd() {
             }}
             placeholder="숫자만 입력 가능합니다."
             className={`text-md border-b py-2 transition-colors outline-none ${
-              price.trim() === '' ? 'border-red-400' : 'border-gray-300'
+              price.trim() === '' ? 'border-red-400' : 'border-border'
             }`}
           />
           {price.trim() === '' && <p className="text-sm text-red-500">가격을 입력해주세요.</p>}
@@ -85,7 +85,7 @@ export function ProductAdd() {
 
         {/* 판매 링크 */}
         <div className="flex flex-col gap-1">
-          <label className="text-sm text-black">판매 링크</label>
+          <label className="text-foreground text-sm">판매 링크</label>
           <input
             type="url"
             value={saleUrl}
@@ -96,7 +96,7 @@ export function ProductAdd() {
               !saleUrl.startsWith('http://') &&
               !saleUrl.startsWith('https://')
                 ? 'border-red-400'
-                : 'border-gray-300'
+                : 'border-border'
             }`}
           />
           {saleUrl.length > 0 &&
@@ -106,7 +106,7 @@ export function ProductAdd() {
                 URL형식이 올바르지 않습니다. (http:// 또는 https://로 시작해야 합니다.)
               </p>
             )}
-          <p className="text-sm text-gray-400">선택 사항 (http:// 또는 https://로 시작)</p>
+          <p className="text-muted-foreground text-sm">선택 사항 (http:// 또는 https://로 시작)</p>
         </div>
       </div>
     </div>

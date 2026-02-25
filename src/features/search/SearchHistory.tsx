@@ -9,15 +9,19 @@ export function SearchHistory({ history, onSelect, onRemove }: SearchHistoryProp
 
   return (
     <div className="flex flex-col">
-      <p className="px-4 py-2 text-xs font-semibold text-gray-400">최근 검색어</p>
+      <p className="text-muted-foreground px-4 py-2 text-xs font-semibold">최근 검색어</p>
       {history.map((item) => (
         <div
           key={item}
-          className="flex cursor-pointer items-center justify-between px-4 py-3 hover:bg-gray-50"
-          onClick={() => onSelect(item)}
+          className="hover:bg-accent flex cursor-pointer items-center justify-between px-4 py-3"
         >
-          <span className="text-sm">{item}</span>
-          <button className="text-gray-300 hover:text-gray-500" onClick={() => onRemove(item)}>
+          <span className="text-sm" onClick={() => onSelect(item)}>
+            {item}
+          </span>
+          <button
+            className="text-muted-foreground hover:text-foreground"
+            onClick={() => onRemove(item)}
+          >
             ✕
           </button>
         </div>

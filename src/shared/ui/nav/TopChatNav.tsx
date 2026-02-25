@@ -9,7 +9,7 @@ interface TopChatNavProps {
 
 export function TopChatNav({ title, onBack, onMore }: TopChatNavProps) {
   return (
-    <header className="flex h-14 items-center justify-between border-b bg-white px-4">
+    <header className="bg-background flex h-14 items-center justify-between border-b px-4">
       <button onClick={onBack}>
         <ArrowLeftIcon />
       </button>

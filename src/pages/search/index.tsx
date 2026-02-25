@@ -26,7 +26,7 @@ export function SearchPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="bg-background flex h-screen flex-col">
       <div onKeyDown={handleKeyDown}>
         <TopSearchNav
           value={keyword}
@@ -38,14 +38,14 @@ export function SearchPage() {
         {!keyword ? (
           history.length === 0 ? (
             <div className="flex items-center justify-center py-64">
-              <p className="text-sm text-gray-400">계정을 검색해보세요.</p>
+              <p className="text-muted-foreground text-sm">계정을 검색해보세요.</p>
             </div>
           ) : (
             <SearchHistory history={history} onSelect={handleSelect} onRemove={removeHistory} />
           )
         ) : isLoading ? (
           <div className="flex items-center justify-center py-64">
-            <p className="text-sm text-gray-400">검색 중...</p>
+            <p className="text-muted-foreground text-sm">검색 중...</p>
           </div>
         ) : (
           users.map((user) => (

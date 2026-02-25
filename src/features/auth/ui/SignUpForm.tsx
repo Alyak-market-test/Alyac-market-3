@@ -27,11 +27,11 @@ export function SignUpForm() {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <label className="text-sm text-gray-500">이메일</label>
+        <label className="text-muted-foreground text-sm">이메일</label>
         <input
           {...form.register('email')}
           placeholder="이메일 주소를 입력해 주세요."
-          className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
+          className="border-border border-b py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.email && (
           <span className="text-xs text-red-500">{form.formState.errors.email.message}</span>
@@ -39,12 +39,12 @@ export function SignUpForm() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="text-sm text-gray-500">비밀번호</label>
+        <label className="text-muted-foreground text-sm">비밀번호</label>
         <input
           {...form.register('password')}
           type="password"
           placeholder="비밀번호를 설정해 주세요."
-          className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
+          className="border-border border-b py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.password && (
           <span className="text-xs text-red-500">{form.formState.errors.password.message}</span>

@@ -44,11 +44,11 @@ export function ProfileSetupForm() {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <label className="text-sm text-gray-500">이름</label>
+        <label className="text-muted-foreground text-sm">이름</label>
         <input
           {...form.register('username')}
           placeholder="이름을 입력해 주세요."
-          className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
+          className="border-border border-b py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.username && (
           <span className="text-xs text-red-500">{form.formState.errors.username.message}</span>
@@ -56,11 +56,11 @@ export function ProfileSetupForm() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="text-sm text-gray-500">계정 ID</label>
+        <label className="text-muted-foreground text-sm">계정 ID</label>
         <input
           {...form.register('accountname')}
           placeholder="영문, 숫자, 밑줄, 마침표만 사용 가능"
-          className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
+          className="border-border border-b py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.accountname && (
           <span className="text-xs text-red-500">{form.formState.errors.accountname.message}</span>

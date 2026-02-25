@@ -58,7 +58,7 @@ export default function SnsButton({ type }: SnsButtonProps) {
 
   return (
     <button
-      className={`flex w-110 cursor-pointer items-center rounded-full border border-gray-200 px-6 py-4 transition-all active:scale-95 ${bgColor}`}
+      className={`border-border flex w-110 cursor-pointer items-center rounded-full border px-6 py-4 transition-all active:scale-95 ${bgColor}`}
     >
       {icon}
       <span className="flex-1 text-center text-sm">{text}</span>

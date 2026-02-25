@@ -10,7 +10,7 @@ export const YourButtons = () => {
   return (
     <div className="flex w-full items-center justify-center gap-3">
       <Button variant="yourprofilebutton">
-        <ChatIcon className="h-5 w-5 text-gray-700" />
+        <ChatIcon className="text-foreground h-5 w-5" />
       </Button>
       <Button
         variant={isFollowing ? 'activ' : 'primary'}
@@ -20,7 +20,7 @@ export const YourButtons = () => {
         {isFollowing ? '언팔로우' : '팔로우'}
       </Button>
       <Button variant="yourprofilebutton">
-        <ShareIcon className="h-5 w-5 text-gray-700" />
+        <ShareIcon className="text-foreground h-5 w-5" />
       </Button>
     </div>
   );

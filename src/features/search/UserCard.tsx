@@ -17,13 +17,13 @@ export function UserCard({ user, onClick }: UserCardProps) {
 
   return (
     <div
-      className="flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-gray-50"
+      className="hover:bg-accent flex cursor-pointer items-center gap-3 px-4 py-3"
       onClick={() => {
         onClick?.();
         navigate('/profile/yourProfile');
       }}
     >
-      <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-200">
+      <div className="bg-muted flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
         {user.image ? (
           <img
             src={user.image}
@@ -51,7 +51,7 @@ export function UserCard({ user, onClick }: UserCardProps) {
       </div>
       <div>
         <p className="text-sm font-medium">{user.username}</p>
-        <p className="text-xs text-gray-400">@{user.accountname}</p>
+        <p className="text-muted-foreground text-xs">@{user.accountname}</p>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { useGetPosts } from '@/entities/post';
 import { PostCard } from '@/features/post';
 import { ROUTES, TopMainNav } from '@/shared';
 import { CommentIcon, HeartIcon, LogoGrayIcon, MoreVerticalIcon } from '@/shared/icons';
+import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { BottomNav } from '@/widgets/bottom-nav';
 
 export function FeedPage() {
@@ -24,10 +25,13 @@ export function FeedPage() {
       return next;
     });
   };
-
+  // 임시로 다크모드 아이콘 32~34줄
   return (
     <div className="flex min-h-screen flex-col">
       <TopMainNav onSearch={() => navigate(ROUTES.SEARCH)} />
+      <div className="flex justify-end px-4 py-2">
+        <ThemeToggle />
+      </div>
       <main className="flex-1 overflow-y-auto pb-16">
         {posts && posts.length > 0 ? (
           posts.map((post) => (

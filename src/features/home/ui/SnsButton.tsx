@@ -53,7 +53,7 @@ const snsConfig = {
   },
 };
 
-export default function SnsButton({ type }: SnsButtonProps) {
+export function SnsButton({ type }: SnsButtonProps) {
   const { bgColor, icon, text } = snsConfig[type];
 
   return (

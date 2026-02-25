@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useAuth } from '@/features/auth';
 import PostAlbumIcon from '@/shared/icons/PostAlbumIcon';
 import PostListIcon from '@/shared/icons/PostListIcon';
 import { UploadImage } from '@/shared/ui/UploadImage';
@@ -25,11 +26,13 @@ const DUMMY_POSTS: { id: number; content: string; likes: number; comments: numbe
 
 export function ProfilePage() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
 
   return (
     <div className="mx-auto flex min-h-screen flex-col bg-white">
-      <TopBasicNav onBack={() => navigate(-1)} />
+      <TopBasicNav onBack={() => navigate(-1)} onMore={() => setShowLogoutModal(true)} />
 
       {/* 프로필 정보 */}
       <section className="flex flex-col items-center px-4 py-6">
@@ -118,6 +121,27 @@ export function ProfilePage() {
           </div>
         )}
       </main>
+      {showLogoutModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40"
+          onClick={() => setShowLogoutModal(false)}
+        >
+          <div className="w-full rounded-t-2xl bg-white p-6" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={logout}
+              className="w-full py-3 text-center text-base font-medium text-red-500"
+            >
+              로그아웃
+            </button>
+            <button
+              onClick={() => setShowLogoutModal(false)}
+              className="mt-2 w-full py-3 text-center text-base text-gray-500"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,9 +2,15 @@ interface IconProps {
   className?: string;
   fill?: string;
   stroke?: string;
+  onClick?: () => void;
 }
 
-export function ImgButtonIcon({ className, fill = '#C4C4C4', stroke = 'white' }: IconProps) {
+export function ImgButtonIcon({
+  className,
+  fill = '#C4C4C4',
+  stroke = 'white',
+  onClick,
+}: IconProps) {
   return (
     <svg
       width="36"
@@ -13,6 +19,7 @@ export function ImgButtonIcon({ className, fill = '#C4C4C4', stroke = 'white' }:
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      onClick={onClick}
     >
       <circle cx="18" cy="18" r="18" fill={fill} />
       <path

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { TopSearchNav } from '@/shared/ui/nav/TopSearchNav';
 
-// 임시 더미 데이터 - 나중에 API 연동 시 교체
 const DUMMY_USERS = [
   { id: 1, name: '이스트 시큐리티 알약', username: 'estSecurity_Alyac', image: null },
   { id: 2, name: '알약 클라우드 이스트 시큐리티', username: 'alyac_cloud', image: null },
@@ -25,11 +24,20 @@ export function SearchPage() {
       <TopSearchNav value={keyword} onChange={setKeyword} onBack={() => navigate(-1)} />
 
       <div className="flex flex-col">
-        {keyword &&
+        {!keyword ? (
+          <div className="flex items-center justify-center py-64">
+            <p className="text-sm text-gray-400">계정을 검색해보세요.</p>
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="flex items-center justify-center py-64">
+            <p className="text-sm text-gray-400">검색 중...</p>
+          </div>
+        ) : (
           filtered.map((user) => (
             <div
               key={user.id}
               className="flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-gray-50"
+              onClick={() => navigate('/profile/yourProfile')}
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -54,7 +62,8 @@ export function SearchPage() {
                 <p className="text-xs text-gray-400">@{user.username}</p>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );

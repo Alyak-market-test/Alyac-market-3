@@ -5,6 +5,7 @@
 // Product	    id, itemName, price, link, itemImage, author
 export const ROUTES = {
   HOME: '/',
+  FEED: '/feed',
   LOGIN: '/login',
   SIGNUP: '/signup',
   SEARCH: '/search',

@@ -7,7 +7,6 @@ import { NotFoundPage } from '@/pages/not-found';
 import { ProductAdd } from '@/pages/product-add';
 import { ProfilePage } from '@/pages/profile';
 import { ProfileModification } from '@/pages/profile-modification';
-import { YourProfilePage } from '@/pages/profile/yourProfile';
 import { SearchPage } from '@/pages/search';
 import { SignInPage } from '@/pages/signin';
 import { SignUpPage } from '@/pages/signup';
@@ -29,16 +28,16 @@ export const router = createBrowserRouter([
         element: <ProfilePage />,
       },
       {
+        path: 'profile/:accountname',
+        element: <ProfilePage />,
+      },
+      {
         path: 'profile-modification',
         element: <ProfileModification />,
       },
       {
         path: 'product-add',
         element: <ProductAdd />,
-      },
-      {
-        path: 'profile/yourProfile',
-        element: <YourProfilePage />,
       },
     ],
   },

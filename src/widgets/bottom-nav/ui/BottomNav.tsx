@@ -11,8 +11,8 @@ export function BottomNav() {
   return (
     <nav className="fixed right-0 bottom-0 left-0 flex h-16 items-center justify-around border-t bg-white">
       {/*홈*/}
-      <button className="flex flex-col items-center" onClick={() => navigate(ROUTES.HOME)}>
-        <HomeIcon active={path === ROUTES.HOME} className="w-6" />
+      <button className="flex flex-col items-center" onClick={() => navigate(ROUTES.FEED)}>
+        <HomeIcon active={path === ROUTES.FEED} className="w-6" />
         <span className="text-xs">홈</span>
       </button>
       {/* 채팅 */}

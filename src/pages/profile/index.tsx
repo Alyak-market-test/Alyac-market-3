@@ -1,21 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { getMyProfile } from '@/shared/api/profile';
 import PostAlbumIcon from '@/shared/icons/PostAlbumIcon';
 import PostListIcon from '@/shared/icons/PostListIcon';
 import { UploadImage } from '@/shared/ui/UploadImage';
 import { TopBasicNav } from '@/shared/ui/nav/TopBasicNav';
 
-// 임시 더미 데이터 - 나중에 API 연동 시 교체
-const DUMMY_USER = {
-  name: 'team3',
-  username: '@team_3',
-  followers: 0,
-  followings: 0,
-  image: null, // null이면 기본 이모지 표시
-  intro: '자기소개 입력란입니다.',
-};
+/*------TODO: 게시글 api 연동-------*/
 // 게시물이 없을 때
 const DUMMY_POSTS: { id: number; content: string; likes: number; comments: number }[] = [];
 // 게시물이 있을 때
@@ -26,6 +19,30 @@ const DUMMY_POSTS: { id: number; content: string; likes: number; comments: numbe
 export function ProfilePage() {
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+  const [user, setUser] = useState({
+    username: '', // 사용자 이름
+    accountname: '', // 계정 ID
+    followers: 0,
+    followings: 0,
+    image: '', // 프로필 이미지 URL
+    intro: '',
+  });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const data = await getMyProfile();
+      console.log(data);
+      setUser({
+        username: data.user.username,
+        accountname: data.user.accountname,
+        followers: data.user.follower.length,
+        followings: data.user.following.length,
+        image: data.user.image,
+        intro: data.user.intro,
+      });
+    };
+    fetchProfile();
+  }, []);
 
   return (
     <div className="mx-auto flex min-h-screen flex-col bg-white">
@@ -36,24 +53,24 @@ export function ProfilePage() {
         <div className="mb-4 flex items-center gap-12">
           {/* 팔로워 */}
           <div className="flex flex-col items-center">
-            <span className="text-xl font-bold">{DUMMY_USER.followers}</span>
+            <span className="text-xl font-bold">{user.followers}</span>
             <span className="text-sm text-gray-500">Followers</span>
           </div>
 
           {/* 아바타 - 프로필 이미지 */}
-          <UploadImage src={DUMMY_USER.image} alt={DUMMY_USER.username} size="xl" iconSize="md" />
+          <UploadImage src={user.image} alt={user.username} size="xl" iconSize="md" />
 
           {/* 팔로잉 */}
           <div className="flex flex-col items-center">
-            <span className="text-xl font-bold">{DUMMY_USER.followings}</span>
+            <span className="text-xl font-bold">{user.followings}</span>
             <span className="text-sm text-gray-500">Followings</span>
           </div>
         </div>
 
         {/* 이름 & 아이디 */}
-        <p className="text-base font-semibold">{DUMMY_USER.name}</p>
-        <p className="mb-2 text-sm text-gray-400">{DUMMY_USER.username}</p>
-        <p className="text-sm">{DUMMY_USER.intro}</p>
+        <p className="text-base font-semibold">{user.username}</p>
+        <p className="mb-2 text-sm text-gray-400">@{user.accountname}</p>
+        <p className="text-sm">{user.intro}</p>
 
         {/* 버튼 */}
         <div className="mt-4 flex w-full gap-3">

@@ -1,22 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { getMyProfile } from '@/shared/api/profile';
 import { UploadImage } from '@/shared/ui/UploadImage';
 import { TopUploadNav } from '@/shared/ui/nav/TopUploadNav';
 
-// 임시 더미 데이터 - 나중에 API 연동 시 교체
-const DUMMY_USER = {
-  name: 'team3',
-  username: 'team_3',
-  bio: '',
-  image: null, // null이면 기본 이모지 표시
-};
-
 export function ProfileModification() {
   const navigate = useNavigate();
-  const [name, setName] = useState(DUMMY_USER.name);
-  const [bio, setBio] = useState(DUMMY_USER.bio);
+  const [accountname, setAccountname] = useState('');
+  const [image, setImage] = useState('');
+  const [name, setName] = useState('');
+  const [bio, setBio] = useState('');
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getMyProfile();
+        console.log('API 응답 성공:', data);
+        setAccountname(data.user.accountname ?? '');
+        setImage(data.user.image ?? '');
+        setName(data.user.username ?? '');
+        setBio(data.user.intro ?? '');
+      } catch (error) {
+        console.error('에러 발생:', error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const handleSave = () => {
     if (name.trim() === '') return;
@@ -32,7 +43,7 @@ export function ProfileModification() {
       <div className="flex justify-center py-10">
         <div className="relative">
           {/* 프로필 이미지 업로드 */}
-          <UploadImage src={DUMMY_USER.image} alt={DUMMY_USER.username} size="xxl" iconSize="lg" />
+          <UploadImage src={image} alt={name} size="xxl" iconSize="lg" />
 
           <button className="absolute right-0 bottom-0 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-green-500 text-white shadow transition">
             <svg
@@ -46,23 +57,23 @@ export function ProfileModification() {
               <path
                 d="M33.1667 14.5H16.8333C15.5447 14.5 14.5 15.5447 14.5 16.8333V33.1667C14.5 34.4553 15.5447 35.5 16.8333 35.5H33.1667C34.4553 35.5 35.5 34.4553 35.5 33.1667V16.8333C35.5 15.5447 34.4553 14.5 33.1667 14.5Z"
                 stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M20.9167 22.6667C21.8832 22.6667 22.6667 21.8832 22.6667 20.9167C22.6667 19.9502 21.8832 19.1667 20.9167 19.1667C19.9502 19.1667 19.1667 19.9502 19.1667 20.9167C19.1667 21.8832 19.9502 22.6667 20.9167 22.6667Z"
                 stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M35.4999 28.5L29.6666 22.6667L16.8333 35.5"
                 stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </button>
@@ -92,7 +103,7 @@ export function ProfileModification() {
           <label className="text-sm text-black">계정 ID</label>
           <input
             type="text"
-            value={DUMMY_USER.username}
+            value={accountname}
             disabled
             className="text-md cursor-not-allowed border-b border-gray-300 py-2 text-gray-400 outline-none"
           />

@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { Button } from '@/shared/ui/button';
 
 const signUpSchema = z.object({
-  email: z.string().email('*이미 가입된 이메일 주소입니다.'),
+  email: z.string().email('올바른 이메일을 입력하세요.'),
   password: z.string().min(6, '*비밀번호는 6자 이상이어야 합니다.'),
 });
 
@@ -17,15 +17,11 @@ export function SignUpForm() {
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues: { email: '', password: '' },
   });
 
   const onSubmit = (data: SignUpFormData) => {
-    console.log(data);
-    navigate('/signup/profile');
+    navigate('/signup/profile', { state: { email: data.email, password: data.password } });
   };
 
   return (
@@ -38,7 +34,7 @@ export function SignUpForm() {
           className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.email && (
-          <span className="text-xs text-green-500">{form.formState.errors.email.message}</span>
+          <span className="text-xs text-red-500">{form.formState.errors.email.message}</span>
         )}
       </div>
 
@@ -51,7 +47,7 @@ export function SignUpForm() {
           className="border-b border-gray-300 py-2 outline-none focus:border-green-500"
         />
         {form.formState.errors.password && (
-          <span className="text-xs text-green-500">{form.formState.errors.password.message}</span>
+          <span className="text-xs text-red-500">{form.formState.errors.password.message}</span>
         )}
       </div>
 

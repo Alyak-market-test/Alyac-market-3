@@ -10,12 +10,14 @@ import { ProfileModification } from '@/pages/profile-modification';
 import { SearchPage } from '@/pages/search';
 import { SignInPage } from '@/pages/signin';
 import { SignUpPage } from '@/pages/signup';
+import { SignUpProfilePage } from '@/pages/signup/profile';
 
 export const router = createBrowserRouter([
   // BottomNav 없는 페이지
   { path: '/', element: <HomePage /> },
   { path: 'signin', element: <SignInPage /> },
   { path: 'signup', element: <SignUpPage /> },
+  { path: 'signup/profile', element: <SignUpProfilePage /> },
   { path: '*', element: <NotFoundPage /> },
 
   // BottomNav 있는 페이지

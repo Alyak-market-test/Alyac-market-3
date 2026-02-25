@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '@/features/auth';
 
 import { MyButtons } from '@/features/profile/components/MyButtons';
 import { PostSection } from '@/features/profile/components/PostSection';
@@ -21,12 +22,14 @@ export function ProfilePage() {
   const { accountname } = useParams();
   const { user, isMyProfile } = useProfile(accountname);
   const navigate = useNavigate();
+  const { logout } = useAuth();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const post: [] = []; // TODO: 게시글 데이터 API 연동
 
   return (
     <div className="mx-auto flex min-h-screen flex-col bg-white">
-      <TopBasicNav onBack={() => navigate(-1)} />
+      <TopBasicNav onBack={() => navigate(-1)} onMore={() => setShowLogoutModal(true)} />
 
       {/* 공통 - 프로필 정보 */}
       <section className="flex flex-col items-center px-4 py-6">
@@ -53,6 +56,21 @@ export function ProfilePage() {
 
       {/* post - list or album */}
       <PostSection posts={post} viewMode={viewMode} onViewModeChange={setViewMode} />
+      {showLogoutModal && (
+  <div
+    className="fixed inset-0 z-50 flex items-end justify-center bg-black/40"
+    onClick={() => setShowLogoutModal(false)}
+  >
+    <div className="w-full rounded-t-2xl bg-white p-6" onClick={(e) => e.stopPropagation()}>
+      <button onClick={logout} className="w-full py-3 text-center text-base font-medium text-red-500">
+        로그아웃
+      </button>
+      <button onClick={() => setShowLogoutModal(false)} className="mt-2 w-full py-3 text-center text-base text-gray-500">
+        취소
+      </button>
+    </div>
+  </div>
+)}
     </div>
   );
 }

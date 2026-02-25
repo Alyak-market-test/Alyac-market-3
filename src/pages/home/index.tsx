@@ -39,12 +39,12 @@ export function HomePage() {
             <SnsButton type="google" />
             <SnsButton type="facebook" />
 
-            <div className="mt-2 flex justify-center gap-4">
-              <Button variant="activ" size="S" onClick={() => navigate('/signin')}>
+            <div className="mt-2 flex items-end justify-center gap-4">
+              <Button variant="ghost" size="S" onClick={() => navigate('/signin')}>
                 이메일로 로그인
               </Button>
-              <span className="text-gray-400">|</span>
-              <Button variant="activ" size="S" onClick={() => navigate('/signup')}>
+              <span className="mb-1 text-black">|</span>
+              <Button variant="ghost" size="S" onClick={() => navigate('/signup')}>
                 회원가입
               </Button>
             </div>

@@ -26,6 +26,7 @@ export function HomePage() {
           <SplashScreen />
         </div>
       )}
+
       <div
         className={`absolute inset-0 flex flex-col transition-transform duration-1000 ${
           showLogin ? 'translate-y-0' : 'translate-y-full'
@@ -35,7 +36,7 @@ export function HomePage() {
           <LogoIcon width={97} height={153} />
         </div>
 
-        <div className="-mt-6 flex-1 rounded-t-3xl bg-white px-6 py-10">
+        <div className="bg-background -mt-6 flex-1 rounded-t-3xl px-6 py-10">
           <div className="flex flex-col items-center gap-4">
             <SnsButton type="kakao" />
             <SnsButton type="google" />
@@ -45,7 +46,7 @@ export function HomePage() {
               <Button variant="ghost" size="S" onClick={() => navigate('/signin')}>
                 이메일로 로그인
               </Button>
-              <span className="mb-1 text-black">|</span>
+              <span className="mb-1">|</span>
               <Button variant="ghost" size="S" onClick={() => navigate('/signup')}>
                 회원가입
               </Button>

@@ -30,7 +30,7 @@ export function SearchPage() {
       if (history.length === 0) {
         return (
           <div className="flex items-center justify-center py-64">
-            <p className="text-sm text-gray-400">계정을 검색해보세요.</p>
+            <p className="text-muted-foreground text-sm">계정을 검색해보세요.</p>
           </div>
         );
       }
@@ -40,7 +40,7 @@ export function SearchPage() {
     if (isLoading) {
       return (
         <div className="flex items-center justify-center py-64">
-          <p className="text-sm text-gray-400">검색 중...</p>
+          <p className="text-muted-foreground text-sm">검색 중...</p>
         </div>
       );
     }
@@ -51,7 +51,7 @@ export function SearchPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="bg-background flex h-screen flex-col">
       <div onKeyDown={handleKeyDown}>
         <TopSearchNav
           value={keyword}

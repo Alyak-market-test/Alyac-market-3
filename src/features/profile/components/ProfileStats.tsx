@@ -12,13 +12,13 @@ export function ProfileStats({ followers, followings, image, username }: Profile
   return (
     <div className="mb-4 flex items-center gap-12">
       <div className="flex flex-col items-center">
-        <span className="text-xl font-bold">{followers}</span>
-        <span className="text-muted-foreground text-sm">Followers</span>
+        <span className="cursor-pointer text-xl font-bold">{followers}</span>
+        <span className="text-muted-foreground cursor-pointer text-sm">Followers</span>
       </div>
       <UploadImage src={image} alt={username} size="xl" iconSize="md" />
       <div className="flex flex-col items-center">
-        <span className="text-xl font-bold">{followings}</span>
-        <span className="text-muted-foreground text-sm">Followings</span>
+        <span className="cursor-pointer text-xl font-bold">{followings}</span>
+        <span className="text-muted-foreground cursor-pointer text-sm">Followings</span>
       </div>
     </div>
   );

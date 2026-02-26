@@ -9,7 +9,9 @@
       "image": "",
       "password": "11111111",
       "following": [],
-      "follower": []
+      "follower": [
+        "17720714039012z60cvhht"
+      ]
     },
     {
       "_id": "17657679824677clk03oii",
@@ -21,6 +23,19 @@
       "password": "11111111",
       "follower": [],
       "following": []
+    },
+    {
+      "_id": "17720714039012z60cvhht",
+      "username": "new",
+      "email": "newtest@test.com",
+      "accountname": "new_tester",
+      "intro": "",
+      "image": "",
+      "password": "11111111",
+      "following": [
+        "1763716649507farib3dpj"
+      ],
+      "follower": []
     }
   ],
   "posts": [],

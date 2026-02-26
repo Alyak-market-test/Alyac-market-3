@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getMyProfile } from '@/shared/api/profile';
+import { getMyProfile } from '@/entities/profile/api/profile';
 import { UploadImage } from '@/shared/ui/UploadImage';
 import { TopUploadNav } from '@/shared/ui/nav/TopUploadNav';
 

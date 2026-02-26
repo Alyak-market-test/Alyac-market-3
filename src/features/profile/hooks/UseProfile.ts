@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { getTokenUserInfo } from '@/entities/auth';
-import { getMyProfile } from '@/shared/api/profile';
-import { getYourProfile } from '@/shared/api/profile';
+import { getMyProfile } from '@/entities/profile/api/profile';
+import { getYourProfile } from '@/entities/profile/api/profile';
 
 interface ProfileUser {
   username: string;

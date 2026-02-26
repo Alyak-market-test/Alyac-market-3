@@ -6,7 +6,7 @@
     "dev": "vite",
     "server": "node server.js",
     "start": "run-p server dev",
-    "dev:all": "concurrently \"node node_modules/.bin/vite\" \"node server.js\"",
+    "dev:all": "concurrently \"vite\" \"node server.js\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",

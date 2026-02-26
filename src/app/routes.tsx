@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { RootLayout } from '@/app/RootLayout';
+import { ChatListPage } from '@/pages/chat-list';
+import { ChatRoomPage } from '@/pages/chat-room';
 import { FeedPage } from '@/pages/feed';
 import { HomePage } from '@/pages/home';
 import { NotFoundPage } from '@/pages/not-found';
@@ -18,6 +20,7 @@ export const router = createBrowserRouter([
   { path: 'signin', element: <SignInPage /> },
   { path: 'signup', element: <SignUpPage /> },
   { path: 'signup/profile', element: <SignUpProfilePage /> },
+  { path: 'chat/:id', element: <ChatRoomPage /> },
   { path: '*', element: <NotFoundPage /> },
 
   // BottomNav 있는 페이지
@@ -30,6 +33,7 @@ export const router = createBrowserRouter([
       { path: 'profile/:accountname', element: <ProfilePage /> },
       { path: 'profile-modification', element: <ProfileModification /> },
       { path: 'product-add', element: <ProductAdd /> },
+      { path: 'chat', element: <ChatListPage /> },
     ],
   },
 ]);

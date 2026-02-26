@@ -37,7 +37,7 @@ export function UserCard({ user, keyword = '', onClick }: UserCardProps) {
       className="hover:bg-accent flex cursor-pointer items-center gap-3 px-4 py-3"
       onClick={() => {
         onClick?.();
-        navigate('/profile/yourProfile');
+        navigate(`/profile/${user.accountname}`);
       }}
     >
       <div className="bg-muted flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">

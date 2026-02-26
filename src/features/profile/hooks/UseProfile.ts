@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { getTokenUserInfo } from '@/entities/auth';
-import { getMyProfile } from '@/entities/profile/api/profile';
-import { getYourProfile } from '@/entities/profile/api/profile';
+import { getMyProfile } from '@/entities/profile/api/Profile';
+import { getYourProfile } from '@/entities/profile/api/Profile';
 
 interface ProfileUser {
   username: string;
@@ -41,12 +41,12 @@ export function useProfile(accountname?: string) {
       } else {
         const data = await getYourProfile(accountname!);
         setUser({
-          username: data.user.username,
-          accountname: data.user.accountname,
-          followers: data.user.follower.length,
-          followings: data.user.following.length,
-          image: data.user.image,
-          intro: data.user.intro,
+          username: data.profile.username,
+          accountname: data.profile.accountname,
+          followers: data.profile.follower.length,
+          followings: data.profile.following.length,
+          image: data.profile.image,
+          intro: data.profile.intro,
         });
       }
     };

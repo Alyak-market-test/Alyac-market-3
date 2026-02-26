@@ -53,7 +53,15 @@ export function ProfilePage() {
       </section>
 
       {/* buttons - my or your */}
-      {isMyProfile ? <MyButtons /> : <YourButtons />}
+      {isMyProfile ? (
+        <MyButtons />
+      ) : (
+        <YourButtons
+          accountname={user.accountname}
+          initialIsFollowing={user.isFollowing}
+          initialFollowerCount={user.followers}
+        />
+      )}
 
       {/* post - list or album */}
       <PostSection posts={post} viewMode={viewMode} onViewModeChange={setViewMode} />

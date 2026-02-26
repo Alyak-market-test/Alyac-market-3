@@ -11,6 +11,7 @@ interface ProfileUser {
   followings: number;
   image: string;
   intro: string;
+  isFollowing: boolean;
 }
 
 export function useProfile(accountname?: string) {
@@ -24,6 +25,7 @@ export function useProfile(accountname?: string) {
     followings: 0,
     image: '',
     intro: '',
+    isFollowing: false,
   });
 
   useEffect(() => {
@@ -37,6 +39,7 @@ export function useProfile(accountname?: string) {
           followings: data.user.following.length,
           image: data.user.image,
           intro: data.user.intro,
+          isFollowing: false,
         });
       } else {
         const data = await getYourProfile(accountname!);
@@ -47,6 +50,7 @@ export function useProfile(accountname?: string) {
           followings: data.profile.following.length,
           image: data.profile.image,
           intro: data.profile.intro,
+          isFollowing: data.profile.isFollowing,
         });
       }
     };

@@ -13,24 +13,24 @@ export function BottomNav() {
       {/*홈*/}
       <button className="flex flex-col items-center" onClick={() => navigate(ROUTES.FEED)}>
         <HomeIcon active={path === ROUTES.FEED} className="w-6" />
-        <span className="text-xs">홈</span>
+        <span className="text-xs text-[#767676]">홈</span>
       </button>
       {/* 채팅 */}
       <button className="flex flex-col items-center" onClick={() => navigate(ROUTES.CHAT.LIST)}>
         <ChatIcon active={path === ROUTES.CHAT.LIST} className="w-6" />
-        <span className="text-xs">채팅</span>
+        <span className="text-xs text-[#767676]">채팅</span>
       </button>
 
       {/* 게시물 작성 */}
       <button className="flex flex-col items-center" onClick={() => navigate(ROUTES.POST.UPLOAD)}>
         <EditIcon className="w-6" />
-        <span className="text-xs">게시물작성</span>
+        <span className="text-xs text-[#767676]">게시물작성</span>
       </button>
 
       {/* 프로필 */}
       <button className="flex flex-col items-center" onClick={() => navigate(ROUTES.PROFILE)}>
         <ProfileIcon active={path.startsWith('/profile')} className="w-6" />
-        <span className="text-xs">프로필</span>
+        <span className="text-xs text-[#767676]">프로필</span>
       </button>
     </nav>
   );

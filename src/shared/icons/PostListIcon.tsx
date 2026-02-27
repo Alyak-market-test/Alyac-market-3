@@ -7,7 +7,7 @@ interface PostListIconProps {
 const PostListIcon = ({ className, isActive, onClick }: PostListIconProps) => (
   <div
     onClick={onClick}
-    className={`inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-100 ${isActive ? 'text-black' : 'text-[#DBDBDB]'} ${className ?? ''} `}
+    className={`inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md transition-colors duration-150 ${isActive ? 'text-white' : 'text-[#878787] hover:bg-[#171717]'} ${className ?? ''}`}
   >
     <svg width="20" height="20" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

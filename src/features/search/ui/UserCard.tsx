@@ -2,12 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { UploadImage } from '@/shared/ui/UploadImage';
 
-interface User {
-  _id: string;
-  username: string;
-  accountname: string;
-  image: string;
-}
+import type { User } from '../api';
 
 interface UserCardProps {
   user: User;
@@ -20,7 +15,9 @@ export function UserCard({ user, keyword = '', onClick }: UserCardProps) {
 
   const highlight = (text: string) => {
     if (!keyword) return text;
-    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
+    const parts = text.split(
+      new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'),
+    );
     return parts.map((part, i) =>
       part.toLowerCase() === keyword.toLowerCase() ? (
         <span key={i} className="text-green-500">

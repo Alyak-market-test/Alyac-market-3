@@ -1,8 +1,7 @@
 // 유어프로필 버튼 (채팅, 언+팔로우, 공유) 컴포넌트
 import { FollowButton } from '@/features/follow';
-import { ChatIcon } from '@/shared/icons';
-import { ShareIcon } from '@/shared/icons/ShareIcon';
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared';
+import { ChatIcon, ShareIcon } from '@/shared/icons';
 
 interface Props {
   accountname: string;

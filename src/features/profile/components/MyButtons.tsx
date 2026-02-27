@@ -1,7 +1,7 @@
 // 마이프로필 버튼 (프로필 수정 / 상품 등록) 컴포넌트
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared';
 
 export function MyButtons() {
   const navigate = useNavigate();

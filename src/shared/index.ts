@@ -6,3 +6,5 @@ export * from './ui/nav';
 export * from './ui/CommentInput';
 export * from './ui/UserCard';
 export * from './ui/TextInput';
+export * from './ui/UploadImage';
+export * from './lib/theme/ThemeToggle';

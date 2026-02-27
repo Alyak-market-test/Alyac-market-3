@@ -4,6 +4,7 @@ import { RootLayout } from '@/app/RootLayout';
 import { FeedPage } from '@/pages/feed';
 import { HomePage } from '@/pages/home';
 import { NotFoundPage } from '@/pages/not-found';
+import { PostAddPage } from '@/pages/post-add';
 import { ProductAdd } from '@/pages/product-add';
 import { ProfilePage } from '@/pages/profile';
 import { ProfileModification } from '@/pages/profile-modification';
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
   { path: 'signup', element: <SignUpPage /> },
   { path: 'signup/profile', element: <SignUpProfilePage /> },
   { path: '*', element: <NotFoundPage /> },
+  { path: 'post-add', element: <PostAddPage /> },
 
   // BottomNav 있는 페이지
   {

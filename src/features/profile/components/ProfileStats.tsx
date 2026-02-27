@@ -1,5 +1,5 @@
 // 프로필 통계 (아바타 + 팔로워, 팔로잉 수) 컴포넌트
-import { UploadImage } from '@/shared/ui/UploadImage';
+import { UploadImage } from '@/shared';
 
 interface ProfileStatsProps {
   followers: number;

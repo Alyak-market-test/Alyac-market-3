@@ -4,5 +4,5 @@ export interface FollowState {
 }
 
 export interface FollowRequest {
-  userId: string;
+  accountname: string;
 }

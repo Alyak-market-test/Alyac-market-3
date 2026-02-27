@@ -32,4 +32,4 @@ const PostListIcon = ({ className, isActive, onClick }: PostListIconProps) => (
   </div>
 );
 
-export default PostListIcon;
+export { PostListIcon };

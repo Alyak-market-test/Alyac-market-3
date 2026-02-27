@@ -19,4 +19,4 @@ uploadApi.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-export default uploadApi;
+export { uploadApi };

@@ -3,14 +3,15 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth } from '@/features/auth';
-import { MyButtons } from '@/features/profile/components/MyButtons';
-import { PostSection } from '@/features/profile/components/PostSection';
-import { ProfileInfo } from '@/features/profile/components/ProfileInfo';
-import { ProfileStats } from '@/features/profile/components/ProfileStats';
-import { YourButtons } from '@/features/profile/components/YourButtons';
-import { useProfile } from '@/features/profile/hooks/UseProfile';
-import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
-import { TopBasicNav } from '@/shared/ui/nav/TopBasicNav';
+import {
+  MyButtons,
+  PostSection,
+  ProfileInfo,
+  ProfileStats,
+  YourButtons,
+  useProfile,
+} from '@/features/profile';
+import { ThemeToggle, TopBasicNav } from '@/shared';
 
 // 게시물이 없을 때
 // const DUMMY_POSTS: { id: number; content: string; likes: number; comments: number }[] = [];

@@ -1,4 +1,4 @@
-import uploadApi from '@/shared/api/uploadApi';
+import { uploadApi } from '@/shared/api';
 
 export interface UploadResponse {
   filename: string;

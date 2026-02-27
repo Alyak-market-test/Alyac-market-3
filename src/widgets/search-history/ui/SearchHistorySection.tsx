@@ -1,4 +1,4 @@
-import { SearchHistory } from './SearchHistory';
+import { SearchHistory } from '@/features/search';
 
 interface SearchHistorySectionProps {
   history: string[];

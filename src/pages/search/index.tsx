@@ -2,13 +2,9 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import {
-  SearchHistorySection,
-  UserCard,
-  useSearchHistory,
-  useSearchUsers,
-} from '@/features/search';
+import { UserCard, useSearchHistory, useSearchUsers } from '@/features/search';
 import { TopSearchNav } from '@/shared/ui/nav/TopSearchNav';
+import { SearchHistorySection } from '@/widgets/search-history';
 
 export function SearchPage() {
   const navigate = useNavigate();

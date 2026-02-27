@@ -2,15 +2,15 @@
 
 @theme {
   /* Background & Foreground */
-  --color-background: light-dark(#ffffff, #0a0f1e);
-  --color-foreground: light-dark(#0f172a, #f8fafc);
+  --color-background: light-dark(#ffffff, #000000);
+  --color-foreground: light-dark(#000000, #ffffff);
 
   /* Card */
-  --color-card: light-dark(#ffffff, #0a0f1e);
+  --color-card: light-dark(#ffffff, #000000);
   --color-card-foreground: light-dark(#0f172a, #f8fafc);
 
   /* Popover */
-  --color-popover: light-dark(#ffffff, #0a0f1e);
+  --color-popover: light-dark(#ffffff, #000000);
   --color-popover-foreground: light-dark(#0f172a, #f8fafc);
 
   /* Primary (브랜드 그린) */
@@ -34,7 +34,7 @@
   --color-destructive-foreground: light-dark(#ffffff, #ffffff);
 
   /* Border & Input */
-  --color-border: light-dark(#e2e8f0, #1e293b);
+  --color-border: light-dark(#dbdbdb, #23262e);
   --color-input: light-dark(#e2e8f0, #1e293b);
   --color-ring: light-dark(#11cc27, #11cc27);
 

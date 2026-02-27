@@ -49,9 +49,9 @@ const buttonVariants = cva(
         primaryDisabled: 'bg-[#A7FFB9] text-white pointer-events-none rounded-full',
         activ: 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-full',
         myprofilebutton:
-          'flex-1 items-center justify-center rounded-full border border-gray-300 py-2 text-gray-700 hover:bg-gray-50',
+          'flex-1 items-center justify-center rounded-full border border-gray-300 py-2 text-foreground hover:bg-gray-50',
         yourprofilebutton:
-          'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-gray-700 transition hover:bg-gray-50',
+          'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-foreground transition hover:bg-gray-50',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

@@ -8,7 +8,7 @@ import { PostSection } from '@/features/profile/components/PostSection';
 import { ProfileInfo } from '@/features/profile/components/ProfileInfo';
 import { ProfileStats } from '@/features/profile/components/ProfileStats';
 import { YourButtons } from '@/features/profile/components/YourButtons';
-import { useProfile } from '@/features/profile/hooks/UseProfile';
+import { useProfile } from '@/features/profile/hooks/useProfile';
 import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { TopBasicNav } from '@/shared/ui/nav/TopBasicNav';
 

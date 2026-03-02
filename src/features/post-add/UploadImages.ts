@@ -1,4 +1,4 @@
-import { getToken } from '@/entities/auth/lib/token';
+import { getToken } from '@/entities/auth';
 
 export async function uploadImages(files: File[]): Promise<string[]> {
   const formData = new FormData();

@@ -1,6 +1,6 @@
 import type { FollowState } from '@/entities/follow';
-import { useFollow } from '@/features/follow/hooks/UseFollow';
-import { Button } from '@/shared/ui/button';
+import { useFollow } from '@/features/follow/hooks/useFollow';
+import { Button } from '@/shared/ui/Button';
 
 interface Props {
   accountname: string;

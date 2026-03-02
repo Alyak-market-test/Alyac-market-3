@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { useSignUp } from '@/entities/auth';
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/Button';
 
 const profileSchema = z.object({
   username: z.string().min(1, '이름을 입력해 주세요.'),

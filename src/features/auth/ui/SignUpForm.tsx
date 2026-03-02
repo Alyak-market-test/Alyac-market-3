@@ -21,7 +21,7 @@ export function SignUpForm() {
   });
 
   const onSubmit = (data: SignUpFormData) => {
-    navigate('/signup/profile', { state: { email: data.email, password: data.password } });
+    navigate('/signup-profile-setup', { state: { email: data.email, password: data.password } });
   };
 
   return (

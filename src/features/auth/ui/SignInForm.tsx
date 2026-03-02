@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { useSignIn } from '@/entities/auth';
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/Button';
 
 const signInSchema = z.object({
   email: z.string().email('올바른 이메일을 입력하세요'),

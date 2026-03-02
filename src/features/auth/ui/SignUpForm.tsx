@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/Button';
 
 const signUpSchema = z.object({
   email: z.string().email('올바른 이메일을 입력하세요.'),

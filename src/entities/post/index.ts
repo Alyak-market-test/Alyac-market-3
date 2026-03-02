@@ -1,2 +1,2 @@
 export * from './hooks/useGetPosts';
-export * from './model/types';
+export * from './model/Types';

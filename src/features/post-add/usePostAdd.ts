@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getToken } from '@/entities/auth/lib/token';
+import { getToken } from '@/entities/auth';
 
-import { uploadImages } from './uploadImages';
+import { uploadImages } from './UploadImages';
 
 export function usePostAdd() {
   const navigate = useNavigate();

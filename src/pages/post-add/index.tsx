@@ -2,9 +2,9 @@ import { useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getTokenUserInfo } from '@/entities/auth/lib/token';
+import { getTokenUserInfo } from '@/entities/auth';
 import { usePostAdd } from '@/features/post-add/usePostAdd';
-import { UploadImage } from '@/shared/ui/UploadImage';
+import { UploadImage } from '@/shared/icons';
 
 export function PostAddPage() {
   const navigate = useNavigate();

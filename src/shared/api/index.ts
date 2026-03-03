@@ -1,2 +1,2 @@
 export { api } from './instance';
-export { uploadApi } from './uploadApi';
+export { uploadApi } from './UploadApi';

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { getTokenUserInfo } from '@/entities/auth';
 import { getMyProfile, getYourProfile } from '@/entities/profile';
@@ -7,6 +8,7 @@ import type { ProfileView } from '@/entities/profile';
 export function useProfile(accountname?: string) {
   const myAccountname = getTokenUserInfo()?.accountname;
   const isMyProfile = !accountname || accountname === myAccountname;
+  const location = useLocation();
 
   const [user, setUser] = useState<ProfileView>({
     username: '',
@@ -22,6 +24,7 @@ export function useProfile(accountname?: string) {
     const fetchProfile = async () => {
       if (isMyProfile) {
         const data = await getMyProfile();
+        console.log(data.user);
         setUser({
           username: data.user.username,
           accountname: data.user.accountname,
@@ -46,7 +49,7 @@ export function useProfile(accountname?: string) {
     };
 
     fetchProfile();
-  }, [accountname, isMyProfile]);
+  }, [accountname, isMyProfile, location.state?.refresh]);
 
   return { user, isMyProfile };
 }

@@ -30,7 +30,7 @@ export function ProductAdd() {
         <div className="relative">
           <p className="text-muted-foreground mt-4 text-sm">이미지 등록</p>
           <div
-            className="bg-muted mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg transition-colors"
+            className="bg-muted-foreground mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg transition-colors"
             onClick={() => imageInputRef.current?.click()}
           >
             <ImgButtonIcon

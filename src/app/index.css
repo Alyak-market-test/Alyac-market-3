@@ -42,7 +42,12 @@
   --radius-lg: 0.5rem;
   --radius-md: calc(0.5rem - 2px);
   --radius-sm: calc(0.5rem - 4px);
+
+  /* Icons */
+  --color-icon: light-dark(#000000, #ffffff);
+  --icon-hover: light-dark(#f1f5f9, #171717);
 }
+@variant dark (&:where(.dark, .dark *));
 
 :root {
   color-scheme: light;

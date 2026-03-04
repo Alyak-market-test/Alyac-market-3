@@ -20,6 +20,7 @@ export function useProfile(accountname?: string) {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      console.log('fetchProfile 호출됨'); // ← 여기
       if (isMyProfile) {
         const data = await getMyProfile();
         setUser({
@@ -40,8 +41,9 @@ export function useProfile(accountname?: string) {
           followings: data.profile.following.length,
           image: data.profile.image,
           intro: data.profile.intro,
-          isFollowing: data.profile.isFollowing,
+          isFollowing: data.profile.isfollow,
         });
+        console.log(data.profile); // 여기서 isfollow 키 확인
       }
     };
 

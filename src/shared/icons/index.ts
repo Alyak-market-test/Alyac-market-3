@@ -8,3 +8,7 @@ export { SearchIcon } from './SearchIcon';
 export { HeartIcon } from './HeartIcon';
 export { CommentIcon } from './CommentIcon';
 export { LogoGrayIcon } from './LogoGrayIcon';
+export { ShareIcon } from './ShareIcon';
+export { ImgButtonIcon } from './ImgButtonIcon';
+export { LogoFullIcon } from './LogoFullIcon';
+export { LogoIcon } from './LogoIcon';

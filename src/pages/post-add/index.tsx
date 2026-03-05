@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { getTokenUserInfo } from '@/entities/auth';
-import { usePostAdd } from '@/features/post-add/usePostAdd';
+import { usePostAdd } from '@/features/post-add';
 import { UploadImage } from '@/shared/icons';
 
 export function PostAddPage() {
@@ -16,6 +16,8 @@ export function PostAddPage() {
     setContent,
     previews,
     isLoading,
+    error,
+    setError,
     handleImageChange,
     handleRemoveImage,
     handleSubmit,
@@ -24,7 +26,7 @@ export function PostAddPage() {
   return (
     <div className="bg-background flex h-screen flex-col">
       {/* 상단 네비 */}
-      <header className="flex h-14 items-center justify-between border-b px-4">
+      <header className="flex h-14 items-center justify-between px-4">
         <button onClick={() => navigate(-1)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
@@ -38,29 +40,45 @@ export function PostAddPage() {
         </button>
         <button
           onClick={handleSubmit}
-          disabled={isLoading}
-          className="bg-primary rounded-full px-4 py-1.5 text-sm text-white disabled:opacity-50"
+          disabled={isLoading || (!content.trim() && previews.length === 0)}
+          className="bg-primary rounded-full px-5 py-1.5 text-sm font-medium text-white disabled:opacity-40"
         >
           업로드
         </button>
       </header>
 
       {/* 본문 */}
-      <div className="flex flex-1 gap-3 overflow-y-auto p-4">
-        <UploadImage src={userInfo?.image} size="sm" />
+      <div className="flex gap-3 overflow-y-auto px-4 pt-3 pb-6">
+        {/* 프로필 이미지 */}
+        <div className="shrink-0">
+          <UploadImage src={userInfo?.image} size="sm" />
+        </div>
 
-        <div className="flex flex-1 flex-col gap-4">
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="게시글 입력하기..."
-            className="text-foreground placeholder:text-muted-foreground w-full resize-none bg-transparent text-sm outline-none"
-            rows={5}
-          />
+        {/* 오른쪽 영역 */}
+        <div className="flex flex-1 flex-col gap-2">
+          {/* textarea 박스 */}
+          <div className="flex h-[75vh] flex-col rounded-lg border border-blue-900 p-3 focus-within:ring-2 focus-within:ring-blue-900">
+            <textarea
+              value={content}
+              onChange={(e) => {
+                setContent(e.target.value);
+                if (!e.target.value.trim()) {
+                  setError('게시글 내용을 입력해주세요.');
+                } else {
+                  setError('');
+                }
+              }}
+              placeholder="게시글 입력하기."
+              className="text-foreground placeholder:text-muted-foreground w-full flex-1 resize-none bg-transparent text-sm outline-none"
+            />
+          </div>
+
+          {/* 에러 메시지 */}
+          {error && <p className="text-sm text-red-500">{error}</p>}
 
           {/* 이미지 미리보기 */}
           {previews.length > 0 && (
-            <div className="flex flex-col gap-2">
+            <div className="mt-2 flex flex-col gap-2">
               {previews.map((preview, index) => (
                 <div key={index} className="relative">
                   <img
@@ -84,7 +102,7 @@ export function PostAddPage() {
       {/* 이미지 추가 플로팅 버튼 */}
       <button
         onClick={() => fileInputRef.current?.click()}
-        className="bg-primary absolute right-6 bottom-6 flex h-12 w-12 items-center justify-center rounded-full shadow-lg"
+        className="bg-primary fixed right-6 bottom-6 flex h-14 w-14 items-center justify-center rounded-full shadow-lg"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <rect x="3" y="3" width="18" height="18" rx="3" stroke="white" strokeWidth="2" />

@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
   { path: 'signin', element: wrap(<SignInPage />) },
   { path: 'signup', element: wrap(<SignUpPage />) },
   { path: 'signup-profile-setup', element: wrap(<SignUpProfilePage />) },
-  { path: 'post-add', element: wrap(<PostAddPage />) },
+  { path: 'upload', element: wrap(<PostAddPage />) },
   { path: 'chat/:id', element: wrap(<ChatRoomPage />) },
   { path: '*', element: wrap(<NotFoundPage />) },
 

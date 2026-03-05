@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { RootLayout } from '@/app/RootLayout';
+import { RequireGuest } from '@/features/auth';
 
 const HomePage = lazy(() => import('@/pages/home').then((m) => ({ default: m.HomePage })));
 const SignInPage = lazy(() => import('@/pages/signin').then((m) => ({ default: m.SignInPage })));
@@ -36,9 +37,14 @@ const wrap = (element: React.ReactNode) => <Suspense fallback={null}>{element}</
 
 export const router = createBrowserRouter([
   { path: '/', element: wrap(<HomePage />) },
-  { path: 'signin', element: wrap(<SignInPage />) },
-  { path: 'signup', element: wrap(<SignUpPage />) },
-  { path: 'signup-profile-setup', element: wrap(<SignUpProfilePage />) },
+  {
+    element: <RequireGuest />,
+    children: [
+      { path: 'signin', element: wrap(<SignInPage />) },
+      { path: 'signup', element: wrap(<SignUpPage />) },
+      { path: 'signup-profile-setup', element: wrap(<SignUpProfilePage />) },
+    ],
+  },
   { path: 'post-add', element: wrap(<PostAddPage />) },
   { path: 'chat/:id', element: wrap(<ChatRoomPage />) },
   { path: '*', element: wrap(<NotFoundPage />) },

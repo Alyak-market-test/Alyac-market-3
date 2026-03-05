@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { type Product, getProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
 import {
   MyButtons,
   PostSection,
+  ProductSection,
   ProfileInfo,
   ProfileStats,
   YourButtons,
@@ -21,7 +23,6 @@ import { ThemeToggle, TopBasicNav } from '@/shared';
 // ];
 
 export function ProfilePage() {
-  console.log('ProfilePage 렌더링'); // ← 여기
   const { accountname } = useParams();
   const { user, isMyProfile } = useProfile(accountname);
   const navigate = useNavigate();
@@ -29,6 +30,27 @@ export function ProfilePage() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const post: [] = []; // TODO: 게시글 데이터 API 연동
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isProductsLoading, setIsProductsLoading] = useState(false);
+  const handleDeleteSuccess = (productId: string) => {
+    setProducts((prev) => prev.filter((p) => p.id !== productId));
+  };
+
+  useEffect(() => {
+    if (!isMyProfile || !user.accountname) return;
+
+    const fetchProducts = async () => {
+      setIsProductsLoading(true);
+      try {
+        const data = await getProducts(user.accountname);
+        setProducts(data);
+      } finally {
+        setIsProductsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [isMyProfile, user.accountname]);
 
   return (
     <div className="bg-background mx-auto flex min-h-screen flex-col">
@@ -56,7 +78,14 @@ export function ProfilePage() {
 
       {/* buttons - my or your */}
       {isMyProfile ? (
-        <MyButtons />
+        <>
+          <MyButtons />
+          <ProductSection
+            products={products}
+            isLoading={isProductsLoading}
+            onDeleteSuccess={handleDeleteSuccess}
+          />
+        </>
       ) : (
         <YourButtons
           accountname={user.accountname}

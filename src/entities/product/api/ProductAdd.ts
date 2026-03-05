@@ -13,6 +13,10 @@ export async function getProducts(accountname: string): Promise<Product[]> {
 }
 
 export async function deleteProduct(productId: string): Promise<void> {
-  const response = await api.delete(`/product/${productId}`);
+  await api.delete(`/product/${productId}`);
+}
+
+export async function putProduct(productId: string, payload: ProductPayload): Promise<Product> {
+  const response = await api.put(`/product/${productId}`, payload);
   return response.data;
 }

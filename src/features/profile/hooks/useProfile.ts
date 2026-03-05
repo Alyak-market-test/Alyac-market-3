@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { useLocation } from 'react-router-dom';
 
 import { getTokenUserInfo } from '@/entities/auth';
@@ -22,7 +23,6 @@ export function useProfile(accountname?: string) {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      console.log('fetchProfile 호출됨'); // ← 여기
       if (isMyProfile) {
         const data = await getMyProfile();
         console.log(data.user);
@@ -46,7 +46,6 @@ export function useProfile(accountname?: string) {
           intro: data.profile.intro,
           isFollowing: data.profile.isfollow,
         });
-        console.log(data.profile); // 여기서 isfollow 키 확인
       }
     };
 

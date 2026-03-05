@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import { UploadImage } from '@/shared/ui/UploadImage';
-import { TopChatNav } from '@/shared/ui/nav/TopChatNav';
+import { TopChatNav } from '@/shared';
+import { UploadImage } from '@/shared/icons';
 
 interface ChatRoom {
   id: string;

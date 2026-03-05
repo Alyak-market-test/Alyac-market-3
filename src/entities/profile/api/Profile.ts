@@ -8,3 +8,12 @@ export const getYourProfile = async (accountname: string) => {
   const response = await api.get(`/profile/${accountname}`);
   return response.data;
 };
+export const updateProfile = async (profileData: {
+  username: string;
+  accountname: string;
+  intro: string;
+  image: string;
+}) => {
+  const response = await api.put('/user', { user: profileData });
+  return response.data;
+};

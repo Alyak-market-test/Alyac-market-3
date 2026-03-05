@@ -10,18 +10,18 @@ export function ArrowLeftIcon({ className }: IconProps) {
       viewBox="0 0 22 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={`cursor-pointer hover:bg-[var(--icon-hover)]${className ?? ''}`}
     >
       <path
         d="M17.4166 11H4.58325"
-        stroke="black"
+        stroke="var(--color-icon)"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M10.9999 17.4167L4.58325 11L10.9999 4.58334"
-        stroke="black"
+        stroke="var(--color-icon)"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

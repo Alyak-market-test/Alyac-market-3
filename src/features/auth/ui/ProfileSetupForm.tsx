@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -5,6 +7,8 @@ import { z } from 'zod';
 
 import { useSignUp } from '@/entities/auth';
 import { Button } from '@/shared/ui/Button';
+
+import { FormField } from './FormField';
 
 const profileSchema = z.object({
   username: z.string().min(1, '이름을 입력해 주세요.'),
@@ -21,6 +25,7 @@ export function ProfileSetupForm() {
   const location = useLocation();
   const { email, password } = location.state as { email: string; password: string };
   const signUpMutation = useSignUp();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -34,8 +39,8 @@ export function ProfileSetupForm() {
         onSuccess: () => {
           navigate('/signin');
         },
-        onError: (error) => {
-          alert('회원가입 실패: ' + error.message);
+        onError: () => {
+          setErrorMessage('이미 사용 중인 계정 ID입니다.');
         },
       },
     );
@@ -43,29 +48,19 @@ export function ProfileSetupForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
-      <div className="flex flex-col gap-1">
-        <label className="text-muted-foreground text-sm">이름</label>
-        <input
-          {...form.register('username')}
-          placeholder="이름을 입력해 주세요."
-          className="border-border border-b py-2 outline-none focus:border-green-500"
-        />
-        {form.formState.errors.username && (
-          <span className="text-xs text-red-500">{form.formState.errors.username.message}</span>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <label className="text-muted-foreground text-sm">계정 ID</label>
-        <input
-          {...form.register('accountname')}
-          placeholder="영문, 숫자, 밑줄, 마침표만 사용 가능"
-          className="border-border border-b py-2 outline-none focus:border-green-500"
-        />
-        {form.formState.errors.accountname && (
-          <span className="text-xs text-red-500">{form.formState.errors.accountname.message}</span>
-        )}
-      </div>
+      {errorMessage && <span className="text-xs text-red-500">{errorMessage}</span>}
+      <FormField
+        label="이름"
+        {...form.register('username')}
+        placeholder="이름을 입력해 주세요."
+        error={form.formState.errors.username?.message}
+      />
+      <FormField
+        label="계정 ID"
+        {...form.register('accountname')}
+        placeholder="영문, 숫자, 밑줄, 마침표만 사용 가능"
+        error={form.formState.errors.accountname?.message}
+      />
 
       <Button
         type="submit"

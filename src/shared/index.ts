@@ -3,7 +3,4 @@ export * from './ui/Dialog';
 export * from './constants/routes';
 export * from './ui/Input';
 export * from './ui/nav';
-export * from './ui/CommentInput';
-export * from './ui/UserCard';
-export * from './ui/TextInput';
 export * from './lib/theme/ThemeToggle';

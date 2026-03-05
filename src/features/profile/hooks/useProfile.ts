@@ -1,24 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import { getTokenUserInfo } from '@/entities/auth';
-import { getMyProfile } from '@/entities/profile/api/Profile';
-import { getYourProfile } from '@/entities/profile/api/Profile';
-
-interface ProfileUser {
-  username: string;
-  accountname: string;
-  followers: number;
-  followings: number;
-  image: string;
-  intro: string;
-  isFollowing: boolean;
-}
+import { getMyProfile, getYourProfile } from '@/entities/profile';
+import type { ProfileView } from '@/entities/profile';
 
 export function useProfile(accountname?: string) {
   const myAccountname = getTokenUserInfo()?.accountname;
   const isMyProfile = !accountname || accountname === myAccountname;
 
-  const [user, setUser] = useState<ProfileUser>({
+  const [user, setUser] = useState<ProfileView>({
     username: '',
     accountname: '',
     followers: 0,

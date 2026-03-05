@@ -2,9 +2,9 @@ import { useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { ImageUpload } from '@/features/upload/ui/ImageUpload';
-import { ImgButtonIcon } from '@/shared/icons/ImgButtonIcon';
-import { TopUploadNav } from '@/shared/ui/nav/TopUploadNav';
+import { ImageUpload } from '@/features/upload';
+import { TopUploadNav } from '@/shared';
+import { ImgButtonIcon } from '@/shared/icons';
 
 export function ProductAdd() {
   const navigate = useNavigate();

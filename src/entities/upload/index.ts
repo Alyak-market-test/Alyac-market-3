@@ -1,2 +1,2 @@
-export { useUploadFiles } from '@/entities/upload/hooks/useUploadFiles';
-export type { UploadResponse } from '@/entities/upload/api/uploadFiles';
+export { uploadFiles } from './api/UploadFiles';
+export { useUploadFiles } from './hooks/useUploadFiles';

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getToken } from '@/entities/auth';
 
 const uploadApi = axios.create({
-  baseURL: import.meta.env.VITE_UPLOAD_BASE_URL + '/api',
+  baseURL: import.meta.env.VITE_IMAGE_BASE_URL + '/api',
   timeout: 30000,
 });
 
@@ -19,4 +19,4 @@ uploadApi.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-export default uploadApi;
+export { uploadApi };

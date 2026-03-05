@@ -38,4 +38,4 @@ const PostAlbumIcon = ({ className, isActive, onClick }: PostAlbumIconProps) => 
   </div>
 );
 
-export default PostAlbumIcon;
+export { PostAlbumIcon };

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getMyProfile } from '@/entities/profile/api/Profile';
-import { UploadImage } from '@/shared/ui/UploadImage';
-import { TopUploadNav } from '@/shared/ui/nav/TopUploadNav';
+import { getMyProfile } from '@/entities/profile';
+import { TopUploadNav } from '@/shared';
+import { UploadImage } from '@/shared/icons';
 
 export function ProfileModification() {
   const navigate = useNavigate();

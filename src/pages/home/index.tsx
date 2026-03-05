@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { SnsButton, SplashScreen } from '@/features/home/ui';
 import { LogoIcon } from '@/shared/icons/LogoIcon';
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/Button';
 
 const SPLASH_DURATION = 1500;
 

@@ -1,7 +1,6 @@
 // 게시글 뷰모드(리스트/그리드) 컴포넌트
 // components/PostSection.tsx
-import PostAlbumIcon from '@/shared/icons/PostAlbumIcon';
-import PostListIcon from '@/shared/icons/PostListIcon';
+import { PostAlbumIcon, PostListIcon } from '@/shared/icons';
 
 interface PostSectionProps {
   posts: { id: number; content: string }[];

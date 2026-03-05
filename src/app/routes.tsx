@@ -8,7 +8,7 @@ const HomePage = lazy(() => import('@/pages/home').then((m) => ({ default: m.Hom
 const SignInPage = lazy(() => import('@/pages/signin').then((m) => ({ default: m.SignInPage })));
 const SignUpPage = lazy(() => import('@/pages/signup').then((m) => ({ default: m.SignUpPage })));
 const SignUpProfilePage = lazy(() =>
-  import('@/pages/signup/profile').then((m) => ({ default: m.SignUpProfilePage })),
+  import('@/pages/signup-profile-setup').then((m) => ({ default: m.SignUpProfilePage })),
 );
 const ChatRoomPage = lazy(() =>
   import('@/pages/chat-room').then((m) => ({ default: m.ChatRoomPage })),
@@ -28,6 +28,9 @@ const ProductAdd = lazy(() =>
 const ChatListPage = lazy(() =>
   import('@/pages/chat-list').then((m) => ({ default: m.ChatListPage })),
 );
+const PostAddPage = lazy(() =>
+  import('@/pages/post-add').then((m) => ({ default: m.PostAddPage })),
+);
 
 const wrap = (element: React.ReactNode) => <Suspense fallback={null}>{element}</Suspense>;
 
@@ -35,7 +38,8 @@ export const router = createBrowserRouter([
   { path: '/', element: wrap(<HomePage />) },
   { path: 'signin', element: wrap(<SignInPage />) },
   { path: 'signup', element: wrap(<SignUpPage />) },
-  { path: 'signup/profile', element: wrap(<SignUpProfilePage />) },
+  { path: 'signup-profile-setup', element: wrap(<SignUpProfilePage />) },
+  { path: 'post-add', element: wrap(<PostAddPage />) },
   { path: 'chat/:id', element: wrap(<ChatRoomPage />) },
   { path: '*', element: wrap(<NotFoundPage />) },
 

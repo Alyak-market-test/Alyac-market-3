@@ -2,11 +2,9 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { SearchHistory } from '@/features/search/SearchHistory';
-import { UserCard } from '@/features/search/UserCard';
-import { useSearchHistory } from '@/features/search/useSearchHistory';
-import { useSearchUsers } from '@/features/search/useSearchUsers';
+import { UserCard, useSearchHistory, useSearchUsers } from '@/features/search';
 import { TopSearchNav } from '@/shared/ui/nav/TopSearchNav';
+import { SearchHistorySection } from '@/widgets/search-history';
 
 export function SearchPage() {
   const navigate = useNavigate();
@@ -14,7 +12,7 @@ export function SearchPage() {
   const { users, isLoading } = useSearchUsers(keyword);
   const { history, addHistory, removeHistory } = useSearchHistory();
 
-  const handleSelect = (word: string) => {
+  const handleSearch = (word: string) => {
     setKeyword(word);
     addHistory(word);
   };
@@ -27,14 +25,9 @@ export function SearchPage() {
 
   const renderContent = () => {
     if (!keyword) {
-      if (history.length === 0) {
-        return (
-          <div className="flex items-center justify-center py-64">
-            <p className="text-muted-foreground text-sm">계정을 검색해보세요.</p>
-          </div>
-        );
-      }
-      return <SearchHistory history={history} onSelect={handleSelect} onRemove={removeHistory} />;
+      return (
+        <SearchHistorySection history={history} onSelect={handleSearch} onRemove={removeHistory} />
+      );
     }
 
     if (isLoading) {

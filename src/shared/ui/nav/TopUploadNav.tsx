@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from '@/shared/icons/ArrowLeftIcon';
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/Button';
 
 interface TopUploadNavProps {
   onBack: () => void;

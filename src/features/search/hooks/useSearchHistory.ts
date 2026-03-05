@@ -5,8 +5,12 @@ const MAX_HISTORY = 10;
 
 export function useSearchHistory() {
   const [history, setHistory] = useState<string[]>(() => {
-    const saved = localStorage.getItem(HISTORY_KEY);
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem(HISTORY_KEY);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
   const addHistory = (keyword: string) => {

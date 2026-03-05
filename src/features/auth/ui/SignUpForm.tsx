@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/Button';
 
 import { type SignUpFormData, signUpSchema } from './schema';
 
@@ -15,7 +15,7 @@ export function SignUpForm() {
   });
 
   const onSubmit = (data: SignUpFormData) => {
-    navigate('/signup/profile', { state: { email: data.email, password: data.password } });
+    navigate('/signup-profile-setup', { state: { email: data.email, password: data.password } });
   };
 
   return (

@@ -32,6 +32,9 @@ const ChatListPage = lazy(() =>
 const PostAddPage = lazy(() =>
   import('@/pages/post-add').then((m) => ({ default: m.PostAddPage })),
 );
+const FollowListPage = lazy(() =>
+  import('@/pages/follow-list').then((m) => ({ default: m.FollowListPage })),
+);
 
 const wrap = (element: React.ReactNode) => <Suspense fallback={null}>{element}</Suspense>;
 
@@ -59,6 +62,7 @@ export const router = createBrowserRouter([
       { path: 'profile-modification', element: wrap(<ProfileModification />) },
       { path: 'product-add', element: wrap(<ProductAdd />) },
       { path: 'chat', element: wrap(<ChatListPage />) },
+      { path: 'profile/:accountname/follow', element: wrap(<FollowListPage />) },
     ],
   },
 ]);

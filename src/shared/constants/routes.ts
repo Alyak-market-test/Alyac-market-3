@@ -12,7 +12,7 @@ export const ROUTES = {
   PROFILE: '/profile',
   POST: {
     DETAIL: '/post/:post_id',
-    UPLOAD: '/upload',
+    UPLOAD: '/post-add',
   },
   PRODUCT: {
     UPLOAD: '/product/upload',

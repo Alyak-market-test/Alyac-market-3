@@ -7,7 +7,7 @@ export function useAuth() {
 
   const logout = () => {
     removeToken();
-    navigate('/signin');
+    navigate('/');
   };
 
   const isAuthenticated = () => {

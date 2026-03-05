@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useAddProduct } from '@/features/product-add';
 import { ImageUpload } from '@/features/upload';
 import { TopUploadNav } from '@/shared';
 import { ImgButtonIcon } from '@/shared/icons';
@@ -13,18 +14,36 @@ export function ProductAdd() {
   const [saleUrl, setSaleUrl] = useState('');
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const imageInputRef = useRef<HTMLInputElement>(null) as React.RefObject<HTMLInputElement>;
+  const { mutate: addProduct, isPending } = useAddProduct();
 
   const isDisabled = name.trim() === '' || price.trim() === '' || imageUrls.length === 0;
 
   const handleSave = () => {
-    if (name.trim() === '') return;
-    // TODO : 실제 저장 로직 (API 연동 후 구현)
-    navigate(-1);
+    if (isDisabled || isPending) return;
+
+    addProduct(
+      {
+        product: {
+          itemName: name,
+          price: Number(price),
+          link: saleUrl || 'http://placeholder.com',
+          itemImage: `uploadFiles/${imageUrls[0]}`,
+        },
+      },
+      {
+        onSuccess: () => navigate(-1),
+        onError: () => alert('상품 등록에 실패했습니다. 다시 시도해주세요.'),
+      },
+    );
   };
 
   return (
     <div className="bg-background mb-15 flex min-h-screen flex-col">
-      <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} disabled={isDisabled} />
+      <TopUploadNav
+        onBack={() => navigate(-1)}
+        onSave={handleSave}
+        disabled={isDisabled || isPending}
+      />
       <div className="flex flex-col gap-10 px-7">
         {/* 상품 이미지 업로드*/}
         <div className="relative">

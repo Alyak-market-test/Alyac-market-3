@@ -1,10 +1,23 @@
+import { StrictMode } from 'react';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router-dom';
 
-import './App.css';
+import { ThemeProvider } from '@/shared/lib/theme';
+
+import './index.css';
 import { router } from './routes';
 
-function App() {
-  return <RouterProvider router={router} />;
-}
+const queryClient = new QueryClient();
 
-export default App;
+export default function App() {
+  return (
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider defaultTheme="system">
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </StrictMode>
+  );
+}

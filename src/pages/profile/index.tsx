@@ -21,6 +21,7 @@ import { ThemeToggle, TopBasicNav } from '@/shared';
 // ];
 
 export function ProfilePage() {
+  console.log('ProfilePage 렌더링'); // ← 여기
   const { accountname } = useParams();
   const { user, isMyProfile } = useProfile(accountname);
   const navigate = useNavigate();

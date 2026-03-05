@@ -10,7 +10,7 @@ export const useFollow = (accountname: string, initialState: FollowState) => {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if ((!initialized && initialState.followerCount !== 0) || initialState.isFollowing) {
+    if (!initialized && (initialState.followerCount !== 0 || initialState.isFollowing)) {
       setIsFollowing(initialState.isFollowing);
       setFollowerCount(initialState.followerCount);
       setInitialized(true);
@@ -19,7 +19,8 @@ export const useFollow = (accountname: string, initialState: FollowState) => {
 
   const toggleFollow = async () => {
     if (loading) return;
-    console.log('toggleFollw==========');
+    console.log('toggleFollow called = ');
+
     const prev = { isFollowing, followerCount };
 
     setIsFollowing(!isFollowing);
@@ -28,7 +29,8 @@ export const useFollow = (accountname: string, initialState: FollowState) => {
 
     try {
       await (isFollowing ? unfollowUser(accountname) : followUser(accountname));
-    } catch {
+    } catch (error) {
+      console.error('Follow/Unfollow 에러:', error);
       setIsFollowing(prev.isFollowing);
       setFollowerCount(prev.followerCount);
     } finally {

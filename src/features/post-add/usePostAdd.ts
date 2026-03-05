@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getToken } from '@/entities/auth';
+import { api } from '@/shared/api/instance';
 
 import { uploadImages } from './UploadImages';
 
@@ -12,6 +12,7 @@ export function usePostAdd() {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -30,8 +31,12 @@ export function usePostAdd() {
   };
 
   const handleSubmit = async () => {
-    if (!content.trim() && imageFiles.length === 0) return;
+    if (!content.trim() && imageFiles.length === 0) {
+      setError('게시글 내용을 입력해주세요.');
+      return;
+    }
 
+    setError('');
     setIsLoading(true);
     try {
       let imageString = '';
@@ -40,25 +45,17 @@ export function usePostAdd() {
         imageString = filenames.join(',');
       }
 
-      const res = await fetch('http://localhost:3000/api/post', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${getToken()}`,
+      await api.post('/post', {
+        post: {
+          content,
+          image: imageString,
         },
-        body: JSON.stringify({
-          post: {
-            content,
-            image: imageString,
-          },
-        }),
       });
-
-      if (!res.ok) throw new Error('게시물 작성 실패');
 
       navigate(-1);
     } catch (error) {
       console.error(error);
+      setError('게시물 작성에 실패했습니다.');
     } finally {
       setIsLoading(false);
     }
@@ -69,6 +66,8 @@ export function usePostAdd() {
     setContent,
     previews,
     isLoading,
+    error,
+    setError,
     handleImageChange,
     handleRemoveImage,
     handleSubmit,

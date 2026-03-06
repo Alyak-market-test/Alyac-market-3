@@ -26,6 +26,9 @@ const ProfileModification = lazy(() =>
 const ProductAdd = lazy(() =>
   import('@/pages/product-add').then((m) => ({ default: m.ProductAdd })),
 );
+const ProductEdit = lazy(() =>
+  import('@/pages/product-edit').then((m) => ({ default: m.ProductEdit })),
+);
 const ChatListPage = lazy(() =>
   import('@/pages/chat-list').then((m) => ({ default: m.ChatListPage })),
 );
@@ -61,6 +64,7 @@ export const router = createBrowserRouter([
       { path: 'profile/:accountname', element: wrap(<ProfilePage />) },
       { path: 'profile-modification', element: wrap(<ProfileModification />) },
       { path: 'product-add', element: wrap(<ProductAdd />) },
+      { path: '/product-edit/:productId', element: wrap(<ProductEdit />) },
       { path: 'chat', element: wrap(<ChatListPage />) },
       { path: 'profile/:accountname/follow', element: wrap(<FollowListPage />) },
     ],

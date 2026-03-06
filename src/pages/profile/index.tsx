@@ -27,13 +27,12 @@ export function ProfilePage() {
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const post: [] = [];
 
-  // ✅ useFollow를 ProfilePage로 끌어올림 (팔로우 상태 통합 관리)
+  // 팔로우 상태 통합 관리
   const { isFollowing, followerCount, loading, toggleFollow } = useFollow(user.accountname, {
     isFollowing: user.isFollowing,
     followerCount: user.followers,
   });
 
-  // ✅ useEffect + useState → useQuery로 교체
   const queryClient = useQueryClient();
   const { data: products = [], isLoading: isProductsLoading } = useQuery({
     queryKey: ['products', user.accountname],
@@ -41,7 +40,6 @@ export function ProfilePage() {
     enabled: isMyProfile && !!user.accountname,
   });
 
-  // ✅ setProducts 직접 변경 → queryClient로 교체
   const handleDeleteSuccess = (productId: string) => {
     queryClient.setQueryData<Product[]>(['products', user.accountname], (prev) =>
       prev ? prev.filter((p) => p.id !== productId) : [],
@@ -103,7 +101,7 @@ export function ProfilePage() {
           />
         </>
       ) : (
-        // ✅ initialState 대신 useFollow 상태를 직접 전달
+        // initialState 대신 useFollow 상태를 직접 전달
         <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
       )}
 

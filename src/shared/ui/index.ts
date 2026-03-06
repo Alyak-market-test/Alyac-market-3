@@ -5,3 +5,4 @@ export * from './nav';
 export * from './toggle';
 export * from './toggle-group';
 export * from './popover';
+export * from './DeleteConfirmModal';

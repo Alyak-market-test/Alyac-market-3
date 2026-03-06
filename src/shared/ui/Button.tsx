@@ -52,6 +52,12 @@ const buttonVariants = cva(
           'flex-1 items-center justify-center rounded-full border border-gray-300 py-2 text-foreground hover:bg-[var(--icon-hover)]',
         yourprofilebutton:
           'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-foreground transition hover:bg-gray-50',
+        productDelete:
+          'absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-600 text-xs text-white transition-colors hover:bg-gray-900',
+        deleteNO:
+          'text-foreground flex-1 rounded-bl-xl py-3 text-sm transition-colors hover:bg-[var(--icon-hover)] disabled:opacity-50',
+        deltetYES:
+          'text-primary flex-1 rounded-br-xl py-3 text-sm font-medium transition-colors hover:bg-[var(--icon-hover)] disabled:opacity-50',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
@@ -66,6 +72,7 @@ const buttonVariants = cva(
         M: 'py-2 px-10 gap-[0.625rem]',
         Ms: 'py-[0.625rem] px-[1.9375rem] gap-[0.625rem]',
         S: 'py-[0.625rem] px-[0.6875rem] gap-[0.625rem]',
+        none: '',
       },
     },
     defaultVariants: {

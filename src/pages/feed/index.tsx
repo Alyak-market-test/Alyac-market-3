@@ -51,26 +51,19 @@ export function FeedPage() {
         <ThemeToggle />
       </div>
       <main className="flex-1 overflow-y-auto pb-16">
-        {posts.length > 0 ? (
-          <>
-            {posts.map((post) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                moreIcon={<MoreVerticalIcon />}
-                heartIcon={<HeartIcon filled={heartedIds.has(post.id)} />}
-                commentIcon={<CommentIcon />}
-                onMoreClick={() => {}}
-                onHeartClick={() => toggleHeart(post.id)}
-                onCommentClick={() => {}}
-              />
-            ))}
-            <div ref={observerRef} className="py-4 text-center">
-              {isFetchingNextPage && (
-                <span className="text-muted-foreground text-sm">불러오는 중...</span>
-              )}
-            </div>
-          </>
+        {posts && posts.length > 0 ? (
+          posts.map((post) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              moreIcon={<MoreVerticalIcon />}
+              heartIcon={<HeartIcon filled={heartedIds.has(post.id)} />}
+              commentIcon={<CommentIcon />}
+              onMoreClick={() => {}}
+              onHeartClick={() => toggleHeart(post.id)}
+              onCommentClick={() => navigate(`/post/${post.id}`)}
+            />
+          ))
         ) : (
           <div className="flex flex-col items-center justify-center gap-4 pt-32">
             <LogoGrayIcon width={65} height={103} />

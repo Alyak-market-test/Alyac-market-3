@@ -5,6 +5,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import { RootLayout } from '@/app/RootLayout';
 import { RequireGuest } from '@/features/auth';
 
+const PostDetailPage = lazy(() =>
+  import('@/pages/post-detail').then((m) => ({ default: m.PostDetailPage })),
+);
 const HomePage = lazy(() => import('@/pages/home').then((m) => ({ default: m.HomePage })));
 const SignInPage = lazy(() => import('@/pages/signin').then((m) => ({ default: m.SignInPage })));
 const SignUpPage = lazy(() => import('@/pages/signup').then((m) => ({ default: m.SignUpPage })));
@@ -54,7 +57,7 @@ export const router = createBrowserRouter([
   { path: 'post-add', element: wrap(<PostAddPage />) },
   { path: 'chat/:id', element: wrap(<ChatRoomPage />) },
   { path: '*', element: wrap(<NotFoundPage />) },
-
+  { path: 'post/:post_id', element: wrap(<PostDetailPage />) },
   {
     element: <RootLayout />,
     children: [

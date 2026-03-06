@@ -37,7 +37,7 @@ export function ProfilePage() {
   const { data: products = [], isLoading: isProductsLoading } = useQuery({
     queryKey: ['products', user.accountname],
     queryFn: () => getProducts(user.accountname),
-    enabled: isMyProfile && !!user.accountname,
+    enabled: !!user.accountname,
   });
 
   const handleDeleteSuccess = (productId: string) => {
@@ -92,18 +92,17 @@ export function ProfilePage() {
       </section>
 
       {isMyProfile ? (
-        <>
-          <MyButtons />
-          <ProductSection
-            products={products}
-            isLoading={isProductsLoading}
-            onDeleteSuccess={handleDeleteSuccess}
-          />
-        </>
+        <MyButtons />
       ) : (
         // initialState 대신 useFollow 상태를 직접 전달
         <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
       )}
+      <ProductSection
+        products={products}
+        isLoading={isProductsLoading}
+        isMyProfile={isMyProfile}
+        onDeleteSuccess={handleDeleteSuccess}
+      />
 
       <PostSection posts={post} viewMode={viewMode} onViewModeChange={setViewMode} />
     </div>

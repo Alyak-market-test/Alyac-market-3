@@ -9,10 +9,14 @@ export function MyButtons() {
   return (
     <div className="flex justify-center">
       <div className="mt-4 flex w-4/5 gap-3">
-        <Button onClick={() => navigate('/profile-modification')} variant="myprofilebutton">
+        <Button
+          onClick={() => navigate('/profile-modification')}
+          variant="myprofilebutton"
+          size="none"
+        >
           프로필 수정
         </Button>
-        <Button onClick={() => navigate('/product-add')} variant="myprofilebutton">
+        <Button onClick={() => navigate('/product-add')} variant="myprofilebutton" size="none">
           상품 등록
         </Button>
       </div>

@@ -9,12 +9,18 @@ import { Button, DeleteConfirmModal } from '@/shared/ui';
 interface ProductSectionProps {
   products: Product[];
   isLoading: boolean;
+  isMyProfile: boolean;
   onDeleteSuccess: (productId: string) => void;
 }
 
 const BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
-export function ProductSection({ products, isLoading, onDeleteSuccess }: ProductSectionProps) {
+export function ProductSection({
+  products,
+  isLoading,
+  isMyProfile,
+  onDeleteSuccess,
+}: ProductSectionProps) {
   const navigate = useNavigate();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
@@ -44,6 +50,7 @@ export function ProductSection({ products, isLoading, onDeleteSuccess }: Product
   };
 
   const handleImageClick = (product: Product) => {
+    if (!isMyProfile) return;
     navigate(`/product-edit/${product.id}`);
   };
 
@@ -53,9 +60,9 @@ export function ProductSection({ products, isLoading, onDeleteSuccess }: Product
 
   return (
     <>
-      <div className="mt-5 border-t px-3 py-3">
-        <p className="text-foreground text-md font-bold">판매 중인 상품</p>
-        <ul className="mt-4 flex flex-row gap-3">
+      <div className={`px-3 py-3 ${products.length > 0 ? 'mt-8 border-t' : ''}`}>
+        {products.length > 0 && <p className="text-foreground text-md font-bold">판매 중인 상품</p>}
+        <ul className="mt-2 flex flex-row gap-3">
           {products.map((product) => (
             <li
               key={product.id}
@@ -67,13 +74,14 @@ export function ProductSection({ products, isLoading, onDeleteSuccess }: Product
                 <img
                   src={`${BASE_URL}/${product.itemImage}`}
                   alt={product.itemName}
-                  className="h-32 w-32 cursor-pointer rounded-md object-cover"
+                  className={`h-32 w-32 rounded-md object-cover ${isMyProfile ? 'cursor-pointer' : ''}`}
                   onClick={() => handleImageClick(product)}
                   onError={(e) => {
                     e.currentTarget.src = '/placeholder.png';
                   }}
                 />
-                {hoveredId === product.id && (
+                {/* 내 프로필일 때만 삭제 버튼 표시 */}
+                {isMyProfile && hoveredId === product.id && (
                   <Button
                     onClick={(e) => {
                       e.stopPropagation();

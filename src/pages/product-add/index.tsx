@@ -1,3 +1,6 @@
+// TODO
+// 상품 등록/수정 url 분리시키기
+// 업로드 이미지 등록 위치 변경
 import { useRef, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';

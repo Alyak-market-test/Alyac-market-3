@@ -26,9 +26,9 @@ export function ProductSection({ products, isLoading, onDeleteSuccess }: Product
     });
   };
 
-  // 이미지 클릭 시 기존 상품 데이터를 갖고 수정하기 (상품 등록 페이지)
+  // 이미지 클릭 시 기존 상품 데이터를 갖고 수정하기
   const handleImageClick = (product: Product) => {
-    navigate('/product-add', { state: { product } });
+    navigate(`/product-edit/${product.id}`, { state: { product } });
   };
 
   if (isLoading) {

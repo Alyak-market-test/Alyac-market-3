@@ -12,6 +12,11 @@ export async function getProducts(accountname: string): Promise<Product[]> {
   return response.data.product;
 }
 
+export async function getProductDetail(productId: string): Promise<Product> {
+  const response = await api.get(`/product/detail/${productId}`);
+  return response.data.product;
+}
+
 export async function deleteProduct(productId: string): Promise<void> {
   await api.delete(`/product/${productId}`);
 }

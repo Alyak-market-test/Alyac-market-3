@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import type { User } from '@/entities/auth/api/searchUsers';
 import { UploadImage } from '@/shared/icons';
-
-import type { User } from '../api';
 
 interface UserCardProps {
   user: User;

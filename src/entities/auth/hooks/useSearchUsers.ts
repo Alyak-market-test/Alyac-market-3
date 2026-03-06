@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { searchUsers } from '@/entities/auth/api/searchUsers';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce';
-
-import { searchUsers } from '../api';
 
 export function useSearchUsers(keyword: string) {
   const debouncedKeyword = useDebounce(keyword, 500);

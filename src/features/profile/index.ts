@@ -1,6 +1,7 @@
 export { useProfile } from './hooks/useProfile';
-export * from './components/MyButtons';
-export * from './components/PostSection';
-export * from './components/ProfileInfo';
-export * from './components/ProfileStats';
-export * from './components/YourButtons';
+export * from './ui/MyButtons';
+export * from './ui/PostSection';
+export * from './ui/ProfileInfo';
+export * from './ui/ProfileStats';
+export * from './ui/YourButtons';
+export * from './ui/ProductSection';

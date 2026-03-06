@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useLocation } from 'react-router-dom';
 
 import { getTokenUserInfo } from '@/entities/auth';
 import { getMyProfile, getYourProfile } from '@/entities/profile';
@@ -7,23 +8,26 @@ import type { ProfileView } from '@/entities/profile';
 export function useProfile(accountname?: string) {
   const myAccountname = getTokenUserInfo()?.accountname;
   const isMyProfile = !accountname || accountname === myAccountname;
+  const location = useLocation();
 
-  const [user, setUser] = useState<ProfileView>({
-    username: '',
-    accountname: '',
-    followers: 0,
-    followings: 0,
-    image: '',
-    intro: '',
-    isFollowing: false,
-  });
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      console.log('fetchProfile 호출됨'); // ← 여기
+  const {
+    data: user = {
+      username: '',
+      accountname: '',
+      followers: 0,
+      followings: 0,
+      image: '',
+      intro: '',
+      isFollowing: false,
+    } as ProfileView,
+  } = useQuery({
+    queryKey: isMyProfile
+      ? ['profile', 'my', location.state?.refresh]
+      : ['profile', accountname, location.state?.refresh],
+    queryFn: async () => {
       if (isMyProfile) {
         const data = await getMyProfile();
-        setUser({
+        return {
           username: data.user.username,
           accountname: data.user.accountname,
           followers: data.user.follower.length,
@@ -31,10 +35,10 @@ export function useProfile(accountname?: string) {
           image: data.user.image,
           intro: data.user.intro,
           isFollowing: false,
-        });
+        } as ProfileView;
       } else {
         const data = await getYourProfile(accountname!);
-        setUser({
+        return {
           username: data.profile.username,
           accountname: data.profile.accountname,
           followers: data.profile.follower.length,
@@ -42,13 +46,10 @@ export function useProfile(accountname?: string) {
           image: data.profile.image,
           intro: data.profile.intro,
           isFollowing: data.profile.isfollow,
-        });
-        console.log(data.profile); // 여기서 isfollow 키 확인
+        } as ProfileView;
       }
-    };
-
-    fetchProfile();
-  }, [accountname, isMyProfile]);
+    },
+  });
 
   return { user, isMyProfile };
 }

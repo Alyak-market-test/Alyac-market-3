@@ -1,11 +1,15 @@
 import { useState } from 'react';
 
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { type Product, getProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
+import { useFollow } from '@/features/follow';
 import {
   MyButtons,
   PostSection,
+  ProductSection,
   ProfileInfo,
   ProfileStats,
   YourButtons,
@@ -22,6 +26,27 @@ export function ProfilePage() {
   const { logout } = useAuth();
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const post: [] = [];
+
+  // ✅ useFollow를 ProfilePage로 끌어올림 (팔로우 상태 통합 관리)
+  const { isFollowing, followerCount, loading, toggleFollow } = useFollow(user.accountname, {
+    isFollowing: user.isFollowing,
+    followerCount: user.followers,
+  });
+
+  // ✅ useEffect + useState → useQuery로 교체
+  const queryClient = useQueryClient();
+  const { data: products = [], isLoading: isProductsLoading } = useQuery({
+    queryKey: ['products', user.accountname],
+    queryFn: () => getProducts(user.accountname),
+    enabled: isMyProfile && !!user.accountname,
+  });
+
+  // ✅ setProducts 직접 변경 → queryClient로 교체
+  const handleDeleteSuccess = (productId: string) => {
+    queryClient.setQueryData<Product[]>(['products', user.accountname], (prev) =>
+      prev ? prev.filter((p) => p.id !== productId) : [],
+    );
+  };
 
   return (
     <div className="bg-background mx-auto flex min-h-screen flex-col">
@@ -53,7 +78,8 @@ export function ProfilePage() {
       <section className="flex flex-col items-center px-4 py-6">
         <div className="flex items-center">
           <ProfileStats
-            followers={user.followers}
+            accountname={user.accountname}
+            followers={isMyProfile ? user.followers : followerCount}
             image={user.image}
             followings={user.followings}
             username={user.username}
@@ -68,13 +94,17 @@ export function ProfilePage() {
       </section>
 
       {isMyProfile ? (
-        <MyButtons />
+        <>
+          <MyButtons />
+          <ProductSection
+            products={products}
+            isLoading={isProductsLoading}
+            onDeleteSuccess={handleDeleteSuccess}
+          />
+        </>
       ) : (
-        <YourButtons
-          accountname={user.accountname}
-          initialIsFollowing={user.isFollowing}
-          initialFollowerCount={user.followers}
-        />
+        // ✅ initialState 대신 useFollow 상태를 직접 전달
+        <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
       )}
 
       <PostSection posts={post} viewMode={viewMode} onViewModeChange={setViewMode} />

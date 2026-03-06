@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getMyProfile } from '@/entities/profile';
+import { getMyProfile, updateProfile } from '@/entities/profile';
 import { TopUploadNav } from '@/shared';
 import { UploadImage } from '@/shared/icons';
 
@@ -12,6 +12,7 @@ export function ProfileModification() {
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -29,10 +30,19 @@ export function ProfileModification() {
     fetchProfile();
   }, []);
 
-  const handleSave = () => {
-    if (name.trim() === '') return;
-    // TODO : 실제 저장 로직 (API 연동 후 구현)
-    navigate(-1);
+  const handleSave = async () => {
+    console.log('bio:', bio); // bio 값 확인
+    if (name.trim() === '' || isLoading) return;
+
+    setIsLoading(true);
+    try {
+      await updateProfile({ username: name, accountname, intro: bio, image });
+      navigate('/profile', { state: { refresh: Date.now() } });
+    } catch (error) {
+      console.error('프로필 저장 실패:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

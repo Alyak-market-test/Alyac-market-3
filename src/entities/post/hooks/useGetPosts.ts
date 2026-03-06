@@ -1,10 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getPosts } from '../api/getPosts';
 
+const LIMIT = 10;
+
 export function useGetPosts() {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: ['posts'],
-    queryFn: getPosts,
+    queryFn: ({ pageParam = 0 }) => getPosts({ skip: pageParam, limit: LIMIT }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.length < LIMIT) return undefined;
+      return allPages.length * LIMIT;
+    },
   });
 }

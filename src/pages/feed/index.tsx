@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +11,12 @@ import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { BottomNav } from '@/widgets/bottom-nav';
 
 export function FeedPage() {
-  const { data: posts } = useGetPosts();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetPosts();
   const navigate = useNavigate();
   const [heartedIds, setHeartedIds] = useState<Set<string>>(new Set());
+  const observerRef = useRef<HTMLDivElement>(null);
+
+  const posts = data?.pages.flatMap((page) => page) ?? [];
 
   const toggleHeart = (id: string) => {
     setHeartedIds((prev) => {
@@ -25,7 +29,21 @@ export function FeedPage() {
       return next;
     });
   };
-  // 임시로 다크모드 아이콘 32~34줄
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (observerRef.current) observer.observe(observerRef.current);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
   return (
     <div className="flex min-h-screen flex-col">
       <TopMainNav onSearch={() => navigate(ROUTES.SEARCH)} />
@@ -33,19 +51,26 @@ export function FeedPage() {
         <ThemeToggle />
       </div>
       <main className="flex-1 overflow-y-auto pb-16">
-        {posts && posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              moreIcon={<MoreVerticalIcon />}
-              heartIcon={<HeartIcon filled={heartedIds.has(post.id)} />}
-              commentIcon={<CommentIcon />}
-              onMoreClick={() => {}}
-              onHeartClick={() => toggleHeart(post.id)}
-              onCommentClick={() => {}}
-            />
-          ))
+        {posts.length > 0 ? (
+          <>
+            {posts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                moreIcon={<MoreVerticalIcon />}
+                heartIcon={<HeartIcon filled={heartedIds.has(post.id)} />}
+                commentIcon={<CommentIcon />}
+                onMoreClick={() => {}}
+                onHeartClick={() => toggleHeart(post.id)}
+                onCommentClick={() => {}}
+              />
+            ))}
+            <div ref={observerRef} className="py-4 text-center">
+              {isFetchingNextPage && (
+                <span className="text-muted-foreground text-sm">불러오는 중...</span>
+              )}
+            </div>
+          </>
         ) : (
           <div className="flex flex-col items-center justify-center gap-4 pt-32">
             <LogoGrayIcon width={65} height={103} />

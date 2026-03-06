@@ -24,6 +24,8 @@ export function ProductAdd() {
   const [imageUrls, setImageUrls] = useState<string[]>(
     editProduct?.itemImage ? [editProduct.itemImage] : [],
   );
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+
   const imageInputRef = useRef<HTMLInputElement>(null) as React.RefObject<HTMLInputElement>;
 
   const { mutate: addProduct, isPending: isAddPending } = useAddProduct();
@@ -75,6 +77,14 @@ export function ProductAdd() {
             className="bg-muted-foreground mt-2 flex h-58 w-full cursor-pointer items-center justify-center rounded-lg transition-colors"
             onClick={() => imageInputRef.current?.click()}
           >
+            {/* 업로드 이미지 미리보기*/}
+            {previewUrls[0] && (
+              <img
+                src={previewUrls[0]}
+                alt="미리보기"
+                className="h-full w-full rounded-lg object-cover"
+              />
+            )}
             {/* 수정시 기존 이미지 미리보기 */}
             {isEditMode && imageUrls[0] && (
               <img
@@ -91,6 +101,7 @@ export function ProductAdd() {
           </div>
           <ImageUpload
             onUploadComplete={(urls) => setImageUrls(urls)}
+            onPreviewChange={(urls) => setPreviewUrls(urls)}
             maxFiles={3}
             inputRef={imageInputRef}
           />

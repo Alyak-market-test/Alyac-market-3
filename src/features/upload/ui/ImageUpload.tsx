@@ -5,6 +5,7 @@ import { useUploadFiles } from '@/entities/upload';
 
 interface ImageUploadProps {
   onUploadComplete: (urls: string[]) => void;
+  onPreviewChange?: (urls: string[]) => void;
   maxFiles?: number;
   currentCount?: number;
   inputRef?: React.RefObject<HTMLInputElement>;
@@ -12,6 +13,7 @@ interface ImageUploadProps {
 
 export function ImageUpload({
   onUploadComplete,
+  onPreviewChange,
   maxFiles = 3,
   currentCount = 0,
   inputRef: externalRef,
@@ -37,6 +39,7 @@ export function ImageUpload({
 
     const previewUrls = files.map((file) => URL.createObjectURL(file));
     setPreviews(previewUrls);
+    onPreviewChange?.(previewUrls);
 
     uploadMutation.mutate(files, {
       onSuccess: (data) => {
@@ -46,6 +49,7 @@ export function ImageUpload({
       onError: (error) => {
         alert('업로드 실패: ' + error.message);
         setPreviews([]);
+        onPreviewChange?.([]);
       },
     });
   };
@@ -62,13 +66,13 @@ export function ImageUpload({
         className="hidden"
       />
 
-      {uploadMutation.isPending && <div>업로드 중...</div>}
+      {/* {uploadMutation.isPending && <div>업로드 중...</div>}
 
       <div className="preview-container">
         {previews.map((url, index) => (
           <img key={index} src={url} alt={`Preview ${index}`} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

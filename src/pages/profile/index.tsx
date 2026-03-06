@@ -16,15 +16,16 @@ import {
   useProfile,
 } from '@/features/profile';
 import { ThemeToggle, TopBasicNav } from '@/shared';
+import { MoreVerticalIcon } from '@/shared/icons';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover';
 
 export function ProfilePage() {
   const { accountname } = useParams();
   const { user, isMyProfile } = useProfile(accountname);
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const post: [] = []; // TODO: 게시글 데이터 API 연동
+  const post: [] = [];
 
   // ✅ useFollow를 ProfilePage로 끌어올림 (팔로우 상태 통합 관리)
   const { isFollowing, followerCount, loading, toggleFollow } = useFollow(user.accountname, {
@@ -49,11 +50,32 @@ export function ProfilePage() {
 
   return (
     <div className="bg-background mx-auto flex min-h-screen flex-col">
-      <TopBasicNav onBack={() => navigate(-1)} onMore={() => setShowLogoutModal(true)} />
+      <Popover>
+        <TopBasicNav
+          onBack={() => navigate(-1)}
+          moreSlot={
+            <PopoverTrigger asChild>
+              <button>
+                <MoreVerticalIcon />
+              </button>
+            </PopoverTrigger>
+          }
+        />
+        <PopoverContent align="end" className="w-52 p-0">
+          <button className="text-foreground w-full px-4 py-3 text-left text-sm">
+            설정 및 개인정보
+          </button>
+          <div className="flex items-center justify-between px-4 py-2">
+            <span className="text-foreground text-sm">테마</span>
+            <ThemeToggle />
+          </div>
+          <button onClick={logout} className="text-foreground w-full px-4 py-3 text-left text-sm">
+            로그아웃
+          </button>
+        </PopoverContent>
+      </Popover>
 
-      {/* 공통 - 프로필 정보 */}
       <section className="flex flex-col items-center px-4 py-6">
-        {/* 팔로우 정보 */}
         <div className="flex items-center">
           <ProfileStats
             accountname={user.accountname}
@@ -63,7 +85,6 @@ export function ProfilePage() {
             username={user.username}
           />
         </div>
-        {/* 계정 프로필 */}
         <ProfileInfo
           image={user.image}
           username={user.username}
@@ -72,7 +93,6 @@ export function ProfilePage() {
         />
       </section>
 
-      {/* buttons - my or your */}
       {isMyProfile ? (
         <>
           <MyButtons />
@@ -87,28 +107,7 @@ export function ProfilePage() {
         <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
       )}
 
-      {/* post - list or album */}
       <PostSection posts={post} viewMode={viewMode} onViewModeChange={setViewMode} />
-
-      {showLogoutModal && (
-        <div className="fixed inset-0 z-50" onClick={() => setShowLogoutModal(false)}>
-          <div
-            className="bg-background absolute top-14 right-4 w-44 rounded-xl shadow-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="text-foreground w-full px-4 py-3 text-left text-sm">
-              설정 및 개인정보
-            </button>
-            <div className="flex items-center justify-between px-4 py-2">
-              <span className="text-foreground text-sm">테마</span>
-              <ThemeToggle />
-            </div>
-            <button onClick={logout} className="text-foreground w-full px-4 py-3 text-left text-sm">
-              로그아웃
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

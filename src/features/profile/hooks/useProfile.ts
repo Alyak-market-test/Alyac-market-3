@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-
+import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
 
 import { getTokenUserInfo } from '@/entities/auth';
@@ -11,22 +10,24 @@ export function useProfile(accountname?: string) {
   const isMyProfile = !accountname || accountname === myAccountname;
   const location = useLocation();
 
-  const [user, setUser] = useState<ProfileView>({
-    username: '',
-    accountname: '',
-    followers: 0,
-    followings: 0,
-    image: '',
-    intro: '',
-    isFollowing: false,
-  });
-
-  useEffect(() => {
-    const fetchProfile = async () => {
+  const {
+    data: user = {
+      username: '',
+      accountname: '',
+      followers: 0,
+      followings: 0,
+      image: '',
+      intro: '',
+      isFollowing: false,
+    } as ProfileView,
+  } = useQuery({
+    queryKey: isMyProfile
+      ? ['profile', 'my', location.state?.refresh]
+      : ['profile', accountname, location.state?.refresh],
+    queryFn: async () => {
       if (isMyProfile) {
         const data = await getMyProfile();
-        console.log(data.user);
-        setUser({
+        return {
           username: data.user.username,
           accountname: data.user.accountname,
           followers: data.user.follower.length,
@@ -34,10 +35,10 @@ export function useProfile(accountname?: string) {
           image: data.user.image,
           intro: data.user.intro,
           isFollowing: false,
-        });
+        } as ProfileView;
       } else {
         const data = await getYourProfile(accountname!);
-        setUser({
+        return {
           username: data.profile.username,
           accountname: data.profile.accountname,
           followers: data.profile.follower.length,
@@ -45,12 +46,10 @@ export function useProfile(accountname?: string) {
           image: data.profile.image,
           intro: data.profile.intro,
           isFollowing: data.profile.isfollow,
-        });
+        } as ProfileView;
       }
-    };
-
-    fetchProfile();
-  }, [accountname, isMyProfile, location.state?.refresh]);
+    },
+  });
 
   return { user, isMyProfile };
 }

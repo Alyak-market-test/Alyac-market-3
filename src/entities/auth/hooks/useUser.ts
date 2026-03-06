@@ -1,9 +1,13 @@
-import { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import { UserContext } from '../model/UserContext';
+import { getMyProfile } from '@/entities/profile';
+
+import { getToken } from '../lib/Token';
 
 export function useUser() {
-  const context = useContext(UserContext);
-  if (!context) throw new Error('useUser must be used within UserProvider');
-  return context;
+  return useQuery({
+    queryKey: ['me'],
+    queryFn: () => getMyProfile().then((data) => data.user),
+    enabled: !!getToken(),
+  });
 }

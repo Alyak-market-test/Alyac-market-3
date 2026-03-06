@@ -1,42 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+import { useMutation } from '@tanstack/react-query';
 
 import { followUser, unfollowUser } from '@/entities/follow';
 import type { FollowState } from '@/entities/follow';
 
 export const useFollow = (accountname: string, initialState: FollowState) => {
+  const [prevAccountname, setPrevAccountname] = useState('');
   const [isFollowing, setIsFollowing] = useState(initialState.isFollowing);
   const [followerCount, setFollowerCount] = useState(initialState.followerCount);
-  const [loading, setLoading] = useState(false);
-  const [initialized, setInitialized] = useState(false);
 
-  useEffect(() => {
-    if (!initialized && (initialState.followerCount !== 0 || initialState.isFollowing)) {
-      setIsFollowing(initialState.isFollowing);
-      setFollowerCount(initialState.followerCount);
-      setInitialized(true);
-    }
-  }, [initialized, initialState.isFollowing, initialState.followerCount]);
+  // accountname이 빈 문자열 → 실제 값으로 바뀌는 시점에 한 번만 동기화
+  // React 공식 권장 패턴: 렌더 중 이전 props와 비교해서 state 조정
+  if (accountname && prevAccountname !== accountname) {
+    setPrevAccountname(accountname);
+    setIsFollowing(initialState.isFollowing);
+    setFollowerCount(initialState.followerCount);
+  }
 
-  const toggleFollow = async () => {
-    if (loading) return;
-    console.log('toggleFollow called = ');
+  const { mutate, isPending } = useMutation({
+    mutationFn: (currentlyFollowing: boolean) =>
+      currentlyFollowing ? unfollowUser(accountname) : followUser(accountname),
 
-    const prev = { isFollowing, followerCount };
+    onMutate: (currentlyFollowing) => {
+      const prev = { isFollowing, followerCount };
+      setIsFollowing(!currentlyFollowing);
+      setFollowerCount((c) => (currentlyFollowing ? c - 1 : c + 1));
+      return { prev };
+    },
 
-    setIsFollowing(!isFollowing);
-    setFollowerCount((prev) => (isFollowing ? prev - 1 : prev + 1));
-    setLoading(true);
+    onError: (_error, _variables, context) => {
+      if (context?.prev) {
+        setIsFollowing(context.prev.isFollowing);
+        setFollowerCount(context.prev.followerCount);
+      }
+    },
+  });
 
-    try {
-      await (isFollowing ? unfollowUser(accountname) : followUser(accountname));
-    } catch (error) {
-      console.error('Follow/Unfollow 에러:', error);
-      setIsFollowing(prev.isFollowing);
-      setFollowerCount(prev.followerCount);
-    } finally {
-      setLoading(false);
-    }
+  const toggleFollow = () => {
+    if (isPending) return;
+    mutate(isFollowing);
   };
 
-  return { isFollowing, followerCount, loading, toggleFollow };
+  return { isFollowing, followerCount, loading: isPending, toggleFollow };
 };

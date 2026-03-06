@@ -1,32 +1,27 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
 
-import { useTheme } from '@/shared/lib/theme';
-import { Button } from '@/shared/ui/Button';
+import { ToggleGroup, ToggleGroupItem } from '@/shared/ui/toggle-group';
+
+import { useTheme } from './useTheme';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  const cycleTheme = () => {
-    const themes: Array<'light' | 'dark' | 'system'> = ['light', 'dark', 'system'];
-    const currentIndex = themes.indexOf(theme);
-    const nextTheme = themes[(currentIndex + 1) % themes.length];
-    setTheme(nextTheme);
-  };
-
-  const getIcon = () => {
-    switch (theme) {
-      case 'light':
-        return <Sun className="h-5 w-5" />;
-      case 'dark':
-        return <Moon className="h-5 w-5" />;
-      case 'system':
-        return <Monitor className="h-5 w-5" />;
-    }
-  };
-
   return (
-    <Button variant="ghost" size="icon" onClick={cycleTheme}>
-      {getIcon()}
-    </Button>
+    <ToggleGroup
+      type="single"
+      value={theme}
+      onValueChange={(v) => v && setTheme(v as 'light' | 'dark' | 'system')}
+    >
+      <ToggleGroupItem value="light" aria-label="라이트 모드">
+        <Sun className="h-4 w-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="dark" aria-label="다크 모드">
+        <Moon className="h-4 w-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="system" aria-label="시스템">
+        <Monitor className="h-4 w-4" />
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 }

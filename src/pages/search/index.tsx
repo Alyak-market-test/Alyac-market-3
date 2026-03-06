@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { UserCard, useSearchHistory, useSearchUsers } from '@/features/search';
+import { useSearchUsers } from '@/entities/auth';
+import { UserCard, useSearchHistory } from '@/features/search';
 import { TopSearchNav } from '@/shared/ui/nav/TopSearchNav';
 import { SearchHistorySection } from '@/widgets/search-history';
 

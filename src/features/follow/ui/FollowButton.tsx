@@ -1,21 +1,18 @@
-import type { FollowState } from '@/entities/follow';
-import { useFollow } from '@/features/follow/hooks/useFollow';
 import { Button } from '@/shared/ui/Button';
 
 interface Props {
-  accountname: string;
-  initialState: FollowState;
+  isFollowing: boolean;
+  loading: boolean;
+  onToggle: () => void;
 }
 
-const FollowButton = ({ accountname, initialState }: Props) => {
-  const { isFollowing, loading, toggleFollow } = useFollow(accountname, initialState);
-
+const FollowButton = ({ isFollowing, loading, onToggle }: Props) => {
   return (
     <Button
       type="button"
       variant={isFollowing ? 'activ' : 'primary'}
       size="M"
-      onClick={toggleFollow}
+      onClick={onToggle}
       disabled={loading}
     >
       {isFollowing ? '언팔로우' : '팔로우'}

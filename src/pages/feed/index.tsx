@@ -43,7 +43,7 @@ export function FeedPage() {
               commentIcon={<CommentIcon />}
               onMoreClick={() => {}}
               onHeartClick={() => toggleHeart(post.id)}
-              onCommentClick={() => {}}
+              onCommentClick={() => navigate(`/post/${post.id}`)}
             />
           ))
         ) : (

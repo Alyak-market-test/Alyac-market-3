@@ -45,14 +45,15 @@ export function usePostAdd() {
         imageString = filenames.join(',');
       }
 
-      await api.post('/post', {
+      const response = await api.post('/post', {
         post: {
           content,
           image: imageString,
         },
       });
 
-      navigate(-1);
+      const postId = response.data.post.id;
+      navigate(`/post/${postId}`);
     } catch (error) {
       console.error(error);
       setError('게시물 작성에 실패했습니다.');

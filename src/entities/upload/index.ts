@@ -1,2 +1,3 @@
-export { uploadFiles } from './api/UploadFiles';
-export { useUploadFiles } from './hooks/useUploadFiles';
+export { uploadFiles, uploadImage } from './api/UploadFiles';
+export { useUploadImage } from './hooks/useUploadImage';
+export type { UploadResponse } from './api/UploadFiles';

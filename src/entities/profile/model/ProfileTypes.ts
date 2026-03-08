@@ -4,7 +4,7 @@ export interface Profile {
   accountname: string;
   intro: string;
   image: string;
-  isFollowing: boolean;
+  isfollow: boolean;
   follower: { _id: string }[];
   following: { _id: string }[];
 }

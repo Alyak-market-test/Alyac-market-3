@@ -1,4 +1,4 @@
-export { useProfile } from './hooks/useProfile';
+export { useProfile } from './model/useProfile';
 export * from './ui/MyButtons';
 export * from './ui/PostSection';
 export * from './ui/ProfileInfo';

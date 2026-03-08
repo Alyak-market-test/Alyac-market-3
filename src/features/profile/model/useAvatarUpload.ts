@@ -10,15 +10,18 @@ interface UseAvatarUploadReturn {
   isUploading: boolean;
   openFilePicker: () => void;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  clearImage: () => void;
 }
 
 interface UseAvatarUploadOptions {
   onUpload: (imageUrl: string) => void;
+  onClear: () => void;
   onError?: (message: string) => void;
 }
 
 export function useAvatarUpload({
   onUpload,
+  onClear,
   onError,
 }: UseAvatarUploadOptions): UseAvatarUploadReturn {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -26,6 +29,13 @@ export function useAvatarUpload({
 
   const openFilePicker = () => {
     fileInputRef.current?.click();
+  };
+
+  const clearImage = () => {
+    onClear();
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,11 +59,10 @@ export function useAvatarUpload({
       onError?.('이미지 업로드에 실패했어요. 다시 시도해주세요.');
     }
 
-    // 같은 파일 재선택 가능하도록 초기화
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
   };
 
-  return { fileInputRef, isUploading, openFilePicker, handleFileChange };
+  return { fileInputRef, isUploading, openFilePicker, handleFileChange, clearImage };
 }

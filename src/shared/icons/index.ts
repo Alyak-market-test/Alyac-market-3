@@ -15,4 +15,4 @@ export { PostAlbumIcon } from './PostAlbumIcon';
 export { PostListIcon } from './PostListIcon';
 export { ShareIcon } from './ShareIcon';
 export { UploadImage } from './UploadImage';
-export { CameraIcon } from './CameraIcon';
+export { ImgIcon } from './ImgIcon';

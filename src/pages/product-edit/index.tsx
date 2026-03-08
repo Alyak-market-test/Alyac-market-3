@@ -3,7 +3,8 @@ import { useRef, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useEditProduct, useGetProduct } from '@/features/product-add';
+import { useGetProduct } from '@/entities/product';
+import { useEditProduct } from '@/features/product-add';
 import { ImageUpload } from '@/features/upload';
 import { TopUploadNav } from '@/shared';
 import { ImgButtonIcon } from '@/shared/icons';

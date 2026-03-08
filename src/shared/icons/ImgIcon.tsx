@@ -1,8 +1,8 @@
-interface CameraIconProps {
+interface ImgIconProps {
   size?: number;
 }
 
-export function CameraIcon({ size = 50 }: CameraIconProps) {
+export function ImgIcon({ size = 50 }: ImgIconProps) {
   return (
     <svg
       width={size}

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getProductDetail } from '@/entities/product';
+import { getProductDetail } from '../api/ProductApi';
 
 export function useGetProduct(productId: string) {
   return useQuery({

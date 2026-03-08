@@ -1,16 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useAvatarUpload, useProfileForm } from '@/features/profile';
-import { TopUploadNav } from '@/shared';
-import { CameraIcon, UploadImage } from '@/shared/icons';
+import { Button, TopUploadNav } from '@/shared';
+import { ImgIcon, UploadImage } from '@/shared/icons';
 
 export function ProfileModification() {
   const navigate = useNavigate();
   const { form, isLoading, isSaving, error, setImage, setName, setBio, save } = useProfileForm();
-  const { fileInputRef, isUploading, openFilePicker, handleFileChange } = useAvatarUpload({
-    onUpload: setImage, // 업로드 완료 → URL을 form.image에 반영 → 즉시 미리보기
-    onError: (message) => alert(message),
-  });
+  const { fileInputRef, isUploading, openFilePicker, handleFileChange, clearImage } =
+    useAvatarUpload({
+      onUpload: setImage,
+      onClear: () => setImage(null),
+      onError: (message) => alert(message),
+    });
 
   const handleSave = async () => {
     if (form.name.trim() === '' || isSaving || isUploading) return;
@@ -25,6 +27,7 @@ export function ProfileModification() {
       </div>
     );
   }
+
   if (error) {
     return (
       <div className="bg-background flex min-h-screen items-center justify-center">
@@ -48,7 +51,7 @@ export function ProfileModification() {
             onChange={handleFileChange}
           />
 
-          {/* 아바타 전체 클릭 → 파일 선택 */}
+          {/* 아바타 전체 클릭 */}
           <button
             type="button"
             onClick={openFilePicker}
@@ -56,11 +59,10 @@ export function ProfileModification() {
             aria-label="프로필 이미지 변경"
             className="cursor-pointer disabled:opacity-60"
           >
-            {/* 업로드된 URL이 있으면 미리보기, 없으면 기본 아바타 SVG */}
             <UploadImage src={form.image} alt={form.name} size="xxl" iconSize="lg" />
           </button>
 
-          {/* 카메라 아이콘 버튼 (클릭은 위 button이 처리) */}
+          {/* 이미지 파일 선택 아이콘 */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute right-0 bottom-0 flex h-11 w-11 items-center justify-center rounded-full"
@@ -68,9 +70,21 @@ export function ProfileModification() {
             {isUploading ? (
               <span className="h-11 w-11 animate-spin rounded-full border-2 border-white border-t-transparent bg-green-500" />
             ) : (
-              <CameraIcon size={44} />
+              <ImgIcon size={44} />
             )}
           </div>
+
+          {/* 기존 이미지로 변경 X 버튼 - 이미지가 있을 때만 표시 */}
+          {form.image && !isUploading && (
+            <Button
+              variant={'avatarNone'}
+              size="none"
+              onClick={clearImage}
+              aria-label="이미지 삭제"
+            >
+              ✕
+            </Button>
+          )}
         </div>
       </div>
 

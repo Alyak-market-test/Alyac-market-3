@@ -12,7 +12,7 @@ export const updateProfile = async (profileData: {
   username: string;
   accountname: string;
   intro: string;
-  image: string;
+  image: string | null;
 }) => {
   const response = await api.put('/user', { user: profileData });
   return response.data;

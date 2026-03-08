@@ -6,7 +6,7 @@ import { getMyProfile, updateProfile } from '@/entities/profile';
 
 interface ProfileForm {
   accountname: string;
-  image: string;
+  image: string | null;
   name: string;
   bio: string;
 }
@@ -16,7 +16,7 @@ interface UseProfileFormReturn {
   isLoading: boolean;
   isSaving: boolean;
   error: string | null;
-  setImage: (image: string) => void;
+  setImage: (image: string | null) => void;
   setName: (name: string) => void;
   setBio: (bio: string) => void;
   save: () => Promise<void>;
@@ -26,7 +26,7 @@ export function useProfileForm(): UseProfileFormReturn {
   const queryClient = useQueryClient();
   const [form, setForm] = useState<ProfileForm>({
     accountname: '',
-    image: '',
+    image: null,
     name: '',
     bio: '',
   });
@@ -40,7 +40,7 @@ export function useProfileForm(): UseProfileFormReturn {
       const data = await getMyProfile();
       setForm({
         accountname: data.user.accountname ?? '',
-        image: data.user.image ?? '',
+        image: data.user.image ?? null,
         name: data.user.username ?? '',
         bio: data.user.intro ?? '',
       });
@@ -55,7 +55,7 @@ export function useProfileForm(): UseProfileFormReturn {
     fetchProfile();
   }, [fetchProfile]);
 
-  const setImage = useCallback((image: string) => {
+  const setImage = useCallback((image: string | null) => {
     setForm((prev) => ({ ...prev, image }));
   }, []);
 

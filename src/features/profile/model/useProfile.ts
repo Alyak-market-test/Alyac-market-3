@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getYourProfile, mapMyProfile, mapYourProfile, useMyProfile } from '@/entities/profile';
-import type { ProfileView } from '@/entities/profile';
+import { getYourProfile, mapMyProfile, mapYourProfile, useMyProfile } from '@/entities/user';
+import type { ProfileView } from '@/entities/user';
 
 const EMPTY_USER: ProfileView = {
   accountname: '',

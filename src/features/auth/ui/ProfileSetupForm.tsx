@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { useSignUp } from '@/entities/auth';
+import { useSignUp } from '@/entities/user';
 import { uploadImage } from '@/shared/api/AvatarApi';
 import { BigUploadIcon, ProfileImageIcon, UploadImage } from '@/shared/icons';
 import { Button } from '@/shared/ui/Button';

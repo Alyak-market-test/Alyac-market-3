@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { getMyProfile, updateProfile } from '@/entities/profile';
+import { getMyProfile, updateProfile } from '@/entities/user';
 
 interface ProfileForm {
   accountname: string;

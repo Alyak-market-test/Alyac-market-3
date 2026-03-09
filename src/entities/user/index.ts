@@ -1,7 +1,5 @@
-export { getMyProfile, getYourProfile, updateProfile } from './api/ProfileApi';
-export { mapMyProfile, mapYourProfile } from './model/Mappers';
-export { useMyProfile } from './model/useMyProfile';
-export type { Profile, ProfileView } from './model/ProfileTypes';
+export * from './api/ProfileApi';
+export type * from './model/ProfileTypes';
 export * from './api/SearchUsers';
 export * from './api/SignIn';
 export * from './api/SignUp';
@@ -9,4 +7,7 @@ export * from './hooks/useSearchUsersQuery';
 export * from './hooks/useSignIn';
 export * from './hooks/useSignUp';
 export * from './hooks/useUser';
+export * from './hooks/useYourProfile';
+export * from './hooks/useMyProfile';
+export * from './hooks/useUpdateProfile';
 export * from './lib/Token';

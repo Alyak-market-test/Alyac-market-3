@@ -1,8 +1,7 @@
 // 프로필 통계 (아바타 + 팔로워, 팔로잉 수) 컴포넌트
 import { useNavigate } from 'react-router-dom';
 
-import { UploadImage } from '@/shared/icons';
-import { imageUrl as getImageUrl } from '@/shared/lib/imageUrl';
+import { AvatarImage } from '@/shared/icons';
 
 interface ProfileStatsProps {
   accountname: string;
@@ -31,7 +30,7 @@ export function ProfileStats({
         <span className="text-muted-foreground cursor-pointer text-sm">Followers</span>
       </div>
 
-      <UploadImage src={getImageUrl(image)} alt={username} size="xl" iconSize="md" />
+      <AvatarImage src={image} alt={username} size="xl" iconSize="md" />
 
       <div
         className="flex flex-col items-center"

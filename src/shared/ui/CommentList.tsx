@@ -1,5 +1,5 @@
 import type { Comment } from '@/entities/post';
-import { UploadImage } from '@/shared/icons';
+import { AvatarImage } from '@/shared/icons';
 
 interface CommentListProps {
   comments: Comment[];
@@ -13,7 +13,7 @@ export function CommentList({ comments }: CommentListProps) {
       ) : (
         comments.map((comment) => (
           <div key={comment.id} className="flex gap-3">
-            <UploadImage src={comment.author.image} size="sm" />
+            <AvatarImage src={comment.author.image} size="sm" />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-foreground text-sm font-semibold">

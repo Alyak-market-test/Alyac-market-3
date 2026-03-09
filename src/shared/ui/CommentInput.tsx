@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { type UseFormRegisterReturn } from 'react-hook-form';
 
 import { UploadImage } from '@/shared/icons';
+=======
+import { AvatarImage } from '@/shared/icons';
+>>>>>>> feature/profile
 
 interface CommentInputProps {
   profileImage: string;
@@ -12,7 +16,7 @@ interface CommentInputProps {
 export function CommentInput({ profileImage, value, onSubmit, inputProps }: CommentInputProps) {
   return (
     <div className="fixed right-0 bottom-0 left-0 flex items-center gap-3 border-t bg-white px-4 py-3">
-      <UploadImage src={profileImage} size="sm" />
+      <AvatarImage src={profileImage} size="sm" />
       <div className="flex flex-1 items-center gap-2 rounded-full bg-gray-100 px-4 py-2">
         <input
           {...inputProps}

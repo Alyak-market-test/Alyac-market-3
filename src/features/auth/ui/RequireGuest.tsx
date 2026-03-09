@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { getToken } from '@/entities/auth';
+import { getToken } from '@/entities/user';
 
 export function RequireGuest() {
   if (getToken()) {

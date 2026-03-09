@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getTokenUserInfo } from '@/entities/auth';
+import { getTokenUserInfo } from '@/entities/user';
 import { usePostAdd } from '@/features/post-add';
 import { UploadImage } from '@/shared/icons';
 

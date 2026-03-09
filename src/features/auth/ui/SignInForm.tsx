@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { useSignIn } from '@/entities/auth';
+import { useSignIn } from '@/entities/user';
 import { Button } from '@/shared/ui/Button';
 
 import { FormField } from './FormField';

@@ -2,9 +2,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
-import { getTokenUserInfo } from '@/entities/auth';
 import { followUser, getFollowers, getFollowings, unfollowUser } from '@/entities/follow';
 import type { FollowUser } from '@/entities/follow';
+import { getTokenUserInfo } from '@/entities/user';
 import { Button, TopBasicNav } from '@/shared';
 import { UploadImage } from '@/shared/icons';
 

@@ -31,11 +31,6 @@ export const useFollow = (accountname: string, initialState: FollowState) => {
   const [state, dispatch] = useReducer(followReducer, initialState);
   const queryClient = useQueryClient();
 
-  if (prevAccountname !== accountname) {
-    setPrevAccountname(accountname);
-    dispatch({ type: 'SYNC', payload: initialState });
-  }
-
   const { mutate, isPending } = useMutation({
     mutationFn: (currentlyFollowing: boolean) =>
       currentlyFollowing ? unfollowUser(accountname) : followUser(accountname),
@@ -57,6 +52,18 @@ export const useFollow = (accountname: string, initialState: FollowState) => {
       }
     },
   });
+
+  // accountname 변경 시 항상 SYNC
+  // mutation 중이 아닐 때 initialState가 바뀐 경우도 SYNC (invalidate 후 새 데이터 반영)
+  if (
+    prevAccountname !== accountname ||
+    (!isPending &&
+      (initialState.isFollowing !== state.isFollowing ||
+        initialState.followerCount !== state.followerCount))
+  ) {
+    setPrevAccountname(accountname);
+    dispatch({ type: 'SYNC', payload: initialState });
+  }
 
   const toggleFollow = () => {
     if (isPending) return;

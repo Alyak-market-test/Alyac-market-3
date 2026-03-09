@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { followUser, unfollowUser } from '@/entities/follow';
-import type { FollowUser } from '@/entities/follow';
+import { type FollowUser, followUser, unfollowUser } from '@/entities/profile';
 
 export function useToggleFollow(accountname: string, tab: 'followers' | 'followings') {
   const queryClient = useQueryClient();

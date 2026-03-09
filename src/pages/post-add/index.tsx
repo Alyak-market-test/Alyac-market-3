@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getTokenUserInfo } from '@/entities/user';
 import { usePostAdd } from '@/features/post-add';
-import { UploadImage } from '@/shared/icons';
+import { AvatarImage } from '@/shared/icons';
 
 export function PostAddPage() {
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ export function PostAddPage() {
       <div className="flex gap-3 overflow-y-auto px-4 pt-3 pb-6">
         {/* 프로필 이미지 */}
         <div className="shrink-0">
-          <UploadImage src={userInfo?.image} size="sm" />
+          <AvatarImage src={userInfo?.image} size="sm" />
         </div>
 
         {/* 오른쪽 영역 */}

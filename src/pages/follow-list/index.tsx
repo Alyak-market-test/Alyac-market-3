@@ -6,7 +6,7 @@ import { followUser, getFollowers, getFollowings, unfollowUser } from '@/entitie
 import type { FollowUser } from '@/entities/profile';
 import { getTokenUserInfo } from '@/entities/user';
 import { Button, TopBasicNav } from '@/shared';
-import { UploadImage } from '@/shared/icons';
+import { AvatarImage } from '@/shared/icons';
 
 export function FollowListPage() {
   const { accountname } = useParams();
@@ -88,7 +88,7 @@ export function FollowListPage() {
               className="flex cursor-pointer items-center gap-3"
               onClick={() => navigate(`/profile/${user.accountname}`)}
             >
-              <UploadImage src={user.image} alt={user.username} size="sm" iconSize="sm" />
+              <AvatarImage src={user.image} alt={user.username} size="sm" iconSize="sm" />
               <div className="flex flex-col">
                 <span className="text-sm font-semibold">{user.username}</span>
                 <span className="text-muted-foreground text-xs">@{user.accountname}</span>

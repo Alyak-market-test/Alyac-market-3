@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { uploadImage } from '@/entities/upload';
+import { uploadImage } from '@/entities/image';
 import { useSignUp } from '@/entities/user';
-import { BigUploadIcon, ProfileImageIcon, UploadImage } from '@/shared/icons';
+import { AvatarImage, BigUploadIcon, ProfileImageIcon } from '@/shared/icons';
 import { Button } from '@/shared/ui/Button';
 import { Textarea } from '@/shared/ui/Textarea';
 
@@ -82,7 +82,7 @@ export function ProfileSetupForm() {
       <div className="flex justify-center">
         <div className="relative">
           {imagePreview ? (
-            <UploadImage src={imagePreview} alt="프로필 미리보기" size="xl" />
+            <AvatarImage src={imagePreview} alt="프로필 미리보기" size="xl" />
           ) : (
             <BigUploadIcon />
           )}

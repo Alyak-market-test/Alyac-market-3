@@ -1,92 +1,90 @@
-import { useEffect, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
-import { getMyProfile, updateProfile } from '@/entities/profile';
-import { TopUploadNav } from '@/shared';
-import { UploadImage } from '@/shared/icons';
+import { useAvatarUpload, useProfileForm } from '@/features/profile';
+import { Button, TopUploadNav } from '@/shared';
+import { ImgIcon, UploadImage } from '@/shared/icons';
 
 export function ProfileModification() {
   const navigate = useNavigate();
-  const [accountname, setAccountname] = useState('');
-  const [image, setImage] = useState('');
-  const [name, setName] = useState('');
-  const [bio, setBio] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await getMyProfile();
-        console.log('API 응답 성공:', data);
-        setAccountname(data.user.accountname ?? '');
-        setImage(data.user.image ?? '');
-        setName(data.user.username ?? '');
-        setBio(data.user.intro ?? '');
-      } catch (error) {
-        console.error('에러 발생:', error);
-      }
-    };
-    fetchProfile();
-  }, []);
+  const { form, isLoading, isSaving, error, setImage, setName, setBio, save } = useProfileForm();
+  const { fileInputRef, isUploading, openFilePicker, handleFileChange, clearImage } =
+    useAvatarUpload({
+      onUpload: setImage,
+      onClear: () => setImage(null),
+      onError: (message) => alert(message),
+    });
 
   const handleSave = async () => {
-    console.log('bio:', bio); // bio 값 확인
-    if (name.trim() === '' || isLoading) return;
-
-    setIsLoading(true);
-    try {
-      await updateProfile({ username: name, accountname, intro: bio, image });
-      navigate('/profile', { state: { refresh: Date.now() } });
-    } catch (error) {
-      console.error('프로필 저장 실패:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    if (form.name.trim() === '' || isSaving || isUploading) return;
+    await save();
+    navigate('/profile', { state: { refresh: Date.now() } });
   };
+
+  if (isLoading) {
+    return (
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground text-sm">불러오는 중...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <p className="text-sm text-red-500">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background flex min-h-screen flex-col">
-      {/* 헤더 */}
       <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} />
 
       <div className="flex justify-center py-10">
         <div className="relative">
-          {/* 프로필 이미지 업로드 */}
-          <UploadImage src={image} alt={name} size="xxl" iconSize="lg" />
+          {/* 숨겨진 파일 input */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            className="hidden"
+            onChange={handleFileChange}
+          />
 
-          <button className="absolute right-0 bottom-0 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-green-500 text-white shadow transition">
-            <svg
-              width="50"
-              height="50"
-              viewBox="0 0 50 50"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="25" cy="25" r="25" fill="#11CC27" />
-              <path
-                d="M33.1667 14.5H16.8333C15.5447 14.5 14.5 15.5447 14.5 16.8333V33.1667C14.5 34.4553 15.5447 35.5 16.8333 35.5H33.1667C34.4553 35.5 35.5 34.4553 35.5 33.1667V16.8333C35.5 15.5447 34.4553 14.5 33.1667 14.5Z"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M20.9167 22.6667C21.8832 22.6667 22.6667 21.8832 22.6667 20.9167C22.6667 19.9502 21.8832 19.1667 20.9167 19.1667C19.9502 19.1667 19.1667 19.9502 19.1667 20.9167C19.1667 21.8832 19.9502 22.6667 20.9167 22.6667Z"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M35.4999 28.5L29.6666 22.6667L16.8333 35.5"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          {/* 아바타 전체 클릭 */}
+          <button
+            type="button"
+            onClick={openFilePicker}
+            disabled={isUploading}
+            aria-label="프로필 이미지 변경"
+            className="cursor-pointer disabled:opacity-60"
+          >
+            <UploadImage src={form.image} alt={form.name} size="xxl" iconSize="lg" />
           </button>
+
+          {/* 이미지 파일 선택 아이콘 */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0 bottom-0 flex h-11 w-11 items-center justify-center rounded-full"
+          >
+            {isUploading ? (
+              <span className="h-11 w-11 animate-spin rounded-full border-2 border-white border-t-transparent bg-green-500" />
+            ) : (
+              <ImgIcon size={44} />
+            )}
+          </div>
+
+          {/* 기존 이미지로 변경 X 버튼 - 이미지가 있을 때만 표시 */}
+          {form.image && !isUploading && (
+            <Button
+              variant={'avatarNone'}
+              size="none"
+              onClick={clearImage}
+              aria-label="이미지 삭제"
+            >
+              ✕
+            </Button>
+          )}
         </div>
       </div>
 
@@ -96,36 +94,36 @@ export function ProfileModification() {
           <label className="text-foreground text-sm">사용자 이름</label>
           <input
             type="text"
-            value={name}
+            value={form.name}
             onChange={(e) => setName(e.target.value)}
             placeholder="이름을 입력하세요."
             className={`text-md border-b py-2 transition-colors outline-none ${
-              name.trim() === '' ? 'border-red-400' : 'border-border'
+              form.name.trim() === '' ? 'border-red-400' : 'border-border'
             }`}
           />
-          {name.trim() === '' && (
+          {form.name.trim() === '' && (
             <p className="text-sm text-red-500">사용자 이름을 입력해주세요.</p>
           )}
         </div>
 
+        {/* 계정 ID */}
         <div className="flex flex-col gap-1">
-          {/* 계정 ID는 변경 불가 - disabled 처리 */}
           <label className="text-foreground text-sm">계정 ID</label>
           <input
             type="text"
-            value={accountname}
+            value={form.accountname}
             disabled
             className="text-md border-border text-muted-foreground cursor-not-allowed border-b py-2 outline-none"
           />
           <p className="text-muted-foreground text-sm">계정 ID는 변경할 수 없습니다.</p>
         </div>
 
+        {/* 자기 소개 */}
         <div className="flex flex-col gap-1">
-          {/* 자기 소개 */}
           <label className="text-foreground text-sm">소개</label>
           <input
             type="text"
-            value={bio}
+            value={form.bio}
             onChange={(e) => {
               if (e.target.value.length <= 60) setBio(e.target.value);
             }}

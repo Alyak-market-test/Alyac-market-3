@@ -5,4 +5,5 @@ export {
   deleteProduct,
   putProduct,
 } from './api/ProductApi';
+export { useGetProduct } from './model/useGetProduct';
 export type { Product, ProductPayload } from './model/ProductTypes';

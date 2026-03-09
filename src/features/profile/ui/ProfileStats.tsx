@@ -5,7 +5,7 @@ import { UploadImage } from '@/shared/icons';
 import { imageUrl as getImageUrl } from '@/shared/lib/imageUrl';
 
 interface ProfileStatsProps {
-  accountname: string; // ✅ 추가
+  accountname: string;
   followers: number;
   followings: number;
   image: string;

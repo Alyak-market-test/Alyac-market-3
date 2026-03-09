@@ -54,6 +54,8 @@ const buttonVariants = cva(
           'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-foreground transition hover:bg-gray-50',
         productDelete:
           'absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-600 text-sm text-white transition-colors hover:bg-gray-900',
+        avatarNone:
+          'absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--delete-button)] hover:bg-[var(--delete-button-hover)] disabled:opacity-80 text-md font-bold text-forefround hover:text-lg',
         deleteNO:
           'text-foreground flex-1 rounded-bl-xl py-3 text-sm transition-colors hover:bg-[var(--icon-hover)] disabled:opacity-50',
         deltetYES:

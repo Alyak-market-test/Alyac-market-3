@@ -1,21 +1,39 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { followUser, unfollowUser } from '@/entities/follow';
 import type { FollowState } from '@/entities/follow';
 
+type Action =
+  | { type: 'TOGGLE_OPTIMISTIC'; currentlyFollowing: boolean }
+  | { type: 'ROLLBACK'; prev: FollowState }
+  | { type: 'SYNC'; payload: FollowState };
+
+function followReducer(_state: FollowState, action: Action): FollowState {
+  switch (action.type) {
+    case 'TOGGLE_OPTIMISTIC':
+      return {
+        isFollowing: !action.currentlyFollowing,
+        followerCount: action.currentlyFollowing
+          ? _state.followerCount - 1
+          : _state.followerCount + 1,
+      };
+    case 'ROLLBACK':
+      return action.prev;
+    case 'SYNC':
+      return action.payload;
+  }
+}
+
 export const useFollow = (accountname: string, initialState: FollowState) => {
   const [prevAccountname, setPrevAccountname] = useState('');
-  const [isFollowing, setIsFollowing] = useState(initialState.isFollowing);
-  const [followerCount, setFollowerCount] = useState(initialState.followerCount);
+  const [state, dispatch] = useReducer(followReducer, initialState);
+  const queryClient = useQueryClient();
 
-  // accountname이 빈 문자열 → 실제 값으로 바뀌는 시점에 한 번만 동기화
-  // React 공식 권장 패턴: 렌더 중 이전 props와 비교해서 state 조정
-  if (accountname && prevAccountname !== accountname) {
+  if (prevAccountname !== accountname) {
     setPrevAccountname(accountname);
-    setIsFollowing(initialState.isFollowing);
-    setFollowerCount(initialState.followerCount);
+    dispatch({ type: 'SYNC', payload: initialState });
   }
 
   const { mutate, isPending } = useMutation({
@@ -23,24 +41,32 @@ export const useFollow = (accountname: string, initialState: FollowState) => {
       currentlyFollowing ? unfollowUser(accountname) : followUser(accountname),
 
     onMutate: (currentlyFollowing) => {
-      const prev = { isFollowing, followerCount };
-      setIsFollowing(!currentlyFollowing);
-      setFollowerCount((c) => (currentlyFollowing ? c - 1 : c + 1));
+      const prev = state;
+      dispatch({ type: 'TOGGLE_OPTIMISTIC', currentlyFollowing });
       return { prev };
+    },
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile', accountname] });
+      queryClient.invalidateQueries({ queryKey: ['myProfile'] });
     },
 
     onError: (_error, _variables, context) => {
       if (context?.prev) {
-        setIsFollowing(context.prev.isFollowing);
-        setFollowerCount(context.prev.followerCount);
+        dispatch({ type: 'ROLLBACK', prev: context.prev });
       }
     },
   });
 
   const toggleFollow = () => {
     if (isPending) return;
-    mutate(isFollowing);
+    mutate(state.isFollowing);
   };
 
-  return { isFollowing, followerCount, loading: isPending, toggleFollow };
+  return {
+    isFollowing: state.isFollowing,
+    followerCount: state.followerCount,
+    loading: isPending,
+    toggleFollow,
+  };
 };

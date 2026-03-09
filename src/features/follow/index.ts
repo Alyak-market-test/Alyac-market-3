@@ -1,2 +1,3 @@
-export { default as FollowButton } from '@/features/follow/ui/FollowButton';
-export { useFollow } from '@/features/follow/hooks/useFollow';
+export { default as FollowButton } from './ui/FollowButton';
+export { useFollow } from './hooks/useFollow';
+export { useToggleFollow } from './hooks/useToggleFollow';

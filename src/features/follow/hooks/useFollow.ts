@@ -2,8 +2,8 @@ import { useReducer, useState } from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { followUser, unfollowUser } from '@/entities/follow';
-import type { FollowState } from '@/entities/follow';
+import { followUser, unfollowUser } from '@/entities/profile';
+import type { FollowState } from '@/entities/profile';
 
 type Action =
   | { type: 'TOGGLE_OPTIMISTIC'; currentlyFollowing: boolean }

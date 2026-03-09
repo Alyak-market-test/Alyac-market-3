@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { useUploadImage } from '@/entities/upload';
+import { useUploadImage } from '@/entities/image';
 
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 const MAX_FILE_SIZE_MB = 5;

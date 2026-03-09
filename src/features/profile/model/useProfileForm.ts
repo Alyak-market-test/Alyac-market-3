@@ -76,7 +76,9 @@ export function useProfileForm(): UseProfileFormReturn {
         intro: form.bio,
         image: form.image,
       });
-      await queryClient.invalidateQueries({ queryKey: ['myProfile'] });
+      // 즉시 refetch 보장
+      await queryClient.refetchQueries({ queryKey: ['myProfile'] });
+      await queryClient.refetchQueries({ queryKey: ['profile', form.accountname] });
     } finally {
       setIsSaving(false);
     }

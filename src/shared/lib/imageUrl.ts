@@ -1,8 +1,10 @@
 export const imageUrl = (path: string | undefined): string => {
   if (!path) return '/default-image.png';
+  if (path.startsWith('http')) return path;
 
   const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
-  return `${baseUrl}/${path}`;
+  const normalizedPath = path.replace(/\\/g, '/');
+  return `${baseUrl}/${normalizedPath}`;
 };
 
 // 사용 예시

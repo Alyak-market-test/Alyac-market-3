@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
+import { uploadImage } from '@/entities/upload';
 import { useSignUp } from '@/entities/user';
-import { uploadImage } from '@/shared/api/AvatarApi';
 import { BigUploadIcon, ProfileImageIcon, UploadImage } from '@/shared/icons';
 import { Button } from '@/shared/ui/Button';
 import { Textarea } from '@/shared/ui/Textarea';
@@ -56,7 +56,6 @@ export function ProfileSetupForm() {
         return;
       }
     }
-
     signUpMutation.mutate(
       {
         email,
@@ -64,11 +63,7 @@ export function ProfileSetupForm() {
         username: data.username,
         accountname: data.accountname,
         intro: data.intro || '',
-        image: imageUrl
-          ? imageUrl.startsWith('uploadFiles/')
-            ? imageUrl
-            : `uploadFiles/${imageUrl}`
-          : '',
+        image: imageUrl,
       },
       {
         onSuccess: () => {

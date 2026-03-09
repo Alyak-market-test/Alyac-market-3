@@ -14,3 +14,13 @@ export interface Post {
   heartCount: number;
   hearted: boolean;
 }
+
+export interface Comment {
+  id: string;
+  content: string;
+  author: {
+    username: string;
+    image: string;
+  };
+  createdAt: string;
+}

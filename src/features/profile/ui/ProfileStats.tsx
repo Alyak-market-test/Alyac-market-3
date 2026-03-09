@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { UploadImage } from '@/shared/icons';
+import { imageUrl as getImageUrl } from '@/shared/lib/imageUrl';
 
 interface ProfileStatsProps {
   accountname: string; // ✅ 추가
@@ -30,7 +31,7 @@ export function ProfileStats({
         <span className="text-muted-foreground cursor-pointer text-sm">Followers</span>
       </div>
 
-      <UploadImage src={image} alt={username} size="xl" iconSize="md" />
+      <UploadImage src={getImageUrl(image)} alt={username} size="xl" iconSize="md" />
 
       <div
         className="flex flex-col items-center"

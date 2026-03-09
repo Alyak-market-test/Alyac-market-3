@@ -6,3 +6,4 @@ export * from './toggle';
 export * from './toggle-group';
 export * from './popover';
 export * from './DeleteConfirmModal';
+export * from './Textarea';

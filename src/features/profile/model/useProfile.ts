@@ -26,7 +26,6 @@ export function useProfile(accountname?: string): UseProfileReturn {
     queryKey: ['profile', accountname],
     queryFn: () => getYourProfile(accountname!),
     enabled: !!accountname, // accountname 있을 때만 호출
-    staleTime: 1000 * 60 * 5,
   });
 
   const isMyProfile = myData?.user.accountname === accountname || !accountname;

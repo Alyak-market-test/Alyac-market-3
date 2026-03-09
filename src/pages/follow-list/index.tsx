@@ -39,7 +39,6 @@ export function FollowListPage() {
     enabled: !!accountname,
   });
 
-  // ✅ follow/unfollow 토글로 교체
   const { mutate: toggleFollow } = useMutation({
     mutationFn: ({
       targetAccountname,
@@ -49,7 +48,6 @@ export function FollowListPage() {
       currentlyFollowing: boolean;
     }) => (currentlyFollowing ? unfollowUser(targetAccountname) : followUser(targetAccountname)),
 
-    // ✅ Optimistic update
     onMutate: ({ targetAccountname, currentlyFollowing }) => {
       queryClient.setQueryData<FollowUser[]>(
         ['followList', accountname, tab],
@@ -60,7 +58,13 @@ export function FollowListPage() {
       );
     },
 
-    // ✅ 실패 시 롤백
+    onSuccess: () => {
+      // 프로필 페이지 쿼리 무효화 -> 뒤로가기 시 최신 데이터 반영
+      queryClient.invalidateQueries({ queryKey: ['profile', accountname] });
+      queryClient.invalidateQueries({ queryKey: ['followList', accountname] });
+      queryClient.invalidateQueries({ queryKey: ['myProfile'] });
+    },
+
     onError: (_error, { targetAccountname, currentlyFollowing }) => {
       queryClient.setQueryData<FollowUser[]>(
         ['followList', accountname, tab],

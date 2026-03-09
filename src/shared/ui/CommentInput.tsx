@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 import { type UseFormRegisterReturn } from 'react-hook-form';
 
-import { UploadImage } from '@/shared/icons';
-=======
 import { AvatarImage } from '@/shared/icons';
->>>>>>> feature/profile
 
 interface CommentInputProps {
   profileImage: string;

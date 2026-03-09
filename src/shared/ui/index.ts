@@ -6,6 +6,7 @@ export * from './toggle';
 export * from './toggle-group';
 export * from './popover';
 export * from './DeleteConfirmModal';
+export * from './Textarea';
 export * from './CommentInput';
 export * from './PostMenuDropdown';
 export * from './PostActions';

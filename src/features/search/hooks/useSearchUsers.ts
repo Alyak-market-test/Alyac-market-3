@@ -1,16 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSearchUsersQuery } from '@/entities/user';
 
-import { searchUsers } from '@/entities/user/api/SearchUsers';
-import { useDebounce } from '@/shared/lib/hooks/useDebounce';
+import { useDebounce } from './useDebounce';
 
 export function useSearchUsers(keyword: string) {
   const debouncedKeyword = useDebounce(keyword, 500);
 
-  const { data: users = [], isLoading } = useQuery({
-    queryKey: ['users', debouncedKeyword],
-    queryFn: () => searchUsers(debouncedKeyword),
-    enabled: !!debouncedKeyword,
-  });
+  const { data, isLoading } = useSearchUsersQuery(debouncedKeyword);
 
-  return { users, isLoading };
+  return {
+    users: data ?? [],
+    isLoading,
+  };
 }

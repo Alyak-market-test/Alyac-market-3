@@ -2,8 +2,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
-import { followUser, getFollowers, getFollowings, unfollowUser } from '@/entities/follow';
-import type { FollowUser } from '@/entities/follow';
+import { followUser, getFollowers, getFollowings, unfollowUser } from '@/entities/profile';
+import type { FollowUser } from '@/entities/profile';
 import { getTokenUserInfo } from '@/entities/user';
 import { Button, TopBasicNav } from '@/shared';
 import { UploadImage } from '@/shared/icons';

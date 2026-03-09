@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 
-import { followUser, unfollowUser } from '@/entities/follow';
-import type { FollowState } from '@/entities/follow';
+import { followUser, unfollowUser } from '@/entities/profile';
+import type { FollowState } from '@/entities/profile';
 
 export const useFollow = (accountname: string, initialState: FollowState) => {
   const [prevAccountname, setPrevAccountname] = useState('');

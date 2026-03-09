@@ -18,3 +18,18 @@ export interface ProfileView {
   intro: string;
   isFollowing: boolean;
 }
+
+export interface MyProfileResponse {
+  user: Profile;
+}
+
+export interface YourProfileResponse {
+  profile: Profile;
+}
+
+export interface UpdateProfileRequest {
+  username: string;
+  accountname: string;
+  intro: string;
+  image: string | null;
+}

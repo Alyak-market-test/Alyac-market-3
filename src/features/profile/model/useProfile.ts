@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-
-import { getYourProfile, mapMyProfile, mapYourProfile, useMyProfile } from '@/entities/user';
+import { useMyProfile, useYourProfile } from '@/entities/user';
 import type { ProfileView } from '@/entities/user';
 
 const EMPTY_USER: ProfileView = {
@@ -20,21 +18,16 @@ interface UseProfileReturn {
 }
 
 export function useProfile(accountname?: string): UseProfileReturn {
-  const { data: myData, isLoading: isMyLoading } = useMyProfile();
+  const { data: myProfile, isLoading: isMyLoading } = useMyProfile();
+  const { data: yourProfile, isLoading: isYourLoading } = useYourProfile(accountname ?? '');
 
-  const { data: yourData, isLoading: isYourLoading } = useQuery({
-    queryKey: ['profile', accountname],
-    queryFn: () => getYourProfile(accountname!),
-    enabled: !!accountname, // accountname 있을 때만 호출
-  });
+  const isMyProfile = myProfile?.accountname === accountname || !accountname;
 
-  const isMyProfile = myData?.user.accountname === accountname || !accountname;
-
-  const user = (() => {
-    if (!myData) return EMPTY_USER;
-    if (!accountname) return mapMyProfile(myData);
-    if (!yourData) return EMPTY_USER;
-    return mapYourProfile(yourData);
+  const user: ProfileView = (() => {
+    if (!myProfile) return EMPTY_USER;
+    if (!accountname) return myProfile;
+    if (!yourProfile) return EMPTY_USER;
+    return yourProfile;
   })();
 
   return {

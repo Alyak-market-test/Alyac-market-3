@@ -1,4 +1,3 @@
-// features/upload/ui/ImageUpload.tsx
 import { useEffect, useRef, useState } from 'react';
 
 import { useUploadFiles } from '@/entities/image';

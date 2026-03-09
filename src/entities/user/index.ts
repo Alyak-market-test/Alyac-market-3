@@ -9,4 +9,5 @@ export * from './hooks/useSignUp';
 export * from './hooks/useUser';
 export * from './hooks/useYourProfile';
 export * from './hooks/useMyProfile';
+export * from './hooks/useUpdateProfile';
 export * from './lib/Token';

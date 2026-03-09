@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { UploadImage } from '@/shared/icons';
 
 interface ProfileStatsProps {
-  accountname: string; // ✅ 추가
+  accountname: string;
   followers: number;
   followings: number;
   image: string;

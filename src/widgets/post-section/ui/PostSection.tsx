@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { type Post } from '@/entities/post';
 import { PostCard } from '@/features/post';
 import { PostAlbumIcon, PostListIcon } from '@/shared/icons';
-import { NoneImage } from '@/shared/icons/NoneImage';
+import { NoneImage } from '@/shared/icons';
+import { imageUrl } from '@/shared/lib';
 
 interface PostSectionProps {
   posts: Post[];
@@ -49,8 +50,12 @@ export function PostSection({
                 onClick={() => navigate(`/post/${post.id}`)}
                 className="flex aspect-square cursor-pointer items-center justify-center overflow-hidden bg-(--bg-post-grid)"
               >
-                {post.image ? (
-                  <img src={post.image} alt="post-image" className="h-full w-full object-cover" />
+                {post.image?.trim() ? (
+                  <img
+                    src={imageUrl(post.image)}
+                    alt="post-image"
+                    className="h-full w-full object-cover"
+                  />
                 ) : (
                   <div className="flex flex-col items-center gap-2">
                     <NoneImage color="var(--color-muted-foreground)" size={25} />

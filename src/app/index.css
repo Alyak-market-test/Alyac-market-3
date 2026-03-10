@@ -51,7 +51,6 @@
   --color-icon: light-dark(#000000, #ffffff);
   --icon-hover: light-dark(#f1f5f9, #171717);
 }
-@variant dark (&:where(.dark, .dark *));
 
 :root {
   color-scheme: light;
@@ -94,16 +93,6 @@
 :root.dark {
   color-scheme: dark;
 }
-
-* {
-  border-color: var(--color-border);
-}
-
-body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-}
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

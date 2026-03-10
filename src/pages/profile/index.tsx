@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetUserPosts } from '@/entities/post';
-import { type Product, getProducts } from '@/entities/product';
+import { type Product, useGetProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
 import { useFollow } from '@/features/follow';
 import {
@@ -22,24 +22,28 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
 
 export function ProfilePage() {
   const { accountname } = useParams();
-  const { user, isMyProfile } = useProfile(accountname);
+  const { user, isMyProfile, isLoading: isUserLoading } = useProfile(accountname);
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const { data: posts = [] } = useGetUserPosts(user.accountname);
 
-  // 팔로우 상태 통합 관리
   const { isFollowing, followerCount, loading, toggleFollow } = useFollow(user.accountname, {
     isFollowing: user.isFollowing,
     followerCount: user.followers,
   });
 
   const queryClient = useQueryClient();
-  const { data: products = [], isLoading: isProductsLoading } = useQuery({
-    queryKey: ['products', user.accountname],
-    queryFn: () => getProducts(user.accountname),
-    enabled: !!user.accountname,
-  });
+  const { data: products = [], isLoading: isProductsLoading } = useGetProducts(user.accountname);
+
+  // 모든 데이터가 준비될 때까지 로딩 화면 표시
+  if (isUserLoading || isProductsLoading) {
+    return (
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground text-sm">Loading...</p>
+      </div>
+    );
+  }
 
   const handleDeleteSuccess = (productId: string) => {
     queryClient.setQueryData<Product[]>(['products', user.accountname], (prev) =>
@@ -92,12 +96,14 @@ export function ProfilePage() {
         />
       </section>
 
-      {isMyProfile ? (
-        <MyButtons />
-      ) : (
-        // initialState 대신 useFollow 상태를 직접 전달
-        <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
-      )}
+      <div className="-mt-4 -mb-2">
+        {isMyProfile ? (
+          <MyButtons />
+        ) : (
+          <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
+        )}
+      </div>
+
       <ProductSection
         products={products}
         isLoading={isProductsLoading}

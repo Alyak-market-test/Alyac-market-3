@@ -1,14 +1,24 @@
-// 게시글 뷰모드(리스트/그리드) 컴포넌트
-// components/PostSection.tsx
+import { useNavigate } from 'react-router-dom';
+
+import { type Post } from '@/entities/post';
+import { PostCard } from '@/features/post';
 import { PostAlbumIcon, PostListIcon } from '@/shared/icons';
 
 interface PostSectionProps {
-  posts: { id: number; content: string }[];
+  posts: Post[];
   viewMode: 'list' | 'grid';
   onViewModeChange: (mode: 'list' | 'grid') => void;
+  isMyProfile?: boolean;
 }
 
-export function PostSection({ posts, viewMode, onViewModeChange }: PostSectionProps) {
+export function PostSection({
+  posts,
+  viewMode,
+  onViewModeChange,
+  isMyProfile = false,
+}: PostSectionProps) {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="mt-6 flex items-center justify-end border-t border-b">
@@ -25,11 +35,9 @@ export function PostSection({ posts, viewMode, onViewModeChange }: PostSectionPr
             <p className="text-foreground text-sm">작성한 게시물이 없습니다</p>
           </div>
         ) : viewMode === 'list' ? (
-          <div className="divide-border divide-y">
+          <div>
             {posts.map((post) => (
-              <div key={post.id} className="px-4 py-4">
-                <p className="text-sm">{post.content}</p>
-              </div>
+              <PostCard key={post.id} post={post} isMyPost={isMyProfile} />
             ))}
           </div>
         ) : (
@@ -37,9 +45,14 @@ export function PostSection({ posts, viewMode, onViewModeChange }: PostSectionPr
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="flex aspect-square items-center justify-center p-2 text-center text-xs"
+                onClick={() => navigate(`/post/${post.id}`)}
+                className="flex aspect-square cursor-pointer items-center justify-center overflow-hidden bg-gray-100"
               >
-                {post.content}
+                {post.image ? (
+                  <img src={post.image} alt="post" className="h-full w-full object-cover" />
+                ) : (
+                  <p className="p-1 text-center text-xs">{post.content}</p>
+                )}
               </div>
             ))}
           </div>

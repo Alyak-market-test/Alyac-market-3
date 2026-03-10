@@ -9,10 +9,11 @@ export {
   toggleHeart,
   getComments,
   createComment,
+  getUserPosts,
 } from './api/postApi';
 
 export { useGetPosts } from './hooks/useGetPosts';
-export { useGetPost, useGetComments } from './hooks/usePostQueries';
+export { useGetPost, useGetComments, useGetUserPosts } from './hooks/usePostQueries';
 export {
   useCreatePost,
   useDeletePost,

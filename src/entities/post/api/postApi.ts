@@ -57,3 +57,8 @@ export async function createComment({
   });
   return res.data.comment;
 }
+// 유저 게시글 목록 조회
+export async function getUserPosts(accountname: string): Promise<Post[]> {
+  const res = await api.get(`/post/${accountname}/userpost`);
+  return res.data.post ?? [];
+}

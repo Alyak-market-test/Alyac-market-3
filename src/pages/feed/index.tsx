@@ -1,34 +1,22 @@
 import { useEffect, useRef } from 'react';
-import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
 import { useGetPosts } from '@/entities/post';
+import { useMyProfile } from '@/entities/user';
 import { PostCard } from '@/features/post';
 import { ROUTES, TopMainNav } from '@/shared';
-import { CommentIcon, HeartIcon, LogoGrayIcon, MoreVerticalIcon } from '@/shared/icons';
+import { LogoGrayIcon } from '@/shared/icons';
 import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { BottomNav } from '@/widgets/bottom-nav';
 
 export function FeedPage() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetPosts();
+  const { data: currentUser } = useMyProfile();
   const navigate = useNavigate();
-  const [heartedIds, setHeartedIds] = useState<Set<string>>(new Set());
   const observerRef = useRef<HTMLDivElement>(null);
 
   const posts = data?.pages.flatMap((page) => page) ?? [];
-
-  const toggleHeart = (id: string) => {
-    setHeartedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
-  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,19 +39,17 @@ export function FeedPage() {
         <ThemeToggle />
       </div>
       <main className="flex-1 overflow-y-auto pb-16">
-        {posts && posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              moreIcon={<MoreVerticalIcon />}
-              heartIcon={<HeartIcon filled={heartedIds.has(post.id)} />}
-              commentIcon={<CommentIcon />}
-              onMoreClick={() => {}}
-              onHeartClick={() => toggleHeart(post.id)}
-              onCommentClick={() => navigate(`/post/${post.id}`)}
-            />
-          ))
+        {posts.length > 0 ? (
+          <>
+            {posts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                isMyPost={currentUser?.accountname === post.author.accountname}
+              />
+            ))}
+            <div ref={observerRef} className="h-4" />
+          </>
         ) : (
           <div className="flex flex-col items-center justify-center gap-4 pt-32">
             <LogoGrayIcon width={65} height={103} />

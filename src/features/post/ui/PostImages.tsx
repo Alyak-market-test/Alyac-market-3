@@ -1,3 +1,5 @@
+import { imageUrl } from '@/shared/lib';
+
 const BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
 interface PostImagesProps {
@@ -15,7 +17,7 @@ export function PostImages({ images }: PostImagesProps) {
         return (
           <img
             key={i}
-            src={`${BASE_URL}/${formattedPath}`}
+            src={imageUrl(img)}
             alt={`post-${i}`}
             className="w-full rounded-lg object-cover"
             onLoad={() => console.log('성공:', `${BASE_URL}/${formattedPath}`)}

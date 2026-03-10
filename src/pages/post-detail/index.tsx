@@ -80,7 +80,11 @@ export function PostDetailPage() {
             alert('신고가 접수되었습니다.');
             setShowMenu(false);
           }}
-          onDelete={() => deletePost(post_id!)}
+          onDelete={() => {
+            deletePost(post_id!, {
+              onSuccess: () => navigate(-1),
+            });
+          }}
         />
       )}
     </div>

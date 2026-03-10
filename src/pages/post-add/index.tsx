@@ -80,7 +80,7 @@ export function PostAddPage() {
           {previews.length > 0 && (
             <div className="mt-2 flex flex-col gap-2">
               {previews.map((preview, index) => (
-                <div key={index} className="relative">
+                <div key={index} className="relative h-48 w-48 shrink-0">
                   <img
                     src={preview}
                     alt={`preview-${index}`}

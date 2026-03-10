@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { type Post, useDeletePost, useToggleHeart } from '@/entities/post';
 import { CommentIcon, HeartIcon, MoreVerticalIcon } from '@/shared/icons';
+import { imageUrl } from '@/shared/lib';
+import { DeleteConfirmModal } from '@/shared/ui';
 
 interface PostCardProps {
   post: Post;
@@ -14,14 +16,13 @@ interface PostCardProps {
 export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { mutate: toggleHeart } = useToggleHeart(post.id);
   const { mutate: deletePost } = useDeletePost();
 
   const handleDelete = () => {
-    if (window.confirm('게시글을 삭제하시겠습니까?')) {
-      deletePost(post.id);
-      setMenuOpen(false);
-    }
+    setShowDeleteModal(true);
+    setMenuOpen(false);
   };
 
   return (
@@ -30,7 +31,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
         <div className="flex items-center gap-2">
           <div className="bg-muted h-10 w-10 shrink-0 overflow-hidden rounded-full">
             <img
-              src={post.author.image || '/default-avatar.png'}
+              src={imageUrl(post.author.image)}
               alt={post.author.username}
               className="h-full w-full object-cover"
               onError={(e) => {
@@ -55,7 +56,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
               {isMyPost ? (
                 <>
                   <button
-                    className="w-full border-b px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-50"
+                    className="text-foreground hover:bg-muted w-full cursor-pointer rounded-t-xl border-b px-4 py-3 text-left text-sm transition-colors"
                     onClick={() => {
                       navigate(`/post/${post.id}/edit`);
                       setMenuOpen(false);
@@ -64,7 +65,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                     수정하기
                   </button>
                   <button
-                    className="w-full px-4 py-3 text-left text-sm text-red-600 hover:bg-gray-50"
+                    className="hover:bg-muted w-full cursor-pointer rounded-b-xl px-4 py-3 text-left text-sm text-red-500 transition-colors"
                     onClick={handleDelete}
                   >
                     삭제하기
@@ -72,7 +73,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                 </>
               ) : (
                 <button
-                  className="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-50"
+                  className="text-foreground hover:bg-muted w-full cursor-pointer rounded-xl px-4 py-3 text-left text-sm transition-colors"
                   onClick={() => {
                     onReport?.();
                     setMenuOpen(false);
@@ -89,14 +90,19 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
       <p className="text-foreground mt-3 text-sm">{post.content}</p>
 
       {post.image && (
-        <div className="mt-3 overflow-hidden rounded-lg">
-          <img
-            src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${post.image.replace('uploadFiles##', 'uploadFiles/')}`}
-            alt="post"
-            className="w-full object-cover"
-          />
+        <div className="mt-3 flex gap-2 overflow-x-auto">
+          {post.image.split(',').map((img, i) => (
+            <div key={i} className="h-48 w-full shrink-0">
+              <img
+                src={imageUrl(img)}
+                alt={`post-${i}`}
+                className="h-full w-full rounded-lg object-cover"
+              />
+            </div>
+          ))}
         </div>
       )}
+
       <div className="mt-3 flex items-center gap-4">
         <button onClick={() => toggleHeart()} className="flex items-center gap-1">
           <HeartIcon filled={post.hearted} />
@@ -108,6 +114,17 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
         </button>
       </div>
       <span className="text-muted-foreground mt-2 block text-xs">{post.createdAt}</span>
+
+      {showDeleteModal && (
+        <DeleteConfirmModal
+          message="게시글을 삭제할까요?"
+          onConfirm={() => {
+            deletePost(post.id);
+            setShowDeleteModal(false);
+          }}
+          onCancel={() => setShowDeleteModal(false)}
+        />
+      )}
     </div>
   );
 }

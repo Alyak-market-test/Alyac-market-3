@@ -1,18 +1,6 @@
 import { api } from '@/shared/api/instance';
 
-export interface SignInRequest {
-  email: string;
-  password: string;
-}
-
-export interface SignInResponse {
-  user: {
-    accessToken: string;
-    refreshToken: string;
-    accountname: string;
-    username: string;
-  };
-}
+import type { SignInRequest, SignInResponse } from '../model/types';
 
 export const signIn = async (data: SignInRequest): Promise<SignInResponse> => {
   const response = await api.post('/user/signin', {

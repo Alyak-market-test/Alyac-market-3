@@ -41,6 +41,9 @@ const PostAddPage = lazy(() =>
 const FollowListPage = lazy(() =>
   import('@/pages/follow-list').then((m) => ({ default: m.FollowListPage })),
 );
+const PostEditPage = lazy(() =>
+  import('@/pages/post-edit').then((m) => ({ default: m.PostEditPage })),
+);
 
 const wrap = (element: React.ReactNode) => <Suspense fallback={null}>{element}</Suspense>;
 
@@ -55,6 +58,7 @@ export const router = createBrowserRouter([
     ],
   },
   { path: 'post-add', element: wrap(<PostAddPage />) },
+  { path: 'post/:postId/edit', element: wrap(<PostEditPage />) },
   { path: 'chat/:id', element: wrap(<ChatRoomPage />) },
   { path: '*', element: wrap(<NotFoundPage />) },
   { path: 'post/:post_id', element: wrap(<PostDetailPage />) },

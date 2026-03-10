@@ -52,7 +52,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
         {menuOpen && (
           <>
             <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
-            <div className="absolute top-8 right-0 z-50 w-44 rounded-xl bg-white shadow-lg">
+            <div className="bg-background absolute top-8 right-0 z-50 w-44 rounded-xl shadow-lg">
               {isMyPost ? (
                 <>
                   <button

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getRefreshToken, getToken, removeToken, saveToken } from '@/entities/user';
+import { getRefreshToken, getToken, removeToken, saveToken } from '@/shared/lib/Token';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL + '/api',

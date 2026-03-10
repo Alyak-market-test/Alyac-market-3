@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { type Product, getProducts } from '@/entities/product';
+import { type Product, useGetProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
 import { useFollow } from '@/features/follow';
 import {
@@ -27,18 +27,13 @@ export function ProfilePage() {
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const post: [] = [];
 
-  // 팔로우 상태 통합 관리
   const { isFollowing, followerCount, loading, toggleFollow } = useFollow(user.accountname, {
     isFollowing: user.isFollowing,
     followerCount: user.followers,
   });
 
   const queryClient = useQueryClient();
-  const { data: products = [], isLoading: isProductsLoading } = useQuery({
-    queryKey: ['products', user.accountname],
-    queryFn: () => getProducts(user.accountname),
-    enabled: !!user.accountname,
-  });
+  const { data: products = [], isLoading: isProductsLoading } = useGetProducts(user.accountname);
 
   const handleDeleteSuccess = (productId: string) => {
     queryClient.setQueryData<Product[]>(['products', user.accountname], (prev) =>
@@ -95,7 +90,6 @@ export function ProfilePage() {
         {isMyProfile ? (
           <MyButtons />
         ) : (
-          // initialState 대신 useFollow 상태를 직접 전달
           <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
         )}
       </div>

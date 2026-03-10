@@ -1,18 +1,21 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useMyProfile } from '@/entities/user';
+import { useUpdateProfile } from '@/entities/user';
 
-import { getMyProfile, updateProfile } from '@/entities/profile';
-
-interface ProfileForm {
-  accountname: string;
-  image: string | null;
-  name: string;
-  bio: string;
+interface ProfileOverrides {
+  image?: string | null;
+  name?: string;
+  bio?: string;
 }
 
 interface UseProfileFormReturn {
-  form: ProfileForm;
+  form: {
+    accountname: string;
+    image: string | null;
+    name: string;
+    bio: string;
+  };
   isLoading: boolean;
   isSaving: boolean;
   error: string | null;
@@ -23,64 +26,40 @@ interface UseProfileFormReturn {
 }
 
 export function useProfileForm(): UseProfileFormReturn {
-  const queryClient = useQueryClient();
-  const [form, setForm] = useState<ProfileForm>({
-    accountname: '',
-    image: null,
-    name: '',
-    bio: '',
-  });
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isLoading, isError } = useMyProfile();
+  const { mutateAsync, isPending: isSaving } = useUpdateProfile();
+  const [overrides, setOverrides] = useState<ProfileOverrides>({});
 
-  const fetchProfile = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const data = await getMyProfile();
-      setForm({
-        accountname: data.user.accountname ?? '',
-        image: data.user.image ?? null,
-        name: data.user.username ?? '',
-        bio: data.user.intro ?? '',
-      });
-    } catch {
-      setError('프로필을 불러오는데 실패했어요.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const form = {
+    accountname: data?.accountname ?? '',
+    image: overrides.image !== undefined ? overrides.image : (data?.image ?? null),
+    name: overrides.name !== undefined ? overrides.name : (data?.username ?? ''),
+    bio: overrides.bio !== undefined ? overrides.bio : (data?.intro ?? ''),
+  };
 
-  useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
+  const setImage = (image: string | null) => setOverrides((prev) => ({ ...prev, image }));
 
-  const setImage = useCallback((image: string | null) => {
-    setForm((prev) => ({ ...prev, image }));
-  }, []);
+  const setName = (name: string) => setOverrides((prev) => ({ ...prev, name }));
 
-  const setName = useCallback((name: string) => {
-    setForm((prev) => ({ ...prev, name }));
-  }, []);
+  const setBio = (bio: string) => setOverrides((prev) => ({ ...prev, bio }));
 
-  const setBio = useCallback((bio: string) => {
-    setForm((prev) => ({ ...prev, bio }));
-  }, []);
+  const save = async () => {
+    await mutateAsync({
+      username: form.name,
+      accountname: form.accountname,
+      intro: form.bio,
+      image: form.image,
+    });
+  };
 
-  const save = useCallback(async () => {
-    setIsSaving(true);
-    try {
-      await updateProfile({
-        username: form.name,
-        accountname: form.accountname,
-        intro: form.bio,
-        image: form.image,
-      });
-      await queryClient.invalidateQueries({ queryKey: ['myProfile'] });
-    } finally {
-      setIsSaving(false);
-    }
-  }, [form, queryClient]);
-
-  return { form, isLoading, isSaving, error, setImage, setName, setBio, save };
+  return {
+    form,
+    isLoading,
+    isSaving,
+    error: isError ? '프로필을 불러오는데 실패했어요.' : null,
+    setImage,
+    setName,
+    setBio,
+    save,
+  };
 }

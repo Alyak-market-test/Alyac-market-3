@@ -1,4 +1,4 @@
-interface UploadImageProps {
+interface AvatarImageProps {
   src?: string | null;
   alt?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
@@ -54,13 +54,13 @@ function DefaultImage({ size = 'md' }: DefaultImageProps) {
   );
 }
 
-export function UploadImage({
+export function AvatarImage({
   src,
   alt = '프로필 이미지',
   size = 'md',
   iconSize = size,
   className = '',
-}: UploadImageProps) {
+}: AvatarImageProps) {
   return (
     <div className={`overflow-hidden rounded-full bg-gray-100 ${sizeMap[size]} ${className}`}>
       {src ? (

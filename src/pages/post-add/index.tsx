@@ -2,9 +2,9 @@ import { useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getTokenUserInfo } from '@/entities/auth';
-import { usePostAdd } from '@/features/post-add';
-import { UploadImage } from '@/shared/icons';
+import { getTokenUserInfo } from '@/entities/user';
+import { usePostAdd } from '@/features/post';
+import { AvatarImage } from '@/shared/icons';
 
 export function PostAddPage() {
   const navigate = useNavigate();
@@ -12,15 +12,15 @@ export function PostAddPage() {
   const userInfo = getTokenUserInfo();
 
   const {
-    content,
-    setContent,
+    register,
+    errors,
+    contentValue,
     previews,
     isLoading,
-    error,
-    setError,
+    mutationError,
     handleImageChange,
     handleRemoveImage,
-    handleSubmit,
+    onSubmit,
   } = usePostAdd();
 
   return (
@@ -39,11 +39,11 @@ export function PostAddPage() {
           </svg>
         </button>
         <button
-          onClick={handleSubmit}
-          disabled={isLoading || (!content.trim() && previews.length === 0)}
+          onClick={onSubmit}
+          disabled={isLoading || (!contentValue?.trim() && previews.length === 0)}
           className="bg-primary rounded-full px-5 py-1.5 text-sm font-medium text-white disabled:opacity-40"
         >
-          업로드
+          {isLoading ? '업로드 중...' : '업로드'}
         </button>
       </header>
 
@@ -51,7 +51,7 @@ export function PostAddPage() {
       <div className="flex gap-3 overflow-y-auto px-4 pt-3 pb-6">
         {/* 프로필 이미지 */}
         <div className="shrink-0">
-          <UploadImage src={userInfo?.image} size="sm" />
+          <AvatarImage src={userInfo?.image} size="sm" />
         </div>
 
         {/* 오른쪽 영역 */}
@@ -59,22 +59,22 @@ export function PostAddPage() {
           {/* textarea 박스 */}
           <div className="flex h-[75vh] flex-col rounded-lg border border-blue-900 p-3 focus-within:ring-2 focus-within:ring-blue-900">
             <textarea
-              value={content}
-              onChange={(e) => {
-                setContent(e.target.value);
-                if (!e.target.value.trim()) {
-                  setError('게시글 내용을 입력해주세요.');
-                } else {
-                  setError('');
-                }
-              }}
+              {...register('content', {
+                validate: (value) =>
+                  value.trim().length > 0 || previews.length > 0
+                    ? true
+                    : '게시글 내용을 입력해주세요.',
+              })}
               placeholder="게시글 입력하기."
               className="text-foreground placeholder:text-muted-foreground w-full flex-1 resize-none bg-transparent text-sm outline-none"
             />
           </div>
 
-          {/* 에러 메시지 */}
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {/* RHF 유효성 에러 */}
+          {errors.content && <p className="text-sm text-red-500">{errors.content.message}</p>}
+
+          {/* API 실패 에러 */}
+          {mutationError && <p className="text-sm text-red-500">게시물 작성에 실패했습니다.</p>}
 
           {/* 이미지 미리보기 */}
           {previews.length > 0 && (

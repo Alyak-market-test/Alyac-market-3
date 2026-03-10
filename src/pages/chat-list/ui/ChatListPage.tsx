@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { TopChatNav } from '@/shared';
-import { UploadImage } from '@/shared/icons';
+import { AvatarImage } from '@/shared/icons';
 
 interface ChatRoom {
   id: string;
@@ -45,7 +45,7 @@ export function ChatListPage() {
             className="hover:bg-accent flex cursor-pointer items-center gap-3 px-4 py-4"
             onClick={() => navigate(`/chat/${chat.id}`)}
           >
-            <UploadImage src={chat.image} alt={chat.username} size="lg" iconSize="sm" />
+            <AvatarImage src={chat.image} alt={chat.username} size="lg" iconSize="sm" />
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold">{chat.username}</p>
               <p className="text-muted-foreground truncate text-xs">{chat.lastMessage}</p>

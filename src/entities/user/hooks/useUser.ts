@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getMyProfile } from '@/entities/profile';
-
+import { getMyProfile } from '../api/ProfileApi';
 import { getToken } from '../lib/Token';
 
 export function useUser() {

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAvatarUpload, useProfileForm } from '@/features/profile';
 import { Button, TopUploadNav } from '@/shared';
-import { ImgIcon, UploadImage } from '@/shared/icons';
+import { AvatarImage, ImgIcon } from '@/shared/icons';
 
 export function ProfileModification() {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ export function ProfileModification() {
             aria-label="프로필 이미지 변경"
             className="cursor-pointer disabled:opacity-60"
           >
-            <UploadImage src={form.image} alt={form.name} size="xxl" iconSize="lg" />
+            <AvatarImage src={form.image} alt={form.name} size="xxl" iconSize="lg" />
           </button>
 
           {/* 이미지 파일 선택 아이콘 */}

@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { useSignUp } from '@/entities/auth';
-import { uploadImage } from '@/shared/api/AvatarApi';
-import { BigUploadIcon, ProfileImageIcon, UploadImage } from '@/shared/icons';
+import { uploadImage } from '@/entities/image';
+import { useSignUp } from '@/entities/user';
+import { AvatarImage, BigUploadIcon, ProfileImageIcon } from '@/shared/icons';
 import { Button } from '@/shared/ui/Button';
 import { Textarea } from '@/shared/ui/Textarea';
 
@@ -56,7 +56,6 @@ export function ProfileSetupForm() {
         return;
       }
     }
-
     signUpMutation.mutate(
       {
         email,
@@ -64,11 +63,7 @@ export function ProfileSetupForm() {
         username: data.username,
         accountname: data.accountname,
         intro: data.intro || '',
-        image: imageUrl
-          ? imageUrl.startsWith('uploadFiles/')
-            ? imageUrl
-            : `uploadFiles/${imageUrl}`
-          : '',
+        image: imageUrl,
       },
       {
         onSuccess: () => {
@@ -87,7 +82,7 @@ export function ProfileSetupForm() {
       <div className="flex justify-center">
         <div className="relative">
           {imagePreview ? (
-            <UploadImage src={imagePreview} alt="프로필 미리보기" size="xl" />
+            <AvatarImage src={imagePreview} alt="프로필 미리보기" size="xl" />
           ) : (
             <BigUploadIcon />
           )}

@@ -14,7 +14,7 @@ export { LogoIcon } from './LogoIcon';
 export { PostAlbumIcon } from './PostAlbumIcon';
 export { PostListIcon } from './PostListIcon';
 export { ShareIcon } from './ShareIcon';
-export { UploadImage } from './UploadImage';
+export { AvatarImage } from './Avatar';
 export { ProfileImageIcon } from './ProfileImageIcon';
 export { BigUploadIcon } from './BigUpload';
 export { ImgIcon } from './ImgIcon';

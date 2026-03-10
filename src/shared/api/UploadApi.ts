@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getToken } from '@/entities/auth';
+import { getToken } from '@/entities/user';
 
 const uploadApi = axios.create({
   baseURL: import.meta.env.VITE_IMAGE_BASE_URL + '/api',

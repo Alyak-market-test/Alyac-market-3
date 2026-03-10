@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import type { User } from '@/entities/auth/api/searchUsers';
-import { UploadImage } from '@/shared/icons';
+import type { User } from '@/entities/user';
+import { AvatarImage } from '@/shared/icons';
 
 interface UserCardProps {
   user: User;
@@ -44,7 +44,7 @@ export function UserCard({ user, keyword = '', onClick }: UserCardProps) {
             className="h-full w-full rounded-full object-cover"
           />
         ) : (
-          <UploadImage src={undefined} size="sm" />
+          <AvatarImage src={undefined} size="sm" />
         )}
       </div>
       <div>

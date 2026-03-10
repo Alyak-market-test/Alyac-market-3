@@ -49,9 +49,9 @@ const buttonVariants = cva(
         primaryDisabled: 'bg-[#A7FFB9] text-white pointer-events-none rounded-full',
         activ: 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-full',
         myprofilebutton:
-          'flex-1 items-center justify-center rounded-full border border-gray-300 py-2.5 text-foreground hover:bg-[var(--icon-hover)]',
+          'flex-1 items-center justify-center rounded-full border border-[var(--border)] py-2.5 text-foreground hover:bg-[var(--icon-hover)]',
         yourprofilebutton:
-          'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-foreground transition hover:bg-gray-50',
+          'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[var(--border)] text-foreground transition hover:bg-gray-50',
         productDelete:
           'absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-600 text-sm text-white transition-colors hover:bg-gray-900',
         avatarNone:

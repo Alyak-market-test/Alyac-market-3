@@ -47,7 +47,10 @@ export function PostDetailPage() {
 
   return (
     <div className="bg-background flex h-screen flex-col">
-      <PostHeader onBack={() => navigate(-1)} onMore={() => setShowMenu(true)} />
+      <PostHeader
+        onBack={() => navigate(`/profile/${post.author.accountname}`)}
+        onMore={() => setShowMenu(true)}
+      />
       <div className="flex-1 overflow-y-auto px-4 pt-4 pb-24">
         <PostAuthor
           image={post.author.image}

@@ -62,3 +62,22 @@ export async function getUserPosts(accountname: string): Promise<Post[]> {
   const res = await api.get(`/post/${accountname}/userpost`);
   return res.data.post ?? [];
 }
+// 게시글 수정
+export async function updatePost({
+  postId,
+  content,
+  imageFiles,
+}: {
+  postId: string;
+  content: string;
+  imageFiles: File[];
+}): Promise<void> {
+  let imageString = '';
+  if (imageFiles.length > 0) {
+    const filenames = await uploadImages(imageFiles);
+    imageString = filenames.join(',');
+  }
+  await api.put(`/post/${postId}`, {
+    post: { content, image: imageString },
+  });
+}

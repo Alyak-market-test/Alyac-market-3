@@ -12,6 +12,7 @@ export function useCreatePost() {
     mutationFn: createPost,
     onSuccess: (postId) => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
       navigate(`/post/${postId}`);
     },
   });

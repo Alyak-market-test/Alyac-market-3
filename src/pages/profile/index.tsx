@@ -91,12 +91,15 @@ export function ProfilePage() {
         />
       </section>
 
-      {isMyProfile ? (
-        <MyButtons />
-      ) : (
-        // initialState 대신 useFollow 상태를 직접 전달
-        <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
-      )}
+      <div className="-my-4">
+        {isMyProfile ? (
+          <MyButtons />
+        ) : (
+          // initialState 대신 useFollow 상태를 직접 전달
+          <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
+        )}
+      </div>
+
       <ProductSection
         products={products}
         isLoading={isProductsLoading}

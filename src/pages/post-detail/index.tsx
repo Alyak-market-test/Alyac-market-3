@@ -21,7 +21,6 @@ export function PostDetailPage() {
   const { post_id } = useParams();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-
   const { data: post, isLoading: isPostLoading } = useGetPost(post_id!);
   const { data: comments = [] } = useGetComments(post_id!);
   const { mutate: heart } = useToggleHeart(post_id!);
@@ -66,7 +65,7 @@ export function PostDetailPage() {
         <CommentList comments={comments} />
       </div>
       <CommentInput
-        profileImage={post.author.image}
+        profileImage=""
         value={commentValue}
         inputProps={register('comment')}
         onSubmit={onCommentSubmit}

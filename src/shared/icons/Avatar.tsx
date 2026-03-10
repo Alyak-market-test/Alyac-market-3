@@ -63,7 +63,7 @@ export function AvatarImage({
 }: AvatarImageProps) {
   return (
     <div className={`overflow-hidden rounded-full bg-gray-100 ${sizeMap[size]} ${className}`}>
-      {src ? (
+      {src && src.trim() !== '' ? (
         <img src={src} alt={alt} className="h-full w-full object-cover" />
       ) : (
         <DefaultImage size={iconSize} />

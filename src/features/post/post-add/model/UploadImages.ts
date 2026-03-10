@@ -6,5 +6,5 @@ export async function uploadImages(files: File[]): Promise<string[]> {
 
   const res = await uploadApi.post('/image/uploadfiles', formData);
 
-  return res.data.map((item: { filename: string }) => item.filename);
+  return res.data.map((item: { path: string }) => item.path);
 }

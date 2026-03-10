@@ -17,11 +17,10 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const { mutate: toggleHeart } = useToggleHeart(post.id);
   const { mutate: deletePost } = useDeletePost();
 
-  // ✅ 삭제 핸들러 함수를 따로 만들면 코드가 더 깔끔해집니다.
   const handleDelete = () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       deletePost(post.id);
-      setMenuOpen(false); // 삭제 시작 시 메뉴를 닫습니다.
+      setMenuOpen(false);
     }
   };
 
@@ -66,7 +65,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                   </button>
                   <button
                     className="w-full px-4 py-3 text-left text-sm text-red-600 hover:bg-gray-50"
-                    onClick={handleDelete} // ✅ 위에서 만든 핸들러 연결
+                    onClick={handleDelete}
                   >
                     삭제하기
                   </button>
@@ -91,10 +90,13 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
 
       {post.image && (
         <div className="mt-3 overflow-hidden rounded-lg">
-          <img src={post.image} alt="post" className="w-full object-cover" />
+          <img
+            src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${post.image.replace('uploadFiles##', 'uploadFiles/')}`}
+            alt="post"
+            className="w-full object-cover"
+          />
         </div>
       )}
-
       <div className="mt-3 flex items-center gap-4">
         <button onClick={() => toggleHeart()} className="flex items-center gap-1">
           <HeartIcon filled={post.hearted} />

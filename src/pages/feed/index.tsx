@@ -33,7 +33,7 @@ export function FeedPage() {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col pt-14">
       <TopMainNav onSearch={() => navigate(ROUTES.SEARCH)} />
       <div className="flex justify-end px-4 py-2">
         <ThemeToggle />

@@ -10,6 +10,7 @@ export {
   getComments,
   createComment,
   getUserPosts,
+  updatePost,
 } from './api/postApi';
 
 export { useGetPosts } from './hooks/useGetPosts';

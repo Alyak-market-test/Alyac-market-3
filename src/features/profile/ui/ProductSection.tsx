@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import type { Product } from '@/entities/product';
 import { useDeleteProduct } from '@/features/product-add';
-import { Button, DeleteConfirmModal } from '@/shared/ui';
+import { Button, DeleteConfirmModal } from '@/shared';
 
 interface ProductSectionProps {
   products: Product[];

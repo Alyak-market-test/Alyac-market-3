@@ -16,9 +16,8 @@ import {
   YourButtons,
   useProfile,
 } from '@/features/profile';
-import { ThemeToggle, TopBasicNav } from '@/shared';
+import { Popover, PopoverContent, PopoverTrigger, ThemeToggle, TopBasicNav } from '@/shared';
 import { MoreVerticalIcon } from '@/shared/icons';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
 
 export function ProfilePage() {
   const { accountname } = useParams();

@@ -45,7 +45,7 @@ export function SearchPage() {
   };
 
   return (
-    <div className="bg-background flex h-screen flex-col">
+    <div className="bg-background flex h-screen flex-col pt-14">
       <div onKeyDown={handleKeyDown}>
         <TopSearchNav
           value={keyword}

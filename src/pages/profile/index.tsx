@@ -21,7 +21,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
 
 export function ProfilePage() {
   const { accountname } = useParams();
-  const { user, isMyProfile } = useProfile(accountname);
+  const { user, isMyProfile, isLoading: isUserLoading } = useProfile(accountname);
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
@@ -34,6 +34,15 @@ export function ProfilePage() {
 
   const queryClient = useQueryClient();
   const { data: products = [], isLoading: isProductsLoading } = useGetProducts(user.accountname);
+
+  // 모든 데이터가 준비될 때까지 로딩 화면 표시
+  if (isUserLoading || isProductsLoading) {
+    return (
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground text-sm">Loading...</p>
+      </div>
+    );
+  }
 
   const handleDeleteSuccess = (productId: string) => {
     queryClient.setQueryData<Product[]>(['products', user.accountname], (prev) =>

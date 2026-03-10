@@ -1,5 +1,4 @@
-import { FollowButton } from '@/features/follow';
-import { Button } from '@/shared';
+import { Button, FollowButton } from '@/shared';
 import { ChatIcon, ShareIcon } from '@/shared/icons';
 
 interface Props {

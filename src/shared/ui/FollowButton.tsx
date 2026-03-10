@@ -20,4 +20,4 @@ const FollowButton = ({ isFollowing, loading, onToggle }: Props) => {
   );
 };
 
-export default FollowButton;
+export { FollowButton };

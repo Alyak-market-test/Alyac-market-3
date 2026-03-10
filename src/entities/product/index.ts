@@ -8,3 +8,4 @@ export {
 export { useGetProduct } from './model/useGetProduct';
 export { useGetProducts } from './model/useGetProducts';
 export type { Product, ProductPayload } from './model/ProductTypes';
+export { useDeleteProduct } from './model/useDeleteProduct';

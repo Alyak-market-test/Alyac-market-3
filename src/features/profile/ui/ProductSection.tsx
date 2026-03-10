@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import type { Product } from '@/entities/product';
-import { useDeleteProduct } from '@/features/product-add';
+import { useDeleteProduct } from '@/entities/product';
 import { Button, DeleteConfirmModal } from '@/shared/ui';
 
 interface ProductSectionProps {

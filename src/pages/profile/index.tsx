@@ -9,7 +9,6 @@ import { useAuth } from '@/features/auth';
 import { useFollow } from '@/features/follow';
 import {
   MyButtons,
-  PostSection,
   ProductSection,
   ProfileInfo,
   ProfileStats,
@@ -19,6 +18,7 @@ import {
 import { ThemeToggle, TopBasicNav } from '@/shared';
 import { MoreVerticalIcon } from '@/shared/icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
+import { PostSection } from '@/widgets/post-section';
 
 export function ProfilePage() {
   const { accountname } = useParams();

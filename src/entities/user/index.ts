@@ -1,4 +1,3 @@
-export * from './api/ProfileApi';
 export type * from './model/ProfileTypes';
 export * from './api/SearchUsers';
 export * from './api/SignIn';

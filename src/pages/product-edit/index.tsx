@@ -29,7 +29,7 @@ function ProductEditForm({ product }: { product: Product }) {
   };
 
   return (
-    <div className="bg-background mb-15 flex min-h-screen flex-col">
+    <div className="bg-background my-15 flex min-h-screen flex-col">
       <TopUploadNav
         onBack={() => navigate(-1)}
         onSave={handleSave}

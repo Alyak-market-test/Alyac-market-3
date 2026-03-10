@@ -37,7 +37,7 @@ export function ProfileModification() {
   }
 
   return (
-    <div className="bg-background flex min-h-screen flex-col">
+    <div className="bg-background mt-10 flex min-h-screen flex-col">
       <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} />
 
       <div className="flex justify-center py-10">

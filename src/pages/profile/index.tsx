@@ -52,7 +52,7 @@ export function ProfilePage() {
   };
 
   return (
-    <div className="bg-background mx-auto flex min-h-screen flex-col">
+    <div className="bg-background mx-auto my-15 flex min-h-screen flex-col">
       <Popover>
         <TopBasicNav
           onBack={() => navigate(-1)}

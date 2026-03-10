@@ -41,7 +41,7 @@ export function PostSection({
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-0.5 p-0.5">
+          <div className="mb-10 grid grid-cols-3 gap-2 p-4">
             {posts.map((post) => (
               <div
                 key={post.id}
@@ -49,9 +49,9 @@ export function PostSection({
                 className="flex aspect-square cursor-pointer items-center justify-center overflow-hidden bg-gray-100"
               >
                 {post.image ? (
-                  <img src={post.image} alt="post" className="h-full w-full object-cover" />
+                  <img src={post.image} alt="post-image" className="h-full w-full object-cover" />
                 ) : (
-                  <p className="p-1 text-center text-xs">{post.content}</p>
+                  <p className="p-1 text-center text-xs">이미지가 없음</p>
                 )}
               </div>
             ))}

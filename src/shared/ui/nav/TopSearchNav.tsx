@@ -14,7 +14,7 @@ export function TopSearchNav({
   placeholder = '계정 검색',
 }: TopSearchNavProps) {
   return (
-    <header className="gap3 px4 bg-background flex h-14 items-center border-b">
+    <header className="gap3 px4 bg-background fixed top-0 right-0 left-0 z-50 flex h-14 items-center border-b px-4">
       <button onClick={onBack}>
         <ArrowLeftIcon />
       </button>

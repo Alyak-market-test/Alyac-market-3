@@ -57,26 +57,23 @@ export async function createComment({
   });
   return res.data.comment;
 }
+
 // 유저 게시글 목록 조회
 export async function getUserPosts(accountname: string): Promise<Post[]> {
   const res = await api.get(`/post/${accountname}/userpost`);
   return res.data.post ?? [];
 }
+
 // 게시글 수정
 export async function updatePost({
   postId,
   content,
-  imageFiles,
+  imageString,
 }: {
   postId: string;
   content: string;
-  imageFiles: File[];
+  imageString: string;
 }): Promise<void> {
-  let imageString = '';
-  if (imageFiles.length > 0) {
-    const filenames = await uploadImages(imageFiles);
-    imageString = filenames.join(',');
-  }
   await api.put(`/post/${postId}`, {
     post: { content, image: imageString },
   });

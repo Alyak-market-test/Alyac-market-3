@@ -19,6 +19,7 @@ export function useGetComments(postId: string) {
     enabled: !!postId,
   });
 }
+
 // 유저 게시글 목록 조회
 export function useGetUserPosts(accountname: string) {
   return useQuery({

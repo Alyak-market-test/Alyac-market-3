@@ -22,5 +22,6 @@ export function useFollowList(accountname: string, tab: 'followers' | 'following
       );
     },
     enabled: !!accountname,
+    staleTime: 0,
   });
 }

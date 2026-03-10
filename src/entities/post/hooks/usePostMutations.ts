@@ -2,73 +2,61 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { createComment, createPost, deletePost, toggleHeart } from '../api/postApi';
-import type { Comment, Post } from '../model/Types';
 
-// 게시글 작성
+// 1. 게시글 작성
 export function useCreatePost() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: createPost,
     onSuccess: (postId) => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
       navigate(`/post/${postId}`);
     },
   });
 }
 
-// 게시글 삭제
+// 2. 게시글 삭제 (✅ 이 부분을 수정하세요)
 export function useDeletePost() {
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: deletePost,
     onSuccess: () => {
-      navigate(-1);
+      // 삭제 성공 시 피드와 프로필 목록을 모두 새로고침
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+
+      // navigate(-1)을 삭제하여 페이지 이동을 막습니다.
     },
   });
 }
 
-// 좋아요 토글 (낙관적 업데이트)
+// 3. 좋아요 토글
 export function useToggleHeart(postId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => toggleHeart(postId),
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['post', postId] });
-      const previousPost = queryClient.getQueryData<Post>(['post', postId]);
-      queryClient.setQueryData<Post>(['post', postId], (prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          hearted: !prev.hearted,
-          heartCount: prev.hearted ? prev.heartCount - 1 : prev.heartCount + 1,
-        };
-      });
-      return { previousPost };
-    },
-    onError: (_err, _vars, context) => {
-      if (context?.previousPost) {
-        queryClient.setQueryData(['post', postId], context.previousPost);
-      }
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['post', postId] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
     },
   });
 }
 
-// 댓글 작성
+// 4. 댓글 작성
 export function useCreateComment(postId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createComment,
-    onSuccess: (newComment) => {
-      queryClient.setQueryData<Comment[]>(['comments', postId], (prev = []) => [
-        ...prev,
-        newComment,
-      ]);
-      queryClient.setQueryData<Post>(['post', postId], (prev) =>
-        prev ? { ...prev, commentCount: prev.commentCount + 1 } : prev,
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+      queryClient.invalidateQueries({ queryKey: ['post', postId] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
 }

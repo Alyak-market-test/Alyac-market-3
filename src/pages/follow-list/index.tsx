@@ -13,8 +13,16 @@ export function FollowListPage() {
   const tab = searchParams.get('tab') as 'followers' | 'followings';
   const navigate = useNavigate();
 
-  const { data: list = [] } = useFollowList(accountname!, tab);
+  const { data: list = [], isLoading } = useFollowList(accountname!, tab);
   const { mutate: toggleFollow } = useToggleFollow(accountname!, tab);
+
+  if (isLoading) {
+    return (
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground text-sm">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background mx-auto flex min-h-screen flex-col">

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useGetUserPosts } from '@/entities/post';
 import { type Product, useGetProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
 import { useFollow } from '@/features/follow';
@@ -25,7 +26,7 @@ export function ProfilePage() {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const post: [] = [];
+  const { data: posts = [] } = useGetUserPosts(user.accountname);
 
   const { isFollowing, followerCount, loading, toggleFollow } = useFollow(user.accountname, {
     isFollowing: user.isFollowing,
@@ -110,7 +111,12 @@ export function ProfilePage() {
         onDeleteSuccess={handleDeleteSuccess}
       />
 
-      <PostSection posts={post} viewMode={viewMode} onViewModeChange={setViewMode} />
+      <PostSection
+        posts={posts}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+        isMyProfile={isMyProfile}
+      />
     </div>
   );
 }

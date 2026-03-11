@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { Button, Input } from '@/shared';
 import { TopChatNav } from '@/shared/ui/nav/TopChatNav';
 
 interface Message {
@@ -80,21 +81,23 @@ export function ChatRoomPage() {
       {/* 입력창 */}
       <div className="bg-background flex items-center gap-3 border-t px-4 py-3">
         <div className="bg-muted h-8 w-8 shrink-0 rounded-full" />
-        <input
+        <Input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           placeholder="메시지 입력하기..."
-          className="text-foreground placeholder:text-muted-foreground flex-1 bg-transparent text-sm outline-none"
+          className="border-none shadow-none outline-none focus-visible:ring-0"
         />
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={handleSend}
-          className="disabled:text-muted-foreground text-sm font-medium text-[#11CC27]"
           disabled={!input.trim()}
+          className="disabled:text-muted-foreground font-medium text-[#11CC27]"
         >
           전송
-        </button>
+        </Button>
       </div>
 
       {/* 하단 모달 */}
@@ -103,7 +106,9 @@ export function ChatRoomPage() {
           <div className="fixed inset-0 bg-black/30" onClick={() => setShowModal(false)} />
           <div className="bg-background fixed right-0 bottom-0 left-0 rounded-t-2xl px-4 py-6">
             <div className="bg-muted mx-auto mb-4 h-1 w-10 rounded-full" />
-            <button
+            <Button
+              variant="ghost"
+              size="none"
               className="w-full py-3 text-left text-sm text-red-500"
               onClick={() => {
                 setShowModal(false);
@@ -111,7 +116,7 @@ export function ChatRoomPage() {
               }}
             >
               채팅방 나가기
-            </button>
+            </Button>
           </div>
         </>
       )}

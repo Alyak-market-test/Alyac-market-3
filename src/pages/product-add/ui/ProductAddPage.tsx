@@ -27,7 +27,6 @@ export function ProductAdd() {
       <ProductImageSection
         previewUrls={form.previewUrls}
         imageUrls={form.imageUrls}
-        imageInputRef={form.imageInputRef}
         onUploadComplete={form.setImageUrls}
         onPreviewChange={form.setPreviewUrls}
       />

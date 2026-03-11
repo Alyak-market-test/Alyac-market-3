@@ -52,7 +52,6 @@ function ProductEditForm({ product }: { product: Product }) {
         previewUrls={form.previewUrls}
         imageUrls={form.imageUrls}
         existingImageUrl={product.itemImage}
-        imageInputRef={form.imageInputRef}
         onUploadComplete={form.setImageUrls}
         onPreviewChange={form.setPreviewUrls}
       />

@@ -1,27 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 
-interface ImageUploadProps {
+interface UseImageUploadProps {
   onPreviewChange?: (urls: string[]) => void;
   onFileSelect: (files: File[]) => void;
   maxFiles?: number;
   currentCount?: number;
-  inputRef?: React.RefObject<HTMLInputElement>;
-  isUploading?: boolean;
-  showPreview?: boolean;
 }
 
-export function ImageUpload({
+export function useImageUpload({
   onPreviewChange,
   onFileSelect,
   maxFiles = 3,
   currentCount = 0,
-  inputRef: externalRef,
-  isUploading = false,
-  showPreview = false,
-}: ImageUploadProps) {
+}: UseImageUploadProps) {
   const [previews, setPreviews] = useState<string[]>([]);
-  const internalRef = useRef<HTMLInputElement>(null);
-  const inputRef = externalRef ?? internalRef;
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     return () => {
@@ -40,32 +33,8 @@ export function ImageUpload({
     const previewUrls = files.map((file) => URL.createObjectURL(file));
     setPreviews(previewUrls);
     onPreviewChange?.(previewUrls);
-
     onFileSelect(files);
   };
 
-  return (
-    <div>
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={handleFileSelect}
-        disabled={isUploading}
-        className="hidden"
-      />
-
-      {showPreview && (
-        <>
-          {isUploading && <div>업로드 중...</div>}
-          <div className="preview-container">
-            {previews.map((url, index) => (
-              <img key={index} src={url} alt={`Preview ${index}`} />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
+  return { inputRef, previews, handleFileSelect };
 }

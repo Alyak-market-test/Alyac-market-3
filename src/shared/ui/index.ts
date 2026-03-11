@@ -8,5 +8,4 @@ export * from './popover';
 export * from './DeleteConfirmModal';
 export * from './Textarea';
 export * from './FollowButton';
-export * from './ImageUpload';
-export * from './PageStateaScreen';
+export * from './PageStateScreen';

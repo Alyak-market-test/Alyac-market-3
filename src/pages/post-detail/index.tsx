@@ -10,8 +10,8 @@ import {
   useGetPost,
   useToggleHeart,
 } from '@/entities/post';
+import { CommentInput, CommentList } from '@/features/comment';
 import { PostActions, PostAuthor, PostHeader, PostImages, PostMenuDropdown } from '@/features/post';
-import { CommentInput, CommentList } from '@/shared/ui';
 
 interface CommentFormValues {
   comment: string;

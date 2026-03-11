@@ -1,36 +1,33 @@
+import { type UseFormRegisterReturn } from 'react-hook-form';
+
+import { AvatarImage } from '@/shared/icons';
+
 interface CommentInputProps {
+  profileImage: string;
   value: string;
-  onChange: (value: string) => void;
   onSubmit: () => void;
-  profileImage?: string;
+  inputProps?: UseFormRegisterReturn;
 }
 
-export function CommentInput({ value, onChange, onSubmit, profileImage }: CommentInputProps) {
+export function CommentInput({ profileImage, value, onSubmit, inputProps }: CommentInputProps) {
   return (
-    <div className="bg-background flex items-center gap-3 border-t px-4 py-3">
-      <div className="bg-muted h-8 w-8 shrink-0 overflow-hidden rounded-full">
-        {profileImage ? (
-          <img src={profileImage} alt="프로필" className="h-full w-full object-cover" />
-        ) : (
-          <div className="bg-muted h-full w-full" />
-        )}
+    <div className="bg-background fixed right-0 bottom-0 left-0 flex items-center gap-3 border-t px-4 py-3">
+      <AvatarImage src={profileImage} size="sm" />
+      <div className="bg-muted flex flex-1 items-center gap-2 rounded-full px-4 py-2">
+        <input
+          {...inputProps}
+          placeholder="댓글 입력하기..."
+          className="text-foreground placeholder:text-muted-foreground flex-1 bg-transparent text-sm outline-none"
+          onKeyDown={(e) => e.key === 'Enter' && onSubmit()}
+        />
+        <button
+          onClick={onSubmit}
+          disabled={!value.trim()}
+          className="text-muted-foreground text-sm font-semibold disabled:opacity-40"
+        >
+          게시
+        </button>
       </div>
-
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="댓글 입력하기..."
-        className="text-foreground placeholder:text-muted-foreground flex-1 text-sm outline-none"
-      />
-
-      <button
-        onClick={onSubmit}
-        disabled={!value.trim()}
-        className="disabled:text-muted-foreground text-sm font-medium text-[#11CC27]"
-      >
-        게시
-      </button>
     </div>
   );
 }

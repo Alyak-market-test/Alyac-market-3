@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
-export function usePostImages(initialImages: string[] = []) {
+export function usePostImages(initialImages: string[] = [], initialPaths: string[] = []) {
   const [removedIndexes, setRemovedIndexes] = useState<number[]>([]);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [newPreviews, setNewPreviews] = useState<string[]>([]);
 
   const existingImages = initialImages.filter((_, i) => !removedIndexes.includes(i));
+  const remainingExistingPaths = initialPaths.filter((_, i) => !removedIndexes.includes(i));
   const previews = [...existingImages, ...newPreviews];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +35,7 @@ export function usePostImages(initialImages: string[] = []) {
   return {
     imageFiles,
     previews,
+    remainingExistingPaths,
     handleImageChange,
     handleRemoveImage,
   };

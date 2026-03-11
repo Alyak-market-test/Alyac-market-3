@@ -44,28 +44,31 @@ export function PostSection({
           </div>
         ) : (
           <div className="mb-10 grid grid-cols-3 gap-2 p-4">
-            {posts.map((post) => (
-              <div
-                key={post.id}
-                onClick={() => navigate(`/post/${post.id}`)}
-                className="flex aspect-square cursor-pointer items-center justify-center overflow-hidden bg-(--bg-post-grid)"
-              >
-                {post.image?.trim() ? (
-                  <img
-                    src={imageUrl(post.image)}
-                    alt="post-image"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center gap-2">
-                    <NoneImage color="var(--color-muted-foreground)" size={25} />
-                    <p className="p-1 text-center text-xs text-(--color-muted-foreground)">
-                      이미지 없음
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
+            {posts.map((post) => {
+              const firstImage = post.image?.trim().split(',').filter(Boolean)[0];
+              return (
+                <div
+                  key={post.id}
+                  onClick={() => navigate(`/post/${post.id}`)}
+                  className="flex aspect-square cursor-pointer items-center justify-center overflow-hidden bg-(--bg-post-grid)"
+                >
+                  {firstImage ? (
+                    <img
+                      src={imageUrl(firstImage)}
+                      alt="post-image"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center gap-2">
+                      <NoneImage color="var(--color-muted-foreground)" size={25} />
+                      <p className="p-1 text-center text-xs text-(--color-muted-foreground)">
+                        이미지 없음
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </main>

@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 import { type Post } from '@/entities/post';
-import { PostCard } from '@/features/post';
 import { PostAlbumIcon, PostListIcon } from '@/shared/icons';
 
 interface PostSectionProps {
@@ -9,14 +8,10 @@ interface PostSectionProps {
   viewMode: 'list' | 'grid';
   onViewModeChange: (mode: 'list' | 'grid') => void;
   isMyProfile?: boolean;
+  renderPost: (post: Post) => React.ReactNode;
 }
 
-export function PostSection({
-  posts,
-  viewMode,
-  onViewModeChange,
-  isMyProfile = false,
-}: PostSectionProps) {
+export function PostSection({ posts, viewMode, onViewModeChange, renderPost }: PostSectionProps) {
   const navigate = useNavigate();
 
   return (
@@ -35,11 +30,7 @@ export function PostSection({
             <p className="text-foreground text-sm">작성한 게시물이 없습니다</p>
           </div>
         ) : viewMode === 'list' ? (
-          <div>
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} isMyPost={isMyProfile} />
-            ))}
-          </div>
+          <div>{posts.map((post) => renderPost(post))}</div>
         ) : (
           <div className="mb-10 grid grid-cols-3 gap-2 p-4">
             {posts.map((post) => (

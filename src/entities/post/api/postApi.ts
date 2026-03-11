@@ -1,5 +1,5 @@
-import { uploadImages } from '@/features/post/post-add/model/UploadImages';
 import { api } from '@/shared/api/instance';
+import { uploadImages } from '@/shared/api/uploadImages';
 
 import type { Comment, Post } from '../model/Types';
 

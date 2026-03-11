@@ -6,7 +6,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetUserPosts } from '@/entities/post';
 import { type Product, useGetProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
-import { useFollow } from '@/features/follow';
+import { FollowButton, useFollow } from '@/features/follow';
+import { PostCard } from '@/features/post';
+import { useDeleteProduct } from '@/features/product-add';
 import {
   MyButtons,
   PostSection,
@@ -34,8 +36,8 @@ export function ProfilePage() {
 
   const queryClient = useQueryClient();
   const { data: products = [], isLoading: isProductsLoading } = useGetProducts(user.accountname);
+  const { mutate: deleteProductMutate, isPending: isDeletingProduct } = useDeleteProduct();
 
-  // 모든 데이터가 준비될 때까지 로딩 화면 표시
   if (isUserLoading || isProductsLoading) {
     return (
       <div className="bg-background flex min-h-screen items-center justify-center">
@@ -99,7 +101,11 @@ export function ProfilePage() {
         {isMyProfile ? (
           <MyButtons />
         ) : (
-          <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
+          <YourButtons
+            followButton={
+              <FollowButton isFollowing={isFollowing} loading={loading} onToggle={toggleFollow} />
+            }
+          />
         )}
       </div>
 
@@ -108,6 +114,8 @@ export function ProfilePage() {
         isLoading={isProductsLoading}
         isMyProfile={isMyProfile}
         onDeleteSuccess={handleDeleteSuccess}
+        deleteProductMutate={deleteProductMutate}
+        isDeletingProduct={isDeletingProduct}
       />
 
       <PostSection
@@ -115,6 +123,7 @@ export function ProfilePage() {
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         isMyProfile={isMyProfile}
+        renderPost={(post) => <PostCard key={post.id} post={post} isMyPost={isMyProfile} />}
       />
     </div>
   );

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import type { Product } from '@/entities/product';
-import { useDeleteProduct } from '@/features/product-add';
 import { Button, DeleteConfirmModal } from '@/shared';
 
 interface ProductSectionProps {
@@ -11,6 +10,11 @@ interface ProductSectionProps {
   isLoading: boolean;
   isMyProfile: boolean;
   onDeleteSuccess: (productId: string) => void;
+  deleteProductMutate: (
+    id: string,
+    options: { onSuccess: () => void; onError: () => void },
+  ) => void;
+  isDeletingProduct: boolean;
 }
 
 const BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
@@ -20,19 +24,20 @@ export function ProductSection({
   isLoading,
   isMyProfile,
   onDeleteSuccess,
+  deleteProductMutate,
+  isDeletingProduct,
 }: ProductSectionProps) {
   const navigate = useNavigate();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
-  const { mutate: deleteProduct, isPending } = useDeleteProduct();
 
   const handleDeleteClick = (productId: string) => {
-    setDeleteTargetId(productId); // 모달 열기
+    setDeleteTargetId(productId);
   };
 
   const handleDeleteConfirm = () => {
-    if (!deleteTargetId || isPending) return;
-    deleteProduct(deleteTargetId, {
+    if (!deleteTargetId || isDeletingProduct) return;
+    deleteProductMutate(deleteTargetId, {
       onSuccess: () => {
         onDeleteSuccess(deleteTargetId);
         setDeleteTargetId(null);
@@ -45,7 +50,7 @@ export function ProductSection({
   };
 
   const handleDeleteCancel = () => {
-    if (isPending) return;
+    if (isDeletingProduct) return;
     setDeleteTargetId(null);
   };
 
@@ -80,7 +85,6 @@ export function ProductSection({
                     e.currentTarget.src = '/placeholder.png';
                   }}
                 />
-                {/* 내 프로필일 때만 삭제 버튼 표시 */}
                 {isMyProfile && hoveredId === product.id && (
                   <Button
                     onClick={(e) => {
@@ -105,12 +109,11 @@ export function ProductSection({
         </ul>
       </div>
 
-      {/* 삭제 확인 모달 */}
       {deleteTargetId && (
         <DeleteConfirmModal
           onConfirm={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
-          isPending={isPending}
+          isPending={isDeletingProduct}
         />
       )}
     </>

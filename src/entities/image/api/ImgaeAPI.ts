@@ -1,12 +1,6 @@
 import { uploadApi } from '@/shared/api';
 
-export interface UploadResponse {
-  filename: string;
-  path: string;
-  destination: string;
-  originalname: string;
-  size: number;
-}
+import type { UploadResponse } from '../model/ImgTypes';
 
 // 다중 업로드
 export const uploadFiles = async (files: File[]): Promise<UploadResponse[]> => {
@@ -15,7 +9,7 @@ export const uploadFiles = async (files: File[]): Promise<UploadResponse[]> => {
     formData.append('image', file);
   });
 
-  const response = await uploadApi.post('/image/uploadfiles', formData, {});
+  const response = await uploadApi.post<UploadResponse[]>('/image/uploadfiles', formData, {});
   return response.data;
 };
 

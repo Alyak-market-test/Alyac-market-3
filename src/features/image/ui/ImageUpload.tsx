@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useUploadFiles } from '@/entities/image';
+import { useUploadFiles } from '../hooks/useUploadFiles';
 
 interface ImageUploadProps {
   onUploadComplete: (urls: string[]) => void;

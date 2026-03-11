@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { uploadImage } from '../api/UploadFiles';
+import { uploadImage } from '@/entities/image';
 
 interface UseUploadImageReturn {
   isUploading: boolean;

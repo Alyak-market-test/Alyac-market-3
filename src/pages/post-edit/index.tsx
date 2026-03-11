@@ -84,7 +84,7 @@ export function PostEditPage() {
                   <img
                     src={preview}
                     alt={`preview-${index}`}
-                    className="w-full rounded-lg object-cover"
+                    className="h-48 w-48 rounded-lg object-cover"
                   />
                   <button
                     onClick={() => handleRemoveImage(index)}

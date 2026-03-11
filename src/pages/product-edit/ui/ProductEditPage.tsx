@@ -10,6 +10,21 @@ import {
 } from '@/features/product-form';
 import { PageStateScreen } from '@/shared/ui';
 
+export function ProductEdit() {
+  const { productId } = useParams<{ productId: string }>();
+  const { data: product, isLoading, isError } = useGetProduct(productId!);
+
+  if (isLoading) {
+    return <PageStateScreen message="상품 정보를 불러오는 중..." />;
+  }
+
+  if (isError || !product) {
+    return <PageStateScreen variant="error" message="상품 정보를 불러오지 못했습니다." />;
+  }
+
+  return <ProductEditForm product={product} />;
+}
+
 function ProductEditForm({ product }: { product: Product }) {
   const navigate = useNavigate();
   const { productId } = useParams<{ productId: string }>();
@@ -51,19 +66,4 @@ function ProductEditForm({ product }: { product: Product }) {
       />
     </ProductFormLayout>
   );
-}
-
-export function ProductEdit() {
-  const { productId } = useParams<{ productId: string }>();
-  const { data: product, isLoading, isError } = useGetProduct(productId!);
-
-  if (isLoading) {
-    return <PageStateScreen message="상품 정보를 불러오는 중..." />;
-  }
-
-  if (isError || !product) {
-    return <PageStateScreen variant="error" message="상품 정보를 불러오지 못했습니다." />;
-  }
-
-  return <ProductEditForm product={product} />;
 }

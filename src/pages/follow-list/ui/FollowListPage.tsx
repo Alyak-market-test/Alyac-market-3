@@ -5,6 +5,7 @@ import { useToggleFollow } from '@/features/follow';
 import { Button, TopBasicNav } from '@/shared';
 import { AvatarImage } from '@/shared/icons';
 import { getTokenUserInfo } from '@/shared/lib';
+import { PageStateScreen } from '@/shared/ui';
 
 export function FollowListPage() {
   const { accountname } = useParams();
@@ -17,11 +18,7 @@ export function FollowListPage() {
   const { mutate: toggleFollow } = useToggleFollow(accountname!, tab);
 
   if (isLoading) {
-    return (
-      <div className="bg-background flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground text-sm">Loading...</p>
-      </div>
-    );
+    return <PageStateScreen message="Loading..." />;
   }
 
   return (

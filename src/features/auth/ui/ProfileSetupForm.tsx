@@ -7,6 +7,7 @@ import { z } from 'zod';
 
 import { useUploadImage } from '@/entities/image';
 import { useSignUp } from '@/entities/user';
+import { ROUTES } from '@/shared';
 import { AvatarImage, BigUploadIcon, ProfileImageIcon } from '@/shared/icons';
 import { Button } from '@/shared/ui/Button';
 import { Textarea } from '@/shared/ui/Textarea';
@@ -68,7 +69,7 @@ export function ProfileSetupForm() {
       },
       {
         onSuccess: () => {
-          navigate('/signin');
+          navigate(ROUTES.SIGNIN);
         },
         onError: () => {
           setErrorMessage('이미 사용 중인 계정 ID입니다.');

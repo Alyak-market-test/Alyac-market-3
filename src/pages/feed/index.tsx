@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useGetPosts } from '@/entities/post';
 import { useMyProfile } from '@/entities/user';
-import { Button, ROUTES, TopMainNav } from '@/shared';
-import { LogoGrayIcon } from '@/shared/icons';
+import { FeedEmptyState } from '@/features/post';
+import { ROUTES, TopMainNav } from '@/shared';
 import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { BottomNav } from '@/widgets/bottom-nav';
 import { PostCard } from '@/widgets/post-card';
@@ -51,13 +51,7 @@ export function FeedPage() {
             <div ref={observerRef} className="h-4" />
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center gap-4 pt-32">
-            <LogoGrayIcon width={65} height={103} />
-            <p className="text-muted-foreground text-sm">유저를 검색해 팔로우 해보세요!</p>
-            <Button variant="primary" size="M" onClick={() => navigate(ROUTES.SEARCH)}>
-              검색하기
-            </Button>
-          </div>
+          <FeedEmptyState />
         )}
       </main>
       <BottomNav />

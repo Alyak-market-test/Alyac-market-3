@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { getToken, removeToken } from '@/entities/user';
+import { ROUTES } from '@/shared';
 
 export function useAuth() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export function useAuth() {
   const logout = () => {
     removeToken();
     queryClient.clear();
-    navigate('/');
+    navigate(ROUTES.HOME);
   };
 
   const isAuthenticated = () => {

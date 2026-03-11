@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useAvatarUpload, useProfileForm } from '@/features/profile';
-import { Button, TopUploadNav } from '@/shared';
+import { Button, Input, TopUploadNav } from '@/shared';
 import { AvatarImage, ImgIcon } from '@/shared/icons';
 
 export function ProfileModification() {
@@ -42,7 +42,6 @@ export function ProfileModification() {
 
       <div className="flex justify-center py-10">
         <div className="relative">
-          {/* 숨겨진 파일 input */}
           <input
             ref={fileInputRef}
             type="file"
@@ -51,8 +50,9 @@ export function ProfileModification() {
             onChange={handleFileChange}
           />
 
-          {/* 아바타 전체 클릭 */}
-          <button
+          <Button
+            variant="ghost"
+            size="none"
             type="button"
             onClick={openFilePicker}
             disabled={isUploading}
@@ -60,9 +60,8 @@ export function ProfileModification() {
             className="cursor-pointer disabled:opacity-60"
           >
             <AvatarImage src={form.image} alt={form.name} size="xxl" iconSize="lg" />
-          </button>
+          </Button>
 
-          {/* 이미지 파일 선택 아이콘 */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute right-0 bottom-0 flex h-11 w-11 items-center justify-center rounded-full"
@@ -74,7 +73,6 @@ export function ProfileModification() {
             )}
           </div>
 
-          {/* 기존 이미지로 변경 X 버튼 - 이미지가 있을 때만 표시 */}
           {form.image && !isUploading && (
             <Button
               variant={'avatarNone'}
@@ -89,15 +87,14 @@ export function ProfileModification() {
       </div>
 
       <div className="flex flex-col gap-10 px-7">
-        {/* 사용자 이름 */}
         <div className="flex flex-col gap-3">
           <label className="text-foreground text-sm">사용자 이름</label>
-          <input
+          <Input
             type="text"
             value={form.name}
             onChange={(e) => setName(e.target.value)}
             placeholder="이름을 입력하세요."
-            className={`text-md border-b py-2 transition-colors outline-none ${
+            className={`rounded-none border-x-0 border-t-0 py-2 shadow-none ${
               form.name.trim() === '' ? 'border-red-400' : 'border-border'
             }`}
           />
@@ -106,29 +103,27 @@ export function ProfileModification() {
           )}
         </div>
 
-        {/* 계정 ID */}
         <div className="flex flex-col gap-1">
           <label className="text-foreground text-sm">계정 ID</label>
-          <input
+          <Input
             type="text"
             value={form.accountname}
             disabled
-            className="text-md border-border text-muted-foreground cursor-not-allowed border-b py-2 outline-none"
+            className="text-muted-foreground cursor-not-allowed rounded-none border-x-0 border-t-0 py-2 shadow-none"
           />
           <p className="text-muted-foreground text-sm">계정 ID는 변경할 수 없습니다.</p>
         </div>
 
-        {/* 자기 소개 */}
         <div className="flex flex-col gap-1">
           <label className="text-foreground text-sm">소개</label>
-          <input
+          <Input
             type="text"
             value={form.bio}
             onChange={(e) => {
               if (e.target.value.length <= 60) setBio(e.target.value);
             }}
             placeholder="간단한 자기 소개를 입력하세요."
-            className="text-md border-border border-b py-2 outline-none"
+            className="rounded-none border-x-0 border-t-0 py-2 shadow-none"
           />
           <p className="text-muted-foreground text-sm">최대 60자</p>
         </div>

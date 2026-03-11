@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetPosts } from '@/entities/post';
 import { useMyProfile } from '@/entities/user';
 import { PostCard } from '@/features/post';
-import { ROUTES, TopMainNav } from '@/shared';
+import { Button, ROUTES, TopMainNav } from '@/shared';
 import { LogoGrayIcon } from '@/shared/icons';
 import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { BottomNav } from '@/widgets/bottom-nav';
@@ -54,12 +54,9 @@ export function FeedPage() {
           <div className="flex flex-col items-center justify-center gap-4 pt-32">
             <LogoGrayIcon width={65} height={103} />
             <p className="text-muted-foreground text-sm">유저를 검색해 팔로우 해보세요!</p>
-            <button
-              onClick={() => navigate(ROUTES.SEARCH)}
-              className="rounded-full bg-green-500 px-6 py-2 text-sm text-white"
-            >
+            <Button variant="primary" size="M" onClick={() => navigate(ROUTES.SEARCH)}>
               검색하기
-            </button>
+            </Button>
           </div>
         )}
       </main>

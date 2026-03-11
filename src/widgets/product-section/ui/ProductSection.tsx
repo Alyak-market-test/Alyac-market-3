@@ -3,38 +3,34 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import type { Product } from '@/entities/product';
-import { useDeleteProduct } from '@/entities/product';
+import { useGetProducts } from '@/entities/product';
+import { useDeleteProduct } from '@/features/product';
 import { Button, DeleteConfirmModal } from '@/shared/ui';
 
 interface ProductSectionProps {
-  products: Product[];
-  isLoading: boolean;
+  accountname: string;
   isMyProfile: boolean;
-  onDeleteSuccess: (productId: string) => void;
 }
 
 const BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
-export function ProductSection({
-  products,
-  isLoading,
-  isMyProfile,
-  onDeleteSuccess,
-}: ProductSectionProps) {
+export function ProductSection({ accountname, isMyProfile }: ProductSectionProps) {
   const navigate = useNavigate();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+
+  const { data: products = [], isLoading } = useGetProducts(accountname);
+
   const { mutate: deleteProduct, isPending } = useDeleteProduct();
 
   const handleDeleteClick = (productId: string) => {
-    setDeleteTargetId(productId); // 모달 열기
+    setDeleteTargetId(productId);
   };
 
   const handleDeleteConfirm = () => {
     if (!deleteTargetId || isPending) return;
     deleteProduct(deleteTargetId, {
       onSuccess: () => {
-        onDeleteSuccess(deleteTargetId);
         setDeleteTargetId(null);
       },
       onError: () => {

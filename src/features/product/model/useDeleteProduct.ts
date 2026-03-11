@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-import { deleteProduct } from '../api/ProductApi';
+import { useQueryClient } from '@tanstack/react-query';
+
+import { deleteProduct } from '@/entities/product';
 
 interface Callbacks {
   onSuccess?: () => void;
@@ -9,11 +11,13 @@ interface Callbacks {
 
 export function useDeleteProduct() {
   const [isPending, setIsPending] = useState(false);
+  const queryClient = useQueryClient();
 
   const mutate = async (productId: string, callbacks?: Callbacks) => {
     setIsPending(true);
     try {
       await deleteProduct(productId);
+      queryClient.invalidateQueries({ queryKey: ['products'] });
       callbacks?.onSuccess?.();
     } catch {
       callbacks?.onError?.();

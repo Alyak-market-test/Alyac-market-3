@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useAddProduct } from '@/features/product';
-import { ProductFormFields, ProductImageSection, useProductForm } from '@/features/product-form';
-import { TopUploadNav } from '@/shared';
+import {
+  ProductFormFields,
+  ProductFormLayout,
+  ProductImageSection,
+  useProductForm,
+} from '@/features/product-form';
 
 export function ProductAdd() {
   const navigate = useNavigate();
@@ -19,29 +23,22 @@ export function ProductAdd() {
   };
 
   return (
-    <div className="bg-background my-15 flex min-h-screen flex-col">
-      <TopUploadNav
-        onBack={() => navigate(-1)}
-        onSave={handleSave}
-        disabled={form.isDisabled || isPending}
+    <ProductFormLayout onSave={handleSave} disabled={form.isDisabled || isPending}>
+      <ProductImageSection
+        previewUrls={form.previewUrls}
+        imageUrls={form.imageUrls}
+        imageInputRef={form.imageInputRef}
+        onUploadComplete={form.setImageUrls}
+        onPreviewChange={form.setPreviewUrls}
       />
-      <div className="flex flex-col gap-10 px-7">
-        <ProductImageSection
-          previewUrls={form.previewUrls}
-          imageUrls={form.imageUrls}
-          imageInputRef={form.imageInputRef}
-          onUploadComplete={form.setImageUrls}
-          onPreviewChange={form.setPreviewUrls}
-        />
-        <ProductFormFields
-          name={form.name}
-          onNameChange={form.setName}
-          price={form.price}
-          onPriceChange={form.setPrice}
-          saleUrl={form.saleUrl}
-          onSaleUrlChange={form.setSaleUrl}
-        />
-      </div>
-    </div>
+      <ProductFormFields
+        name={form.name}
+        onNameChange={form.setName}
+        price={form.price}
+        onPriceChange={form.setPrice}
+        saleUrl={form.saleUrl}
+        onSaleUrlChange={form.setSaleUrl}
+      />
+    </ProductFormLayout>
   );
 }

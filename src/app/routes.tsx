@@ -22,7 +22,9 @@ const NotFoundPage = lazy(() =>
 );
 const FeedPage = lazy(() => import('@/pages/feed').then((m) => ({ default: m.FeedPage })));
 const SearchPage = lazy(() => import('@/pages/search').then((m) => ({ default: m.SearchPage })));
-const ProfilePage = lazy(() => import('@/pages/profile').then((m) => ({ default: m.ProfilePage })));
+const ProfilePage = lazy(() =>
+  import('@/pages/profile/ui/ProfilePage').then((m) => ({ default: m.ProfilePage })),
+);
 const ProfileModification = lazy(() =>
   import('@/pages/profile-modification').then((m) => ({ default: m.ProfileModification })),
 );

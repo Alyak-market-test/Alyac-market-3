@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { AvatarImage } from '@/shared';
+import { imageUrl } from '@/shared/lib';
 
 interface ProfileStatsProps {
   accountname: string;
@@ -30,7 +31,7 @@ export function ProfileStats({
         <span className="text-muted-foreground cursor-pointer text-sm">Followers</span>
       </div>
 
-      <AvatarImage src={image} alt={username} size="xl" iconSize="md" />
+      <AvatarImage src={imageUrl(image)} alt={username} size="xl" iconSize="md" />
 
       <div
         className="flex flex-col items-center"

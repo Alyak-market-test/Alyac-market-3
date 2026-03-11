@@ -7,11 +7,13 @@ import { useMyProfile } from '@/entities/user';
 import { FeedEmptyState } from '@/features/post';
 import { ROUTES, TopMainNav } from '@/shared';
 import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
+import { PageStateScreen } from '@/shared/ui';
 import { BottomNav } from '@/widgets/bottom-nav';
 import { PostCard } from '@/widgets/post-card';
 
 export function FeedPage() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetPosts();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
+    useGetPosts();
   const { data: currentUser } = useMyProfile();
   const navigate = useNavigate();
   const observerRef = useRef<HTMLDivElement>(null);
@@ -31,6 +33,14 @@ export function FeedPage() {
     if (observerRef.current) observer.observe(observerRef.current);
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  if (isLoading) {
+    return <PageStateScreen message="피드를 불러오는 중..." />;
+  }
+
+  if (isError) {
+    return <PageStateScreen variant="error" message="피드를 불러오지 못했습니다." />;
+  }
 
   return (
     <div className="flex min-h-screen flex-col pt-14">

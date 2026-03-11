@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { updatePost } from '@/entities/post';
-import { uploadImages } from '@/features/post/post-add/model/UploadImages';
+import { uploadImages } from '@/shared/lib';
 
 export function usePostEditSubmit(postId: string) {
   const navigate = useNavigate();

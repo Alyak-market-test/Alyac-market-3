@@ -6,19 +6,24 @@
 export const ROUTES = {
   HOME: '/',
   FEED: '/feed',
-  LOGIN: '/login',
+  SIGNIN: '/signin',
   SIGNUP: '/signup',
+  SIGNUP_PROFILE: '/signup-profile-setup',
   SEARCH: '/search',
   PROFILE: '/profile',
+  PROFILE_MODIFICATION: '/profile-modification',
   POST: {
-    DETAIL: '/post/:post_id',
-    UPLOAD: '/post-add',
+    DETAIL: (postId: string) => `/post/${postId}`,
+    ADD: '/post-add',
+    EDIT: (postId: string) => `/post/${postId}/edit`,
   },
   PRODUCT: {
-    UPLOAD: '/product/upload',
+    ADD: '/product-add',
+    EDIT: (productId: string) => `/product-edit/${productId}`,
   },
   CHAT: {
     LIST: '/chat',
-    DETAIL: '/chat/:id',
+    DETAIL: (id: string) => `/chat/${id}`,
   },
+  FOLLOW_LIST: (accountname: string) => `/profile/${accountname}/follow`,
 } as const;

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useAvatarUpload, useProfileForm } from '@/features/profile';
+import { ROUTES } from '@/shared';
 import { Button, Input, TopUploadNav } from '@/shared';
 import { AvatarImage, ImgIcon } from '@/shared/icons';
 
@@ -17,7 +18,7 @@ export function ProfileModification() {
   const handleSave = async () => {
     if (form.name.trim() === '' || isSaving || isUploading) return;
     await save();
-    navigate('/profile', { state: { refresh: Date.now() } });
+    navigate(ROUTES.PROFILE, { state: { refresh: Date.now() } });
   };
 
   if (isLoading) {

@@ -6,9 +6,10 @@ import { useGetUserPosts } from '@/entities/post';
 import { useAuth } from '@/features/auth';
 import { useFollow } from '@/features/follow';
 import { MyButtons, ProfileInfo, ProfileStats, YourButtons, useProfile } from '@/features/profile';
-import { ThemeToggle, TopBasicNav } from '@/shared';
+import { FollowButton, ThemeToggle, TopBasicNav } from '@/shared';
 import { MoreVerticalIcon } from '@/shared/icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
+import { PostCard } from '@/widgets/post-card';
 import { PostSection } from '@/widgets/post-section';
 import { ProductSection } from '@/widgets/product-section';
 
@@ -25,7 +26,6 @@ export function ProfilePage() {
     followerCount: user.followers,
   });
 
-  // 모든 데이터가 준비될 때까지 로딩 화면 표시
   if (isUserLoading) {
     return (
       <div className="bg-background flex min-h-screen items-center justify-center">
@@ -83,7 +83,11 @@ export function ProfilePage() {
         {isMyProfile ? (
           <MyButtons />
         ) : (
-          <YourButtons isFollowing={isFollowing} loading={loading} onToggleFollow={toggleFollow} />
+          <YourButtons
+            followButton={
+              <FollowButton isFollowing={isFollowing} loading={loading} onToggle={toggleFollow} />
+            }
+          />
         )}
       </div>
 
@@ -94,6 +98,7 @@ export function ProfilePage() {
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         isMyProfile={isMyProfile}
+        renderPost={(post) => <PostCard key={post.id} post={post} isMyPost={isMyProfile} />}
       />
     </div>
   );

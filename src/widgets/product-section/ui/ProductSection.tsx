@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Product } from '@/entities/product';
 import { useGetProducts } from '@/entities/product';
 import { useDeleteProduct } from '@/features/product';
-import { Button, DeleteConfirmModal } from '@/shared/ui';
+import { Button, DeleteConfirmModal } from '@/shared';
 
 interface ProductSectionProps {
   accountname: string;
@@ -76,7 +76,6 @@ export function ProductSection({ accountname, isMyProfile }: ProductSectionProps
                     e.currentTarget.src = '/placeholder.png';
                   }}
                 />
-                {/* 내 프로필일 때만 삭제 버튼 표시 */}
                 {isMyProfile && hoveredId === product.id && (
                   <Button
                     onClick={(e) => {
@@ -101,7 +100,6 @@ export function ProductSection({ accountname, isMyProfile }: ProductSectionProps
         </ul>
       </div>
 
-      {/* 삭제 확인 모달 */}
       {deleteTargetId && (
         <DeleteConfirmModal
           onConfirm={handleDeleteConfirm}

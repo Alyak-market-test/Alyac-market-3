@@ -1,3 +1,5 @@
+import { Input } from '@/shared';
+
 interface ProductFormFieldsProps {
   name: string;
   onNameChange: (v: string) => void;
@@ -23,12 +25,12 @@ export function ProductFormFields({
       {/* 상품명 */}
       <div className="flex flex-col gap-3">
         <label className="text-foreground text-sm">상품명</label>
-        <input
+        <Input
           type="text"
           value={name}
           onChange={(e) => onNameChange(e.target.value)}
           placeholder="2~15자 이내여야 합니다."
-          className={`text-md border-b py-2 transition-colors outline-none ${
+          className={`rounded-none border-x-0 border-t-0 py-2 shadow-none ${
             name.trim() === '' ? 'border-red-400' : 'border-border'
           }`}
         />
@@ -41,13 +43,13 @@ export function ProductFormFields({
       {/* 가격 */}
       <div className="flex flex-col gap-3">
         <label className="text-foreground text-sm">가격</label>
-        <input
+        <Input
           type="text"
           inputMode="numeric"
           value={price}
           onChange={(e) => onPriceChange(e.target.value.replace(/[^0-9]/g, ''))}
           placeholder="숫자만 입력 가능합니다."
-          className={`text-md border-b py-2 transition-colors outline-none ${
+          className={`rounded-none border-x-0 border-t-0 py-2 shadow-none ${
             price.trim() === '' ? 'border-red-400' : 'border-border'
           }`}
         />
@@ -57,12 +59,12 @@ export function ProductFormFields({
       {/* 판매 링크 */}
       <div className="flex flex-col gap-1">
         <label className="text-foreground text-sm">판매 링크</label>
-        <input
+        <Input
           type="url"
           value={saleUrl}
           onChange={(e) => onSaleUrlChange(e.target.value)}
           placeholder="URL을 입력해 주세요."
-          className={`text-md border-b py-2 transition-colors outline-none ${
+          className={`rounded-none border-x-0 border-t-0 py-2 shadow-none ${
             isInvalidUrl ? 'border-red-400' : 'border-border'
           }`}
         />

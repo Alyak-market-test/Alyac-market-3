@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { type FollowUser, followUser, unfollowUser } from '@/entities/profile';
+import { type FollowUser, useFollowUser, useUnfollowUser } from '@/entities/profile';
 
 export function useToggleFollow(accountname: string, tab: 'followers' | 'followings') {
   const queryClient = useQueryClient();
+  const { mutateAsync: follow } = useFollowUser();
+  const { mutateAsync: unfollow } = useUnfollowUser();
 
   return useMutation({
     mutationFn: ({
@@ -12,7 +14,7 @@ export function useToggleFollow(accountname: string, tab: 'followers' | 'followi
     }: {
       targetAccountname: string;
       currentlyFollowing: boolean;
-    }) => (currentlyFollowing ? unfollowUser(targetAccountname) : followUser(targetAccountname)),
+    }) => (currentlyFollowing ? unfollow(targetAccountname) : follow(targetAccountname)),
 
     onMutate: ({ targetAccountname, currentlyFollowing }) => {
       queryClient.setQueryData<FollowUser[]>(

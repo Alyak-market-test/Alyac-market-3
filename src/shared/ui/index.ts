@@ -9,3 +9,4 @@ export * from './DeleteConfirmModal';
 export * from './Textarea';
 export * from './FollowButton';
 export * from './PageStateScreen';
+export * from './AvatarImage';

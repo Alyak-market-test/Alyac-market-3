@@ -8,9 +8,8 @@ import { z } from 'zod';
 import { useUploadImage } from '@/entities/image';
 import { useSignUp } from '@/entities/user';
 import { ROUTES } from '@/shared';
-import { AvatarImage, BigUploadIcon, ProfileImageIcon } from '@/shared/icons';
-import { Button } from '@/shared/ui/Button';
-import { Textarea } from '@/shared/ui/Textarea';
+import { AvatarImage, Button, Textarea } from '@/shared';
+import { BigUploadIcon, ProfileImageIcon } from '@/shared/icons';
 
 import { FormField } from './FormField';
 

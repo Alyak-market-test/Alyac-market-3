@@ -1,5 +1,5 @@
 import type { Comment } from '@/entities/post';
-import { AvatarImage } from '@/shared/icons';
+import { AvatarImage } from '@/shared';
 
 interface CommentListProps {
   comments: Comment[];

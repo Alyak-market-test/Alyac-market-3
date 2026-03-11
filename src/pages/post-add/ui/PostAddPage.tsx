@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '@/entities/user';
 import { usePostAdd } from '@/features/post';
-import { Button, Textarea } from '@/shared';
-import { AvatarImage, ImgIcon } from '@/shared/icons';
+import { AvatarImage, Button, Textarea } from '@/shared';
+import { ImgIcon } from '@/shared/icons';
 
 export function PostAddPage() {
   const navigate = useNavigate();

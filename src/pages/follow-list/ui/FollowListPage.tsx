@@ -2,8 +2,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { useFollowList } from '@/entities/profile';
 import { useToggleFollow } from '@/features/follow';
-import { Button, TopBasicNav } from '@/shared';
-import { AvatarImage } from '@/shared/icons';
+import { AvatarImage, Button, TopBasicNav } from '@/shared';
 import { getTokenUserInfo } from '@/shared/lib';
 import { PageStateScreen } from '@/shared/ui';
 

@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAvatarUpload, useProfileForm } from '@/features/profile';
 import { ROUTES } from '@/shared';
-import { Button, Input, TopUploadNav } from '@/shared';
-import { AvatarImage, ImgIcon } from '@/shared/icons';
+import { AvatarImage, Button, Input, TopUploadNav } from '@/shared';
+import { ImgIcon } from '@/shared/icons';
 import { PageStateScreen } from '@/shared/ui';
 
 export function ProfileModification() {

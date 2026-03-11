@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import type { User } from '@/entities/user';
-import { AvatarImage } from '@/shared/icons';
+import { AvatarImage } from '@/shared';
 
 interface UserCardProps {
   user: User;

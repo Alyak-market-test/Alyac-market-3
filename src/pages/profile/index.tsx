@@ -1,24 +1,16 @@
 import { useState } from 'react';
 
-import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetUserPosts } from '@/entities/post';
-import { type Product, useGetProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
 import { useFollow } from '@/features/follow';
-import {
-  MyButtons,
-  ProductSection,
-  ProfileInfo,
-  ProfileStats,
-  YourButtons,
-  useProfile,
-} from '@/features/profile';
+import { MyButtons, ProfileInfo, ProfileStats, YourButtons, useProfile } from '@/features/profile';
 import { ThemeToggle, TopBasicNav } from '@/shared';
 import { MoreVerticalIcon } from '@/shared/icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
 import { PostSection } from '@/widgets/post-section';
+import { ProductSection } from '@/widgets/product-section';
 
 export function ProfilePage() {
   const { accountname } = useParams();
@@ -33,23 +25,14 @@ export function ProfilePage() {
     followerCount: user.followers,
   });
 
-  const queryClient = useQueryClient();
-  const { data: products = [], isLoading: isProductsLoading } = useGetProducts(user.accountname);
-
   // 모든 데이터가 준비될 때까지 로딩 화면 표시
-  if (isUserLoading || isProductsLoading) {
+  if (isUserLoading) {
     return (
       <div className="bg-background flex min-h-screen items-center justify-center">
         <p className="text-muted-foreground text-sm">Loading...</p>
       </div>
     );
   }
-
-  const handleDeleteSuccess = (productId: string) => {
-    queryClient.setQueryData<Product[]>(['products', user.accountname], (prev) =>
-      prev ? prev.filter((p) => p.id !== productId) : [],
-    );
-  };
 
   return (
     <div className="bg-background mx-auto my-15 flex min-h-screen flex-col">
@@ -104,12 +87,7 @@ export function ProfilePage() {
         )}
       </div>
 
-      <ProductSection
-        products={products}
-        isLoading={isProductsLoading}
-        isMyProfile={isMyProfile}
-        onDeleteSuccess={handleDeleteSuccess}
-      />
+      <ProductSection accountname={user.accountname} isMyProfile={isMyProfile} />
 
       <PostSection
         posts={posts}

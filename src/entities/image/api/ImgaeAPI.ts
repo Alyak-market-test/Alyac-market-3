@@ -1,4 +1,5 @@
 import { uploadApi } from '@/shared/api';
+import { imageUrl } from '@/shared/lib';
 
 import type { UploadResponse } from '../model/ImgTypes';
 
@@ -19,10 +20,5 @@ export const uploadImage = async (file: File): Promise<string> => {
   formData.append('image', file);
 
   const response = await uploadApi.post<UploadResponse>('/image/uploadfile', formData, {});
-  const { filename } = response.data;
-
-  if (filename.startsWith('http')) {
-    return filename;
-  }
-  return `${import.meta.env.VITE_IMAGE_BASE_URL}/uploadFiles/${filename}`;
+  return imageUrl(response.data.filename);
 };

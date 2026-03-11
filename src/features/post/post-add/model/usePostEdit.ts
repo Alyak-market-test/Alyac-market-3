@@ -13,11 +13,10 @@ export function usePostEdit() {
   const { data: post } = useGetPost(postId!);
 
   const existingImageUrls = post?.image ? post.image.split(',').filter(Boolean).map(imageUrl) : [];
-
   const existingImagePaths = post?.image ? post.image.split(',').filter(Boolean) : [];
 
-  const { imageFiles, previews, handleImageChange, handleRemoveImage } =
-    usePostImages(existingImageUrls);
+  const { imageFiles, previews, remainingExistingPaths, handleImageChange, handleRemoveImage } =
+    usePostImages(existingImageUrls, existingImagePaths);
 
   const { register, handleSubmit, errors, contentValue } = usePostForm(post?.content);
   const { mutate, isLoading, mutationError } = usePostEditSubmit(postId!);
@@ -26,7 +25,7 @@ export function usePostEdit() {
     mutate({
       content: formValues.content,
       imageFiles,
-      existingImages: existingImagePaths,
+      existingImages: remainingExistingPaths, // 삭제된 이미지가 제외된 목록
     });
   });
 

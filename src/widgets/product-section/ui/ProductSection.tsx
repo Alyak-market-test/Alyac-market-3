@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import type { Product } from '@/entities/product';
 import { useGetProducts } from '@/entities/product';
@@ -32,6 +33,7 @@ export function ProductSection({ accountname, isMyProfile }: ProductSectionProps
     deleteProduct(deleteTargetId, {
       onSuccess: () => {
         setDeleteTargetId(null);
+        toast.success('판매 상품이 삭제되었습니다');
       },
       onError: () => {
         alert('상품 삭제에 실패했습니다.');

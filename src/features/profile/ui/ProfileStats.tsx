@@ -31,7 +31,7 @@ export function ProfileStats({
         <span className="text-muted-foreground cursor-pointer text-sm">Followers</span>
       </div>
 
-      <AvatarImage src={imageUrl(image)} alt={username} size="xl" iconSize="md" />
+      <AvatarImage src={image ? imageUrl(image) : ''} alt={username} size="xl" iconSize="md" />
 
       <div
         className="flex flex-col items-center"

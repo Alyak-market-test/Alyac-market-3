@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import { type Post, useDeletePost, useToggleHeart } from '@/entities/post';
 import { AvatarImage, ROUTES } from '@/shared';
@@ -23,7 +24,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const { mutate: toggleHeart } = useToggleHeart(post.id);
   const { mutate: deletePost } = useDeletePost();
 
-  const handleDelete = () => {
+  const handleDeleteClick = () => {
     setShowDeleteModal(true);
     setMenuOpen(false);
   };
@@ -33,9 +34,10 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['posts'] });
         queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+        toast.success('게시글이 삭제되었습니다');
+        setShowDeleteModal(false);
       },
     });
-    setShowDeleteModal(false);
   };
 
   return (
@@ -76,7 +78,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                   </button>
                   <button
                     className="hover:bg-muted w-full cursor-pointer rounded-b-xl px-4 py-3 text-left text-sm text-red-500 transition-colors"
-                    onClick={handleDelete}
+                    onClick={handleDeleteClick}
                   >
                     삭제하기
                   </button>

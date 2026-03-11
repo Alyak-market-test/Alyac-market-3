@@ -17,6 +17,9 @@ export function useUpdateProfile() {
       queryClient.refetchQueries({
         queryKey: profileQueryKeys.profile(variables.accountname),
       });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+      queryClient.invalidateQueries({ queryKey: ['me'] });
     },
   });
 }

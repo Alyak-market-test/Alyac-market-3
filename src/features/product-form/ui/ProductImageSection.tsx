@@ -1,3 +1,4 @@
+import { useUploadFiles } from '@/entities/image';
 import { ImageUpload } from '@/shared';
 import { ImgButtonIcon } from '@/shared/icons';
 
@@ -17,6 +18,8 @@ export function ProductImageSection({
   onUploadComplete,
   onPreviewChange,
 }: ProductImageSectionProps) {
+  const uploadMutation = useUploadFiles();
+
   return (
     <div className="relative">
       <p className="text-muted-foreground mt-4 text-sm">이미지 등록</p>
@@ -25,14 +28,12 @@ export function ProductImageSection({
         onClick={() => imageInputRef.current?.click()}
       >
         {previewUrls[0] ? (
-          // 새로 업로드한 이미지 미리보기
           <img
             src={previewUrls[0]}
             alt="새 이미지 미리보기"
             className="h-full w-full rounded-lg object-cover"
           />
         ) : existingImageUrl ? (
-          // Edit 페이지: 기존 서버 이미지
           <img
             src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${existingImageUrl}`}
             alt="기존 이미지"
@@ -46,7 +47,13 @@ export function ProductImageSection({
         />
       </div>
       <ImageUpload
-        onUploadComplete={onUploadComplete}
+        onFileSelect={(files) =>
+          uploadMutation.mutate(files, {
+            onSuccess: (data) => onUploadComplete(data.map((item) => item.filename)),
+            onError: (error) => alert('업로드 실패: ' + error.message),
+          })
+        }
+        isUploading={uploadMutation.isPending}
         onPreviewChange={onPreviewChange}
         maxFiles={3}
         inputRef={imageInputRef}

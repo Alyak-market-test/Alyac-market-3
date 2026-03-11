@@ -1,24 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useUploadFiles } from '@/entities/image';
-
 interface ImageUploadProps {
-  onUploadComplete: (urls: string[]) => void;
   onPreviewChange?: (urls: string[]) => void;
+  onFileSelect: (files: File[]) => void;
   maxFiles?: number;
   currentCount?: number;
   inputRef?: React.RefObject<HTMLInputElement>;
+  isUploading?: boolean;
+  showPreview?: boolean;
 }
 
 export function ImageUpload({
-  onUploadComplete,
   onPreviewChange,
+  onFileSelect,
   maxFiles = 3,
   currentCount = 0,
   inputRef: externalRef,
+  isUploading = false,
+  showPreview = false,
 }: ImageUploadProps) {
   const [previews, setPreviews] = useState<string[]>([]);
-  const uploadMutation = useUploadFiles();
   const internalRef = useRef<HTMLInputElement>(null);
   const inputRef = externalRef ?? internalRef;
 
@@ -28,7 +29,7 @@ export function ImageUpload({
     };
   }, [previews]);
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
     if (currentCount + files.length > maxFiles) {
@@ -40,17 +41,7 @@ export function ImageUpload({
     setPreviews(previewUrls);
     onPreviewChange?.(previewUrls);
 
-    uploadMutation.mutate(files, {
-      onSuccess: (data) => {
-        const urls = data.map((item) => item.filename);
-        onUploadComplete(urls);
-      },
-      onError: (error) => {
-        alert('업로드 실패: ' + error.message);
-        setPreviews([]);
-        onPreviewChange?.([]);
-      },
-    });
+    onFileSelect(files);
   };
 
   return (
@@ -61,17 +52,20 @@ export function ImageUpload({
         accept="image/*"
         multiple
         onChange={handleFileSelect}
-        disabled={uploadMutation.isPending}
+        disabled={isUploading}
         className="hidden"
       />
 
-      {/* {uploadMutation.isPending && <div>업로드 중...</div>}
-
-      <div className="preview-container">
-        {previews.map((url, index) => (
-          <img key={index} src={url} alt={`Preview ${index}`} />
-        ))}
-      </div> */}
+      {showPreview && (
+        <>
+          {isUploading && <div>업로드 중...</div>}
+          <div className="preview-container">
+            {previews.map((url, index) => (
+              <img key={index} src={url} alt={`Preview ${index}`} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

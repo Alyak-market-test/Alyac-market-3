@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { type Post, useDeletePost, useToggleHeart } from '@/entities/post';
 import { ROUTES } from '@/shared';
-import { CommentIcon, HeartIcon, MoreVerticalIcon } from '@/shared/icons';
+import { AvatarImage, CommentIcon, HeartIcon, MoreVerticalIcon } from '@/shared/icons';
 import { imageUrl } from '@/shared/lib';
 import { DeleteConfirmModal } from '@/shared/ui';
 

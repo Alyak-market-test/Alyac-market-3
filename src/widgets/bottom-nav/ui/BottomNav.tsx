@@ -30,7 +30,7 @@ export function BottomNav() {
       {/* 게시물 작성 */}
       <button
         className="flex cursor-pointer flex-col items-center rounded-md hover:bg-(--icon-hover)"
-        onClick={() => navigate(ROUTES.POST.UPLOAD)}
+        onClick={() => navigate(ROUTES.POST.ADD)}
       >
         <EditIcon className="w-6" />
         <span className="text-xs text-[#767676]">게시물작성</span>

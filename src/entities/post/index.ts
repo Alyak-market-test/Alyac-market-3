@@ -23,3 +23,4 @@ export {
 } from './hooks/usePostMutations';
 
 export type { Post, Comment } from './model/Types';
+export { CommentList } from './ui/CommentList';

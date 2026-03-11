@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-export interface PostAddFormValues {
-  content: string;
-}
+const postSchema = z.object({
+  content: z.string().min(1, '내용을 입력해주세요').max(2200, '2200자 이하로 입력해주세요'),
+});
+
+export type PostAddFormValues = z.infer<typeof postSchema>;
 
 export function usePostForm(defaultContent?: string) {
   const {
@@ -14,12 +18,12 @@ export function usePostForm(defaultContent?: string) {
     reset,
     formState: { errors },
   } = useForm<PostAddFormValues>({
+    resolver: zodResolver(postSchema),
     defaultValues: { content: '' },
   });
 
   const contentValue = watch('content');
 
-  // 기존 내용 불러왔을 때 폼에 세팅
   useEffect(() => {
     if (defaultContent) {
       reset({ content: defaultContent });

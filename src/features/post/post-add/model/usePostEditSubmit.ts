@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
+import { uploadFiles } from '@/entities/image';
 import { updatePost } from '@/entities/post';
-import { uploadImages } from '@/shared/lib';
 
 export function usePostEditSubmit(postId: string) {
   const navigate = useNavigate();
@@ -24,8 +24,8 @@ export function usePostEditSubmit(postId: string) {
     }) => {
       let imageString = existingImages.join(',');
       if (imageFiles.length > 0) {
-        const filenames = await uploadImages(imageFiles);
-        imageString = [...existingImages, ...filenames].join(',');
+        const results = await uploadFiles(imageFiles);
+        imageString = [...existingImages, ...results.map((r) => r.path)].join(',');
       }
       return updatePost({ postId, content, imageString });
     },

@@ -1,21 +1,15 @@
 import { api } from '@/shared/api/instance';
-import { uploadImages } from '@/shared/lib';
 
 import type { Comment, Post } from '../model/Types';
 
 // 게시글 작성
 export async function createPost({
   content,
-  imageFiles,
+  imageString = '',
 }: {
   content: string;
-  imageFiles: File[];
+  imageString?: string;
 }): Promise<string> {
-  let imageString = '';
-  if (imageFiles.length > 0) {
-    const filenames = await uploadImages(imageFiles);
-    imageString = filenames.join(',');
-  }
   const response = await api.post('/post', {
     post: { content, image: imageString },
   });

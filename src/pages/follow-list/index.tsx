@@ -1,10 +1,10 @@
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { useFollowList } from '@/entities/profile';
-import { getTokenUserInfo } from '@/entities/user';
 import { useToggleFollow } from '@/features/follow';
 import { Button, TopBasicNav } from '@/shared';
 import { AvatarImage } from '@/shared/icons';
+import { getTokenUserInfo } from '@/shared/lib';
 
 export function FollowListPage() {
   const { accountname } = useParams();
@@ -31,9 +31,9 @@ export function FollowListPage() {
         title={tab === 'followings' ? 'Followings' : 'Followers'}
       />
 
-      <ul className="flex flex-col divide-y">
+      <ul className="mt-15 flex flex-col divide-y">
         {list.map((user) => (
-          <li key={user.accountname} className="flex items-center justify-between px-4 py-3">
+          <li key={user.accountname} className="flex items-center justify-between px-4 py-2">
             <div
               className="flex cursor-pointer items-center gap-3"
               onClick={() => navigate(`/profile/${user.accountname}`)}

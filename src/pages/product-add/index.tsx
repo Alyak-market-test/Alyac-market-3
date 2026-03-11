@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useAddProduct } from '@/features/product-add';
+import { useAddProduct } from '@/features/product';
 import { ProductFormFields, ProductImageSection, useProductForm } from '@/features/product-form';
 import { TopUploadNav } from '@/shared';
 

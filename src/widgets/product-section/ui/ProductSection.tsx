@@ -3,43 +3,34 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import type { Product } from '@/entities/product';
+import { useGetProducts } from '@/entities/product';
+import { useDeleteProduct } from '@/features/product';
 import { Button, DeleteConfirmModal } from '@/shared';
 
 interface ProductSectionProps {
-  products: Product[];
-  isLoading: boolean;
+  accountname: string;
   isMyProfile: boolean;
-  onDeleteSuccess: (productId: string) => void;
-  deleteProductMutate: (
-    id: string,
-    options: { onSuccess: () => void; onError: () => void },
-  ) => void;
-  isDeletingProduct: boolean;
 }
 
 const BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
-export function ProductSection({
-  products,
-  isLoading,
-  isMyProfile,
-  onDeleteSuccess,
-  deleteProductMutate,
-  isDeletingProduct,
-}: ProductSectionProps) {
+export function ProductSection({ accountname, isMyProfile }: ProductSectionProps) {
   const navigate = useNavigate();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+
+  const { data: products = [], isLoading } = useGetProducts(accountname);
+
+  const { mutate: deleteProduct, isPending } = useDeleteProduct();
 
   const handleDeleteClick = (productId: string) => {
     setDeleteTargetId(productId);
   };
 
   const handleDeleteConfirm = () => {
-    if (!deleteTargetId || isDeletingProduct) return;
-    deleteProductMutate(deleteTargetId, {
+    if (!deleteTargetId || isPending) return;
+    deleteProduct(deleteTargetId, {
       onSuccess: () => {
-        onDeleteSuccess(deleteTargetId);
         setDeleteTargetId(null);
       },
       onError: () => {
@@ -50,7 +41,7 @@ export function ProductSection({
   };
 
   const handleDeleteCancel = () => {
-    if (isDeletingProduct) return;
+    if (isPending) return;
     setDeleteTargetId(null);
   };
 
@@ -113,7 +104,7 @@ export function ProductSection({
         <DeleteConfirmModal
           onConfirm={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
-          isPending={isDeletingProduct}
+          isPending={isPending}
         />
       )}
     </>

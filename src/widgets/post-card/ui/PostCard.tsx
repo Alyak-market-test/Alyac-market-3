@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { type Post, useDeletePost, useToggleHeart } from '@/entities/post';
@@ -16,6 +17,7 @@ interface PostCardProps {
 
 export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { mutate: toggleHeart } = useToggleHeart(post.id);
@@ -24,6 +26,16 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const handleDelete = () => {
     setShowDeleteModal(true);
     setMenuOpen(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    deletePost(post.id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['posts'] });
+        queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+      },
+    });
+    setShowDeleteModal(false);
   };
 
   return (
@@ -84,7 +96,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
           </>
         )}
       </div>
-      {/* 줄바꿈 표시 */}
+
       <p className="text-foreground mt-3 text-sm whitespace-pre-wrap">{post.content}</p>
 
       {post.image && (
@@ -119,10 +131,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
       {showDeleteModal && (
         <DeleteConfirmModal
           message="게시글을 삭제할까요?"
-          onConfirm={() => {
-            deletePost(post.id);
-            setShowDeleteModal(false);
-          }}
+          onConfirm={handleDeleteConfirm}
           onCancel={() => setShowDeleteModal(false)}
         />
       )}

@@ -1,10 +1,10 @@
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { useFollowList } from '@/entities/profile';
-import { getTokenUserInfo } from '@/entities/user';
 import { useToggleFollow } from '@/features/follow';
 import { Button, TopBasicNav } from '@/shared';
 import { AvatarImage } from '@/shared/icons';
+import { getTokenUserInfo } from '@/shared/lib';
 
 export function FollowListPage() {
   const { accountname } = useParams();

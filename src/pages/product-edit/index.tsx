@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { type Product, useGetProduct } from '@/entities/product';
-import { useEditProduct } from '@/features/product-add';
+import { useEditProduct } from '@/features/product';
 import { ProductFormFields, ProductImageSection, useProductForm } from '@/features/product-form';
 import { TopUploadNav } from '@/shared';
 

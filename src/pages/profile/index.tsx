@@ -7,18 +7,12 @@ import { useGetUserPosts } from '@/entities/post';
 import { type Product, useGetProducts } from '@/entities/product';
 import { useAuth } from '@/features/auth';
 import { useFollow } from '@/features/follow';
-import {
-  MyButtons,
-  ProductSection,
-  ProfileInfo,
-  ProfileStats,
-  YourButtons,
-  useProfile,
-} from '@/features/profile';
+import { MyButtons, ProfileInfo, ProfileStats, YourButtons, useProfile } from '@/features/profile';
 import { ThemeToggle, TopBasicNav } from '@/shared';
 import { MoreVerticalIcon } from '@/shared/icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
 import { PostSection } from '@/widgets/post-section';
+import { ProductSection } from '@/widgets/product-section';
 
 export function ProfilePage() {
   const { accountname } = useParams();

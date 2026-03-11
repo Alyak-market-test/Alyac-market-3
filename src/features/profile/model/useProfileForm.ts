@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { useMyProfile } from '@/entities/user';
-import { useUpdateProfile } from '@/entities/user';
+import { useMyProfile, useUpdateProfile } from '@/entities/user';
 
 interface ProfileOverrides {
   image?: string | null;

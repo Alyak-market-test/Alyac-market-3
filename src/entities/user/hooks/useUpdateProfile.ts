@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { updateProfile } from '@/entities/user';
+import { updateProfile } from '../api/ProfileApi';
 
 export const profileQueryKeys = {
   my: ['myProfile'] as const,

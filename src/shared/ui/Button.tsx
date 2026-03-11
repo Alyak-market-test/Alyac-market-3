@@ -60,6 +60,7 @@ const buttonVariants = cva(
           'text-foreground flex-1 rounded-bl-xl py-3 text-sm transition-colors hover:bg-[var(--icon-hover)] disabled:opacity-50',
         deltetYES:
           'text-primary flex-1 rounded-br-xl py-3 text-sm font-bold transition-colors hover:bg-[var(--icon-hover)] disabled:opacity-50',
+        postingImg: 'fixed right-6 bottom-6',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

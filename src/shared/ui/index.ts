@@ -7,4 +7,5 @@ export * from './toggle-group';
 export * from './popover';
 export * from './DeleteConfirmModal';
 export * from './Textarea';
-export * from './CommentInput';
+export * from './FollowButton';
+export * from './ImageUpload';

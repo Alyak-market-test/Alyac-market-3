@@ -1,4 +1,3 @@
-export * from './ui/PostCard';
 export * from './ui/PostActions';
 export * from './ui/PostAuthor';
 export * from './ui/PostHeader';

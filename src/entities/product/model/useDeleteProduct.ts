@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { deleteProduct } from '@/entities/product';
+import { deleteProduct } from '../api/ProductApi';
 
 interface Callbacks {
   onSuccess?: () => void;

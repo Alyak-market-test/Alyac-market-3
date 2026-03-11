@@ -1,6 +1,5 @@
 import { useSearchUsersQuery } from '@/entities/user';
-
-import { useDebounce } from './useDebounce';
+import { useDebounce } from '@/shared/lib';
 
 export function useSearchUsers(keyword: string) {
   const debouncedKeyword = useDebounce(keyword, 500);

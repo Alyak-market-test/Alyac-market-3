@@ -2,15 +2,15 @@ import { useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getTokenUserInfo } from '@/entities/user';
+import { useUser } from '@/entities/user';
 import { usePostEdit } from '@/features/post';
 import { Button, Textarea } from '@/shared';
-import { AvatarImage } from '@/shared/icons';
+import { AvatarImage, ImgIcon } from '@/shared/icons';
 
 export function PostEditPage() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const userInfo = getTokenUserInfo();
+  const { data: user } = useUser();
 
   const {
     register,
@@ -53,7 +53,7 @@ export function PostEditPage() {
       <div className="flex gap-3 overflow-y-auto px-4 pt-3 pb-6">
         {/* 프로필 이미지 */}
         <div className="shrink-0">
-          <AvatarImage src={userInfo?.image} size="sm" />
+          <AvatarImage src={user?.image} size="sm" />
         </div>
 
         {/* 오른쪽 영역 */}
@@ -78,7 +78,7 @@ export function PostEditPage() {
                   <img
                     src={preview}
                     alt={`preview-${index}`}
-                    className="w-full rounded-lg object-cover"
+                    className="h-48 w-48 rounded-lg object-cover"
                   />
                   <Button
                     variant="ghost"
@@ -96,16 +96,9 @@ export function PostEditPage() {
       </div>
 
       {/* 이미지 추가 플로팅 버튼 */}
-      <button
-        onClick={() => fileInputRef.current?.click()}
-        className="bg-primary fixed right-6 bottom-6 flex h-14 w-14 items-center justify-center rounded-full shadow-lg"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="3" width="18" height="18" rx="3" stroke="white" strokeWidth="2" />
-          <circle cx="8.5" cy="8.5" r="1.5" fill="white" />
-          <path d="M21 15L16 10L5 21" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-      </button>
+      <Button onClick={() => fileInputRef.current?.click()} variant={'postingImg'} size="none">
+        <ImgIcon size={56} />
+      </Button>
 
       <input
         ref={fileInputRef}

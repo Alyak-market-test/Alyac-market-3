@@ -1,24 +1,42 @@
 import { useState } from 'react';
 
-export function usePostImages() {
+export function usePostImages(initialImages: string[] = [], initialPaths: string[] = []) {
+  const [removedIndexes, setRemovedIndexes] = useState<number[]>([]);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [newPreviews, setNewPreviews] = useState<string[]>([]);
+
+  const existingImages = initialImages.filter((_, i) => !removedIndexes.includes(i));
+  const remainingExistingPaths = initialPaths.filter((_, i) => !removedIndexes.includes(i));
+  const previews = [...existingImages, ...newPreviews];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    if (imageFiles.length + files.length > 3) {
-      alert('이미지는 최대 3장까지 업로드 가능합니다.');
-      return;
-    }
+    const files = Array.from(e.target.files ?? []);
     setImageFiles((prev) => [...prev, ...files]);
-    const newPreviews = files.map((file) => URL.createObjectURL(file));
-    setPreviews((prev) => [...prev, ...newPreviews]);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewPreviews((prev) => [...prev, reader.result as string]);
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   const handleRemoveImage = (index: number) => {
-    setImageFiles((prev) => prev.filter((_, i) => i !== index));
-    setPreviews((prev) => prev.filter((_, i) => i !== index));
+    if (index < existingImages.length) {
+      const originalIndex = initialImages.indexOf(existingImages[index]);
+      setRemovedIndexes((prev) => [...prev, originalIndex]);
+    } else {
+      const newIndex = index - existingImages.length;
+      setImageFiles((prev) => prev.filter((_, i) => i !== newIndex));
+      setNewPreviews((prev) => prev.filter((_, i) => i !== newIndex));
+    }
   };
 
-  return { imageFiles, previews, handleImageChange, handleRemoveImage };
+  return {
+    imageFiles,
+    previews,
+    remainingExistingPaths,
+    handleImageChange,
+    handleRemoveImage,
+  };
 }

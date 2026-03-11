@@ -18,3 +18,4 @@ export { AvatarImage } from './Avatar';
 export { ProfileImageIcon } from './ProfileImageIcon';
 export { BigUploadIcon } from './BigUpload';
 export { ImgIcon } from './ImgIcon';
+export { NoneImage } from './NoneImage';

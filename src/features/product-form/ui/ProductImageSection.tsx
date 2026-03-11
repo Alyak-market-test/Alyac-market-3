@@ -1,4 +1,4 @@
-import { ImageUpload } from '@/entities/image';
+import { ImageUpload } from '@/shared';
 import { ImgButtonIcon } from '@/shared/icons';
 
 interface ProductImageSectionProps {

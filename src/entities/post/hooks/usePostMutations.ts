@@ -12,23 +12,21 @@ export function useCreatePost() {
     mutationFn: createPost,
     onSuccess: (postId) => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
       navigate(`/post/${postId}`);
     },
   });
 }
 
-// 2. 게시글 삭제 (✅ 이 부분을 수정하세요)
+// 2. 게시글 삭제
 export function useDeletePost() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: deletePost,
     onSuccess: () => {
-      // 삭제 성공 시 피드와 프로필 목록을 모두 새로고침
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       queryClient.invalidateQueries({ queryKey: ['userPosts'] });
-
-      // navigate(-1)을 삭제하여 페이지 이동을 막습니다.
     },
   });
 }

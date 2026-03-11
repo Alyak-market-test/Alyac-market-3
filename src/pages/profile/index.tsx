@@ -5,21 +5,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetUserPosts } from '@/entities/post';
 import { type Product, useGetProducts } from '@/entities/product';
+import { useDeleteProduct } from '@/entities/product';
 import { useAuth } from '@/features/auth';
-import { FollowButton, useFollow } from '@/features/follow';
-import { PostCard } from '@/features/post';
-import { useDeleteProduct } from '@/features/product-add';
+import { useFollow } from '@/features/follow';
 import {
   MyButtons,
-  PostSection,
   ProductSection,
   ProfileInfo,
   ProfileStats,
   YourButtons,
   useProfile,
 } from '@/features/profile';
-import { Popover, PopoverContent, PopoverTrigger, ThemeToggle, TopBasicNav } from '@/shared';
+import { FollowButton, ThemeToggle, TopBasicNav } from '@/shared';
 import { MoreVerticalIcon } from '@/shared/icons';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
+import { PostCard } from '@/widgets/post-card';
+import { PostSection } from '@/widgets/post-section';
 
 export function ProfilePage() {
   const { accountname } = useParams();

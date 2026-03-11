@@ -7,6 +7,7 @@ export function ImgIcon({ size = 50 }: ImgIconProps) {
     <svg
       width={size}
       height={size}
+      className={`size-[${size}px]`}
       viewBox="0 0 50 50"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

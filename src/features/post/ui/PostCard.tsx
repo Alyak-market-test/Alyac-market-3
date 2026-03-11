@@ -86,8 +86,8 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
           </>
         )}
       </div>
-
-      <p className="text-foreground mt-3 text-sm">{post.content}</p>
+      {/* 줄바꿈 표시 */}
+      <p className="text-foreground mt-3 text-sm whitespace-pre-wrap">{post.content}</p>
 
       {post.image && (
         <div className="mt-3 flex gap-2 overflow-x-auto">

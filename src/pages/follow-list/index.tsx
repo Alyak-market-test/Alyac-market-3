@@ -31,7 +31,7 @@ export function FollowListPage() {
         title={tab === 'followings' ? 'Followings' : 'Followers'}
       />
 
-      <ul className="flex flex-col divide-y">
+      <ul className="mt-15 flex flex-col divide-y">
         {list.map((user) => (
           <li key={user.accountname} className="flex items-center justify-between px-4 py-2">
             <div

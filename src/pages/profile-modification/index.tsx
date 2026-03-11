@@ -38,7 +38,11 @@ export function ProfileModification() {
 
   return (
     <div className="bg-background mt-10 flex min-h-screen flex-col">
-      <TopUploadNav onBack={() => navigate(-1)} onSave={handleSave} />
+      <TopUploadNav
+        onBack={() => navigate(-1)}
+        onSave={handleSave}
+        disabled={form.name.trim() === '' || isSaving || isUploading}
+      />
 
       <div className="flex justify-center py-10">
         <div className="relative">

@@ -10,7 +10,11 @@ import {
   useGetPost,
   useToggleHeart,
 } from '@/entities/post';
+<<<<<<< HEAD
 import { CommentInput, CommentList } from '@/features/comment';
+=======
+import { useUser } from '@/entities/user';
+>>>>>>> develop
 import { PostActions, PostAuthor, PostHeader, PostImages, PostMenuDropdown } from '@/features/post';
 
 interface CommentFormValues {
@@ -26,6 +30,7 @@ export function PostDetailPage() {
   const { mutate: heart } = useToggleHeart(post_id!);
   const { mutate: submitComment } = useCreateComment(post_id!);
   const { mutate: deletePost } = useDeletePost();
+  const { data: user } = useUser();
 
   const { register, handleSubmit, reset, control } = useForm<CommentFormValues>({
     defaultValues: { comment: '' },
@@ -56,7 +61,8 @@ export function PostDetailPage() {
           username={post.author.username}
           accountname={post.author.accountname}
         />
-        <p className="text-foreground mb-3 text-sm">{post.content}</p>
+        {/* 줄바꿈 유지 */}
+        <p className="text-foreground mb-3 text-sm whitespace-pre-wrap">{post.content}</p>
         <PostImages images={post.image} />
         <PostActions
           hearted={post.hearted}
@@ -68,7 +74,7 @@ export function PostDetailPage() {
         <CommentList comments={comments} />
       </div>
       <CommentInput
-        profileImage=""
+        profileImage={user?.image ?? ''}
         value={commentValue}
         inputProps={register('comment')}
         onSubmit={onCommentSubmit}

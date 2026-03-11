@@ -20,7 +20,9 @@ export function CommentList({ comments }: CommentListProps) {
                   {comment.author.username}
                 </span>
                 <span className="text-muted-foreground text-xs">
-                  {new Date(comment.createdAt).toLocaleDateString('ko-KR')}
+                  {new Date(comment.createdAt).toLocaleDateString('ko-KR', {
+                    timeZone: 'Asia/Seoul',
+                  })}
                 </span>
               </div>
               <p className="text-foreground text-sm">{comment.content}</p>

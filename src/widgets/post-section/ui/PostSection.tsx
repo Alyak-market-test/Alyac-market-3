@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
 import { type Post } from '@/entities/post';
-import { PostCard } from '@/features/post';
 import { PostAlbumIcon, PostListIcon } from '@/shared/icons';
 import { NoneImage } from '@/shared/icons';
 import { imageUrl } from '@/shared/lib';
+import { PostCard } from '@/widgets/post-card';
 
 interface PostSectionProps {
   posts: Post[];

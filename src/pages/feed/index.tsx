@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { useGetPosts } from '@/entities/post';
 import { useMyProfile } from '@/entities/user';
-import { PostCard } from '@/features/post';
 import { ROUTES, TopMainNav } from '@/shared';
 import { LogoGrayIcon } from '@/shared/icons';
 import { ThemeToggle } from '@/shared/lib/theme/ThemeToggle';
 import { BottomNav } from '@/widgets/bottom-nav';
+import { PostCard } from '@/widgets/post-card';
 
 export function FeedPage() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetPosts();

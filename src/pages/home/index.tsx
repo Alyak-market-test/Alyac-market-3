@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SnsButton, SplashScreen } from '@/features/home/ui';
+import { ROUTES } from '@/shared';
 import { LogoIcon } from '@/shared/icons/LogoIcon';
 import { Button } from '@/shared/ui/Button';
 
@@ -43,11 +44,11 @@ export function HomePage() {
             <SnsButton type="facebook" />
 
             <div className="mt-2 flex items-end justify-center gap-4">
-              <Button variant="ghost" size="S" onClick={() => navigate('/signin')}>
+              <Button variant="ghost" size="S" onClick={() => navigate(ROUTES.SIGNIN)}>
                 이메일로 로그인
               </Button>
               <span className="mb-1">|</span>
-              <Button variant="ghost" size="S" onClick={() => navigate('/signup')}>
+              <Button variant="ghost" size="S" onClick={() => navigate(ROUTES.SIGNUP)}>
                 회원가입
               </Button>
             </div>

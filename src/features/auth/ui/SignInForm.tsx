@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { useSignIn } from '@/entities/user';
+import { ROUTES } from '@/shared';
 import { Button } from '@/shared/ui/Button';
 
 import { FormField } from './FormField';
@@ -34,7 +35,7 @@ export function SignInForm() {
     setErrorMessage('');
     signInMutation.mutate(data, {
       onSuccess: () => {
-        navigate('/feed');
+        navigate(ROUTES.FEED);
       },
       onError: () => {
         setErrorMessage('이메일 또는 비밀번호가 올바르지 않습니다.');
@@ -71,7 +72,7 @@ export function SignInForm() {
       <button
         type="button"
         className="text-muted-foreground text-sm"
-        onClick={() => navigate('/signup')}
+        onClick={() => navigate(ROUTES.SIGNUP)}
       >
         이메일로 회원가입
       </button>

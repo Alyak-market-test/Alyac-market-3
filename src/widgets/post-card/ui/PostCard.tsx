@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { type Post, useDeletePost, useToggleHeart } from '@/entities/post';
+import { ROUTES } from '@/shared';
 import { CommentIcon, HeartIcon, MoreVerticalIcon } from '@/shared/icons';
 import { imageUrl } from '@/shared/lib';
 import { DeleteConfirmModal } from '@/shared/ui';
@@ -58,7 +59,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                   <button
                     className="text-foreground hover:bg-muted w-full cursor-pointer rounded-t-xl border-b px-4 py-3 text-left text-sm transition-colors"
                     onClick={() => {
-                      navigate(`/post/${post.id}/edit`);
+                      navigate(ROUTES.POST.EDIT(post.id));
                       setMenuOpen(false);
                     }}
                   >
@@ -108,7 +109,10 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
           <HeartIcon filled={post.hearted} />
           <span className="text-muted-foreground text-xs">{post.heartCount}</span>
         </button>
-        <button onClick={() => navigate(`/post/${post.id}`)} className="flex items-center gap-1">
+        <button
+          onClick={() => navigate(ROUTES.POST.DETAIL(post.id))}
+          className="flex items-center gap-1"
+        >
           <CommentIcon />
           <span className="text-muted-foreground text-xs">{post.commentCount}</span>
         </button>

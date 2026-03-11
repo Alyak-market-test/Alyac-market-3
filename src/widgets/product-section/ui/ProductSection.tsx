@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Product } from '@/entities/product';
 import { useGetProducts } from '@/entities/product';
 import { useDeleteProduct } from '@/features/product';
-import { Button, DeleteConfirmModal } from '@/shared';
+import { Button, DeleteConfirmModal, ROUTES } from '@/shared';
 
 interface ProductSectionProps {
   accountname: string;
@@ -47,7 +47,7 @@ export function ProductSection({ accountname, isMyProfile }: ProductSectionProps
 
   const handleImageClick = (product: Product) => {
     if (!isMyProfile) return;
-    navigate(`/product-edit/${product.id}`);
+    navigate(ROUTES.PRODUCT.EDIT(product.id));
   };
 
   if (isLoading) {

@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useForm, useWatch } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import {
   useCreateComment,
@@ -13,6 +14,8 @@ import {
 import { useUser } from '@/entities/user';
 import { CommentInput, CommentList } from '@/features/comment';
 import { PostActions, PostAuthor, PostHeader, PostImages, PostMenuDropdown } from '@/features/post';
+import { ROUTES } from '@/shared';
+import { PageStateScreen } from '@/shared/ui';
 
 interface CommentFormValues {
   comment: string;
@@ -29,6 +32,8 @@ export function PostDetailPage() {
   const { mutate: submitComment } = useCreateComment(post_id!);
   const { mutate: deletePost } = useDeletePost();
   const { data: user } = useUser();
+
+  const isMyPost = !!user && !!post && user.accountname === post.author.accountname;
 
   const { register, handleSubmit, reset, control } = useForm<CommentFormValues>({
     defaultValues: { comment: '' },
@@ -49,11 +54,20 @@ export function PostDetailPage() {
     }
   };
 
-  if (isPostLoading)
-    return <div className="flex h-screen items-center justify-center">로딩중...</div>;
+  const handleDelete = () => {
+    setShowMenu(false);
+    deletePost(post_id!, {
+      onSuccess: () => navigate(-1),
+    });
+  };
 
-  if (!post)
-    return <div className="flex h-screen items-center justify-center">게시물을 찾을 수 없어요</div>;
+  if (isPostLoading) {
+    return <PageStateScreen message="게시글을 불러오는 중..." />;
+  }
+
+  if (!post) {
+    return <PageStateScreen variant="error" message="게시물을 찾을 수 없어요." />;
+  }
 
   return (
     <div className="bg-background flex h-screen flex-col">
@@ -83,16 +97,17 @@ export function PostDetailPage() {
       />
       {showMenu && (
         <PostMenuDropdown
-          onClose={() => setShowMenu(false)}
-          onReport={() => {
-            alert('신고가 접수되었습니다.');
+          isMyPost={isMyPost}
+          onEdit={() => {
+            navigate(ROUTES.POST.EDIT(post_id!));
             setShowMenu(false);
           }}
-          onDelete={() => {
-            deletePost(post_id!, {
-              onSuccess: () => navigate(-1),
-            });
+          onDelete={handleDelete}
+          onReport={() => {
+            toast.success('신고가 접수되었습니다.');
+            setShowMenu(false);
           }}
+          onClose={() => setShowMenu(false)}
         />
       )}
     </div>

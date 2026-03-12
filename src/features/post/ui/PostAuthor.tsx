@@ -1,4 +1,4 @@
-import { AvatarImage } from '@/shared/icons';
+import { AvatarImage } from '@/shared';
 
 interface PostAuthorProps {
   image: string;

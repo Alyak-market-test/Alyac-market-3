@@ -2,8 +2,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAvatarUpload, useProfileForm } from '@/features/profile';
 import { ROUTES } from '@/shared';
-import { Button, Input, TopUploadNav } from '@/shared';
-import { AvatarImage, ImgIcon } from '@/shared/icons';
+import { AvatarImage, Button, Input, TopUploadNav } from '@/shared';
+import { ImgIcon } from '@/shared/icons';
+import { PageStateScreen } from '@/shared/ui';
 
 export function ProfileModification() {
   const navigate = useNavigate();
@@ -15,27 +16,19 @@ export function ProfileModification() {
       onError: (message) => alert(message),
     });
 
+  if (isLoading) {
+    return <PageStateScreen message="불러오는 중..." />;
+  }
+
+  if (error) {
+    return <PageStateScreen variant="error" message={error} />;
+  }
+
   const handleSave = async () => {
     if (form.name.trim() === '' || isSaving || isUploading) return;
     await save();
     navigate(ROUTES.PROFILE, { state: { refresh: Date.now() } });
   };
-
-  if (isLoading) {
-    return (
-      <div className="bg-background flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground text-sm">불러오는 중...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="bg-background flex min-h-screen items-center justify-center">
-        <p className="text-sm text-red-500">{error}</p>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-background mt-10 flex min-h-screen flex-col">

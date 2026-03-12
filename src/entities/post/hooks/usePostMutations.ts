@@ -1,51 +1,23 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 
-import { createComment, createPost, deletePost, toggleHeart } from '../api/postApi';
+import { createComment, createPost, deletePost, toggleHeart, updatePost } from '../api/postApi';
 
-// 1. 게시글 작성
 export function useCreatePost() {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
-  return useMutation({
-    mutationFn: createPost,
-    onSuccess: (postId) => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
-      navigate(`/post/${postId}`);
-    },
-  });
+  return useMutation({ mutationFn: createPost });
 }
 
-// 2. 게시글 삭제
+export function useUpdatePost() {
+  return useMutation({ mutationFn: updatePost });
+}
+
 export function useDeletePost() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: deletePost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
-    },
-  });
+  return useMutation({ mutationFn: deletePost });
 }
 
-// 3. 좋아요 토글
 export function useToggleHeart(postId: string) {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: () => toggleHeart(postId),
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['post', postId] });
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-      queryClient.invalidateQueries({ queryKey: ['userPosts'] });
-    },
-  });
+  return useMutation({ mutationFn: () => toggleHeart(postId) });
 }
 
-// 4. 댓글 작성
 export function useCreateComment(postId: string) {
   const queryClient = useQueryClient();
 

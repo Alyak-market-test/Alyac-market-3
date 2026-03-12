@@ -8,7 +8,7 @@ import { useFollow } from '@/features/follow';
 import { MyButtons, ProfileInfo, ProfileStats, YourButtons, useProfile } from '@/features/profile';
 import { FollowButton, ThemeToggle, TopBasicNav } from '@/shared';
 import { MoreVerticalIcon } from '@/shared/icons';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
+import { PageStateScreen, Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
 import { PostCard } from '@/widgets/post-card';
 import { PostSection } from '@/widgets/post-section';
 import { ProductSection } from '@/widgets/product-section';
@@ -27,11 +27,7 @@ export function ProfilePage() {
   });
 
   if (isUserLoading) {
-    return (
-      <div className="bg-background flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground text-sm">Loading...</p>
-      </div>
-    );
+    return <PageStateScreen message="Loading..." />;
   }
 
   return (

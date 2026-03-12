@@ -1,3 +1,3 @@
-export { useAddProduct } from './model/useAddProduct';
-export { useEditProduct } from './model/useEditProduct';
-export { useDeleteProduct } from './model/useDeleteProduct';
+export { useAddProduct } from './hooks/useAddProduct';
+export { useEditProduct } from './hooks/useEditProduct';
+export { useDeleteProduct } from './hooks/useDeleteProduct';

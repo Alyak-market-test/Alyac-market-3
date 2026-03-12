@@ -2,7 +2,7 @@ import { useReducer, useState } from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { followUser, unfollowUser } from '@/entities/profile';
+import { useFollowUser, useUnfollowUser } from '@/entities/profile';
 import type { FollowState } from '@/entities/profile';
 
 type Action =
@@ -30,10 +30,12 @@ export const useFollow = (accountname: string, initialState: FollowState) => {
   const [prevAccountname, setPrevAccountname] = useState('');
   const [state, dispatch] = useReducer(followReducer, initialState);
   const queryClient = useQueryClient();
+  const { mutateAsync: follow } = useFollowUser();
+  const { mutateAsync: unfollow } = useUnfollowUser();
 
   const { mutate, isPending } = useMutation({
     mutationFn: (currentlyFollowing: boolean) =>
-      currentlyFollowing ? unfollowUser(accountname) : followUser(accountname),
+      currentlyFollowing ? unfollow(accountname) : follow(accountname),
 
     onMutate: (currentlyFollowing) => {
       const prev = state;

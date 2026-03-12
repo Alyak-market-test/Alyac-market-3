@@ -1,12 +1,7 @@
 import { uploadApi } from '@/shared/api';
+import { imageUrl } from '@/shared/lib';
 
-export interface UploadResponse {
-  filename: string;
-  path: string;
-  destination: string;
-  originalname: string;
-  size: number;
-}
+import type { UploadResponse } from '../model/ImgTypes';
 
 // 다중 업로드
 export const uploadFiles = async (files: File[]): Promise<UploadResponse[]> => {
@@ -15,7 +10,7 @@ export const uploadFiles = async (files: File[]): Promise<UploadResponse[]> => {
     formData.append('image', file);
   });
 
-  const response = await uploadApi.post('/image/uploadfiles', formData, {});
+  const response = await uploadApi.post<UploadResponse[]>('/image/uploadfiles', formData, {});
   return response.data;
 };
 
@@ -25,10 +20,5 @@ export const uploadImage = async (file: File): Promise<string> => {
   formData.append('image', file);
 
   const response = await uploadApi.post<UploadResponse>('/image/uploadfile', formData, {});
-  const { filename } = response.data;
-
-  if (filename.startsWith('http')) {
-    return filename;
-  }
-  return `${import.meta.env.VITE_IMAGE_BASE_URL}/uploadFiles/${filename}`;
+  return imageUrl(response.data.filename);
 };

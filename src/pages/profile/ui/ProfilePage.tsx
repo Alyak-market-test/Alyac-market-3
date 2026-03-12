@@ -44,14 +44,17 @@ export function ProfilePage() {
           }
         />
         <PopoverContent align="end" className="w-52 p-0">
-          <button className="text-foreground w-full px-4 py-3 text-left text-sm">
+          <button className="text-foreground w-full cursor-pointer px-4 py-3 text-left text-sm">
             설정 및 개인정보
           </button>
           <div className="flex items-center justify-between px-4 py-2">
             <span className="text-foreground text-sm">테마</span>
             <ThemeToggle />
           </div>
-          <button onClick={logout} className="text-foreground w-full px-4 py-3 text-left text-sm">
+          <button
+            onClick={logout}
+            className="text-foreground w-full cursor-pointer px-4 py-3 text-left text-sm"
+          >
             로그아웃
           </button>
         </PopoverContent>

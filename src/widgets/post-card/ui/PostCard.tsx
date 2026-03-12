@@ -117,13 +117,13 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
       )}
 
       <div className="mt-3 flex items-center gap-4">
-        <button onClick={() => toggleHeart()} className="flex items-center gap-1">
+        <button onClick={() => toggleHeart()} className="flex cursor-pointer items-center gap-1">
           <HeartIcon filled={post.hearted} />
           <span className="text-muted-foreground text-xs">{post.heartCount}</span>
         </button>
         <button
           onClick={() => navigate(ROUTES.POST.DETAIL(post.id), { state: { from: 'feed' } })}
-          className="flex items-center gap-1"
+          className="flex cursor-pointer items-center gap-1"
         >
           <CommentIcon />
           <span className="text-muted-foreground text-xs">{post.commentCount}</span>

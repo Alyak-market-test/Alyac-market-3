@@ -1,5 +1,6 @@
 import { DefaultImage } from '@/shared/icons';
 
+import { imageUrl } from '../lib';
 import type { AvatarSize } from '../lib';
 
 interface AvatarImageProps {
@@ -28,7 +29,7 @@ export function AvatarImage({
   return (
     <div className={`overflow-hidden rounded-full bg-gray-100 ${sizeMap[size]} ${className}`}>
       {src && src.trim() !== '' ? (
-        <img src={src} alt={alt} className="h-full w-full object-cover" />
+        <img src={imageUrl(src ?? undefined)} alt={alt} className="h-full w-full object-cover" />
       ) : (
         <DefaultImage size={iconSize} />
       )}

@@ -4,7 +4,12 @@ export const imageUrl = (path: string | undefined): string => {
 
   const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
   const normalizedPath = path.replace('uploadFiles##', 'uploadFiles/').replace(/\\/g, '/');
-  return `${baseUrl}/${normalizedPath}`;
+
+  const withPrefix = normalizedPath.startsWith('uploadFiles/')
+    ? normalizedPath
+    : `uploadFiles/${normalizedPath}`;
+
+  return `${baseUrl}/${withPrefix}`;
 };
 
 // 사용 예시

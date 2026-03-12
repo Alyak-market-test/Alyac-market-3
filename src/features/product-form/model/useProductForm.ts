@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface InitialProductData {
   itemName?: string;
@@ -12,10 +12,9 @@ export function useProductForm(initialData?: InitialProductData) {
   const [price, setPrice] = useState(initialData?.price?.toString() ?? '');
   const [saleUrl, setSaleUrl] = useState(initialData?.link ?? '');
   const [imageUrls, setImageUrls] = useState<string[]>(
-    initialData?.itemImage ? [initialData.itemImage] : []
+    initialData?.itemImage ? [initialData.itemImage] : [],
   );
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const imageInputRef = useRef<HTMLInputElement>(null) as React.RefObject<HTMLInputElement>;
 
   const isValid = name.trim().length >= 2 && price.trim() !== '';
   const hasImage = imageUrls.length > 0 || previewUrls.length > 0;
@@ -32,12 +31,16 @@ export function useProductForm(initialData?: InitialProductData) {
   });
 
   return {
-    name, setName,
-    price, setPrice,
-    saleUrl, setSaleUrl,
-    imageUrls, setImageUrls,
-    previewUrls, setPreviewUrls,
-    imageInputRef,
+    name,
+    setName,
+    price,
+    setPrice,
+    saleUrl,
+    setSaleUrl,
+    imageUrls,
+    setImageUrls,
+    previewUrls,
+    setPreviewUrls,
     isDisabled: !isValid || !hasImage,
     buildPayload,
   };

@@ -49,17 +49,17 @@ const buttonVariants = cva(
         primaryDisabled: 'bg-[#A7FFB9] text-white pointer-events-none rounded-full',
         activ: 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-full',
         myprofilebutton:
-          'flex-1 items-center justify-center rounded-full border border-[var(--border)] py-2.5 text-foreground hover:bg-[var(--icon-hover)]',
+          'flex-1 items-center justify-center rounded-full border border-[var(--color-border)] py-2.5 text-foreground hover:bg-[var(--color-accent)]',
         yourprofilebutton:
-          'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[var(--border)] text-foreground transition hover:bg-gray-50',
+          'flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[var(--color-border)] text-foreground transition hover:bg-gray-50',
         productDelete:
           'absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-600 text-sm text-white transition-colors hover:bg-gray-900',
         avatarNone:
           'absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--delete-button)] hover:bg-[var(--delete-button-hover)] disabled:opacity-80 text-md font-bold text-forefround hover:text-lg',
         deleteNO:
-          'text-foreground flex-1 rounded-bl-xl py-3 text-sm transition-colors hover:bg-[var(--icon-hover)] disabled:opacity-50',
+          'text-foreground flex-1 rounded-bl-xl py-3 text-sm transition-colors hover:bg-[var(--color-accent)] disabled:opacity-50',
         deltetYES:
-          'text-primary flex-1 rounded-br-xl py-3 text-sm font-bold transition-colors hover:bg-[var(--icon-hover)] disabled:opacity-50',
+          'text-primary flex-1 rounded-br-xl py-3 text-sm font-bold transition-colors hover:bg-[var(--color-accent)] disabled:opacity-50',
         postingImg: 'fixed right-6 bottom-6',
       },
       size: {

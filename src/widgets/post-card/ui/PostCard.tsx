@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import { type Post, useDeletePost, useToggleHeart } from '@/entities/post';
-import { ROUTES } from '@/shared';
-import { AvatarImage, CommentIcon, HeartIcon, MoreVerticalIcon } from '@/shared/icons';
+import { AvatarImage, ROUTES } from '@/shared';
+import { CommentIcon, HeartIcon, MoreVerticalIcon } from '@/shared/icons';
 import { imageUrl } from '@/shared/lib';
 import { DeleteConfirmModal } from '@/shared/ui';
 
@@ -16,14 +18,26 @@ interface PostCardProps {
 
 export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { mutate: toggleHeart } = useToggleHeart(post.id);
   const { mutate: deletePost } = useDeletePost();
 
-  const handleDelete = () => {
+  const handleDeleteClick = () => {
     setShowDeleteModal(true);
     setMenuOpen(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    deletePost(post.id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['posts'] });
+        queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+        toast.success('게시글이 삭제되었습니다');
+        setShowDeleteModal(false);
+      },
+    });
   };
 
   return (
@@ -64,7 +78,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                   </button>
                   <button
                     className="hover:bg-muted w-full cursor-pointer rounded-b-xl px-4 py-3 text-left text-sm text-red-500 transition-colors"
-                    onClick={handleDelete}
+                    onClick={handleDeleteClick}
                   >
                     삭제하기
                   </button>
@@ -74,6 +88,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                   className="text-foreground hover:bg-muted w-full cursor-pointer rounded-xl px-4 py-3 text-left text-sm transition-colors"
                   onClick={() => {
                     onReport?.();
+                    toast.success('신고가 접수되었습니다');
                     setMenuOpen(false);
                   }}
                 >
@@ -84,7 +99,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
           </>
         )}
       </div>
-      {/* 줄바꿈 표시 */}
+
       <p className="text-foreground mt-3 text-sm whitespace-pre-wrap">{post.content}</p>
 
       {post.image && (
@@ -107,7 +122,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
           <span className="text-muted-foreground text-xs">{post.heartCount}</span>
         </button>
         <button
-          onClick={() => navigate(ROUTES.POST.DETAIL(post.id))}
+          onClick={() => navigate(ROUTES.POST.DETAIL(post.id), { state: { from: 'feed' } })}
           className="flex items-center gap-1"
         >
           <CommentIcon />
@@ -119,10 +134,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
       {showDeleteModal && (
         <DeleteConfirmModal
           message="게시글을 삭제할까요?"
-          onConfirm={() => {
-            deletePost(post.id);
-            setShowDeleteModal(false);
-          }}
+          onConfirm={handleDeleteConfirm}
           onCancel={() => setShowDeleteModal(false)}
         />
       )}

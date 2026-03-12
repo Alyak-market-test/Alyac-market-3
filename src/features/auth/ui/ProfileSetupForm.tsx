@@ -5,12 +5,11 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { uploadImage } from '@/entities/image';
+import { useUploadImage } from '@/entities/image';
 import { useSignUp } from '@/entities/user';
 import { ROUTES } from '@/shared';
-import { AvatarImage, BigUploadIcon, ProfileImageIcon } from '@/shared/icons';
-import { Button } from '@/shared/ui/Button';
-import { Textarea } from '@/shared/ui/Textarea';
+import { AvatarImage, Button, Textarea } from '@/shared';
+import { BigUploadIcon, ProfileImageIcon } from '@/shared/icons';
 
 import { FormField } from './FormField';
 
@@ -28,6 +27,7 @@ type ProfileFormData = z.infer<typeof profileSchema>;
 export function ProfileSetupForm() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { upload, isUploading } = useUploadImage();
   const { email, password } = location.state as { email: string; password: string };
   const signUpMutation = useSignUp();
   const [errorMessage, setErrorMessage] = useState('');
@@ -51,7 +51,7 @@ export function ProfileSetupForm() {
     let imageUrl = '';
     if (imageFile) {
       try {
-        imageUrl = await uploadImage(imageFile);
+        imageUrl = await upload(imageFile);
       } catch {
         setErrorMessage('이미지 업로드에 실패했습니다.');
         return;
@@ -132,7 +132,7 @@ export function ProfileSetupForm() {
         variant={form.formState.isValid ? 'primary' : 'primaryDisabled'}
         size="L"
         className="w-full"
-        disabled={signUpMutation.isPending}
+        disabled={signUpMutation.isPending || isUploading}
       >
         {signUpMutation.isPending ? '가입 중...' : '회원가입'}
       </Button>

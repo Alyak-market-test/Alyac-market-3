@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { type InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { createComment, createPost, deletePost, toggleHeart, updatePost } from '../api/postApi';
@@ -41,21 +41,26 @@ export function useToggleHeart(postId: string) {
       await queryClient.cancelQueries({ queryKey: ['post', postId] });
 
       // 현재 캐시 스냅샷 저장 (실패 시 롤백용)
-      const previousPosts = queryClient.getQueryData(['posts']);
-      const previousPost = queryClient.getQueryData(['post', postId]);
+      const previousPosts = queryClient.getQueryData<InfiniteData<Post[]>>(['posts']);
+      const previousPost = queryClient.getQueryData<Post>(['post', postId]);
 
-      // posts 목록 캐시 즉시 업데이트
-      queryClient.setQueryData<Post[]>(['posts'], (old) => {
+      // posts 목록 캐시 즉시 업데이트 (InfiniteQuery 구조 반영)
+      queryClient.setQueryData<InfiniteData<Post[]>>(['posts'], (old) => {
         if (!old) return old;
-        return old.map((p) =>
-          p.id === postId
-            ? {
-                ...p,
-                hearted: !p.hearted,
-                heartCount: p.hearted ? p.heartCount - 1 : p.heartCount + 1,
-              }
-            : p,
-        );
+        return {
+          ...old,
+          pages: old.pages.map((page) =>
+            page.map((p) =>
+              p.id === postId
+                ? {
+                    ...p,
+                    hearted: !p.hearted,
+                    heartCount: p.hearted ? p.heartCount - 1 : p.heartCount + 1,
+                  }
+                : p,
+            ),
+          ),
+        };
       });
 
       // 단일 게시글 캐시 즉시 업데이트 (PostDetailPage용)

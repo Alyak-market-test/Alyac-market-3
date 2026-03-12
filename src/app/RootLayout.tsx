@@ -13,7 +13,7 @@ export function RootLayout() {
           duration: 1500,
           style: {
             background: 'var(--color-background)',
-            color: 'var(--destructive)',
+            color: 'var(--color-destructive)',
             border: '1px solid var(--color-border)',
           },
         }}

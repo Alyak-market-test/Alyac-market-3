@@ -55,7 +55,7 @@ export function ProfileModification() {
             onClick={openFilePicker}
             disabled={isUploading}
             aria-label="프로필 이미지 변경"
-            className="cursor-pointer disabled:opacity-60"
+            className="h-32 w-32 cursor-pointer rounded-full disabled:opacity-60"
           >
             <AvatarImage src={form.image} alt={form.name} size="xxl" iconSize="lg" />
           </Button>

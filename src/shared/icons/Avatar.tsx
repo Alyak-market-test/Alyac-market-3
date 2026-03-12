@@ -1,11 +1,11 @@
 import type { AvatarSize } from '../lib';
 
 const sizeMap: Record<AvatarSize, string> = {
-  sm: 'h-10 w-10',
-  md: 'h-16 w-16',
-  lg: 'h-18 w-18',
-  xl: 'h-24 w-24',
-  xxl: 'w-32 h-32',
+  sm: 'h-8 w-4',
+  md: 'h-14 w-8',
+  lg: 'h-18 w-10',
+  xl: 'h-24 w-[54px]',
+  xxl: 'h-28 w-16',
 };
 
 export function DefaultImage({ size = 'md' }: { size?: AvatarSize }) {

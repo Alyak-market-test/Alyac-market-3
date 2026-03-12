@@ -47,7 +47,8 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         primary: 'bg-[#11CC27] text-white hover:bg-[#11CC27]/90 rounded-full',
         primaryDisabled: 'bg-[#A7FFB9] text-white pointer-events-none rounded-full',
-        activ: 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-full',
+        activ:
+          'bg-white dark:bg-black border border-[var(--color-border)] text-[var(--color-foreground)] hover:bg-gray-50 dark:hover:bg-gray-900 rounded-full',
         myprofilebutton:
           'flex-1 items-center justify-center rounded-full border border-[var(--color-border)] py-2.5 text-foreground hover:bg-[var(--color-accent)]',
         yourprofilebutton:

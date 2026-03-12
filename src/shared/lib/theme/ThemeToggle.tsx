@@ -14,13 +14,13 @@ export function ThemeToggle() {
       onValueChange={(v) => v && setTheme(v as 'light' | 'dark' | 'system')}
     >
       <ToggleGroupItem value="light" aria-label="라이트 모드">
-        <Sun className="h-4 w-4" />
+        <Sun className="h-4 w-4 cursor-pointer" />
       </ToggleGroupItem>
       <ToggleGroupItem value="dark" aria-label="다크 모드">
-        <Moon className="h-4 w-4" />
+        <Moon className="h-4 w-4 cursor-pointer" />
       </ToggleGroupItem>
       <ToggleGroupItem value="system" aria-label="시스템">
-        <Monitor className="h-4 w-4" />
+        <Monitor className="h-4 w-4 cursor-pointer" />
       </ToggleGroupItem>
     </ToggleGroup>
   );

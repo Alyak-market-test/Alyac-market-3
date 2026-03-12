@@ -23,7 +23,7 @@ export function CommentInput({ profileImage, value, onSubmit, inputProps }: Comm
         <button
           onClick={onSubmit}
           disabled={!value.trim()}
-          className="text-muted-foreground text-sm font-semibold disabled:opacity-40"
+          className="text-muted-foreground cursor-pointer text-sm font-semibold disabled:opacity-40"
         >
           게시
         </button>

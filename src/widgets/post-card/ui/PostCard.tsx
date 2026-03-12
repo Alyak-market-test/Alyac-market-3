@@ -21,7 +21,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const queryClient = useQueryClient();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { mutate: toggleHeart } = useToggleHeart(post.id);
+  const { mutate: toggleHeart } = useToggleHeart(post.id, post.hearted);
   const { mutate: deletePost } = useDeletePost();
 
   const handleDeleteClick = () => {

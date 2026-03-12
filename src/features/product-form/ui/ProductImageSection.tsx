@@ -1,5 +1,6 @@
 import { useUploadFiles } from '@/entities/image';
 import { ImgButtonIcon } from '@/shared/icons';
+import { imageUrl } from '@/shared/lib';
 
 import { useImageUpload } from '../hooks/useImageUpload';
 
@@ -43,7 +44,7 @@ export function ProductImageSection({
           />
         ) : existingImageUrl ? (
           <img
-            src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${existingImageUrl}`}
+            src={imageUrl(existingImageUrl)}
             alt="기존 이미지"
             className="h-full w-full rounded-lg object-cover"
           />

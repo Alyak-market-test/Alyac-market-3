@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useForm, useWatch } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import {
   useCreateComment,
@@ -21,6 +21,7 @@ interface CommentFormValues {
 export function PostDetailPage() {
   const { post_id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const { data: post, isLoading: isPostLoading } = useGetPost(post_id!);
   const { data: comments = [] } = useGetComments(post_id!);
@@ -40,6 +41,14 @@ export function PostDetailPage() {
     reset();
   });
 
+  const handleBack = () => {
+    if (location.state?.from === 'feed') {
+      navigate(-1);
+    } else {
+      navigate(`/profile/${post?.author.accountname}`);
+    }
+  };
+
   if (isPostLoading)
     return <div className="flex h-screen items-center justify-center">로딩중...</div>;
 
@@ -48,17 +57,13 @@ export function PostDetailPage() {
 
   return (
     <div className="bg-background flex h-screen flex-col">
-      <PostHeader
-        onBack={() => navigate(`/profile/${post.author.accountname}`)}
-        onMore={() => setShowMenu(true)}
-      />
+      <PostHeader onBack={handleBack} onMore={() => setShowMenu(true)} />
       <div className="flex-1 overflow-y-auto px-4 pt-4 pb-24">
         <PostAuthor
           image={post.author.image}
           username={post.author.username}
           accountname={post.author.accountname}
         />
-        {/* 줄바꿈 유지 */}
         <p className="text-foreground mb-3 text-sm whitespace-pre-wrap">{post.content}</p>
         <PostImages images={post.image} />
         <PostActions

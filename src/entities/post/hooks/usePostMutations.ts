@@ -13,7 +13,7 @@ export function useCreatePost() {
     onSuccess: (postId) => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       queryClient.invalidateQueries({ queryKey: ['userPosts'] });
-      navigate(`/post/${postId}`);
+      navigate(`/post/${postId}`, { state: { from: 'post-add' } });
     },
   });
 }

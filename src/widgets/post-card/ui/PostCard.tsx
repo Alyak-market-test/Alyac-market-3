@@ -107,7 +107,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
           <span className="text-muted-foreground text-xs">{post.heartCount}</span>
         </button>
         <button
-          onClick={() => navigate(ROUTES.POST.DETAIL(post.id))}
+          onClick={() => navigate(ROUTES.POST.DETAIL(post.id), { state: { from: 'feed' } })}
           className="flex items-center gap-1"
         >
           <CommentIcon />

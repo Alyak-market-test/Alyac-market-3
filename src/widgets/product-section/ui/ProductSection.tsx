@@ -7,13 +7,12 @@ import type { Product } from '@/entities/product';
 import { useGetProducts } from '@/entities/product';
 import { useDeleteProduct } from '@/features/product';
 import { Button, DeleteConfirmModal, ROUTES } from '@/shared';
+import { imageUrl } from '@/shared/lib';
 
 interface ProductSectionProps {
   accountname: string;
   isMyProfile: boolean;
 }
-
-const BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
 export function ProductSection({ accountname, isMyProfile }: ProductSectionProps) {
   const navigate = useNavigate();
@@ -70,7 +69,7 @@ export function ProductSection({ accountname, isMyProfile }: ProductSectionProps
             >
               <div className="relative">
                 <img
-                  src={`${BASE_URL}/${product.itemImage}`}
+                  src={imageUrl(product.itemImage)}
                   alt={product.itemName}
                   className={`h-32 w-32 rounded-md object-cover ${isMyProfile ? 'cursor-pointer' : ''}`}
                   onClick={() => handleImageClick(product)}

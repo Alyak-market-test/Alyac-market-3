@@ -28,7 +28,7 @@ export function PostDetailPage() {
   const [showMenu, setShowMenu] = useState(false);
   const { data: post, isLoading: isPostLoading } = useGetPost(post_id!);
   const { data: comments = [] } = useGetComments(post_id!);
-  const { mutate: heart } = useToggleHeart(post_id!);
+  const { mutate: heart } = useToggleHeart(post_id!, post?.hearted ?? false);
   const { mutate: submitComment } = useCreateComment(post_id!);
   const { mutate: deletePost } = useDeletePost();
   const { data: user } = useUser();

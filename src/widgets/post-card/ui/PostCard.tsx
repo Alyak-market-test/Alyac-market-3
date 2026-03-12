@@ -88,6 +88,7 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
                   className="text-foreground hover:bg-muted w-full cursor-pointer rounded-xl px-4 py-3 text-left text-sm transition-colors"
                   onClick={() => {
                     onReport?.();
+                    toast.success('신고가 접수되었습니다');
                     setMenuOpen(false);
                   }}
                 >

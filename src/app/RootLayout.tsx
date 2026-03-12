@@ -10,10 +10,11 @@ export function RootLayout() {
       <Toaster
         position="top-right"
         toastOptions={{
+          duration: 1500,
           style: {
-            background: 'hsl(var(--color-background))',
-            color: 'hsl(var(--color-foreground))',
-            border: 'hsl(var(--color-border))',
+            background: 'var(--color-background)',
+            color: 'var(--destructive)',
+            border: '1px solid var(--color-border)',
           },
         }}
       />

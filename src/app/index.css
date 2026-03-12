@@ -4,54 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  /* Background & Foreground */
-  --color-background: light-dark(#ffffff, #000000);
-  --color-foreground: light-dark(#000000, #ffffff);
-
-  /* Card */
-  --color-card: light-dark(#ffffff, #000000);
-  --color-card-foreground: light-dark(#0f172a, #f8fafc);
-
-  /* Popover */
-  --color-popover: light-dark(#ffffff, #000000);
-  --color-popover-foreground: light-dark(#0f172a, #f8fafc);
-
-  /* Primary (브랜드 그린) */
-  --color-primary: light-dark(#11cc27, #11cc27);
-  --color-primary-foreground: light-dark(#ffffff, #ffffff);
-
-  /* Secondary */
-  --color-secondary: light-dark(#f1f5f9, #1e293b);
-  --color-secondary-foreground: light-dark(#0f172a, #f8fafc);
-
-  /* Muted */
-  --color-muted: light-dark(#f1f5f9, #1e293b);
-  --color-muted-foreground: light-dark(#767676, #94a3b8);
-
-  /* Accent */
-  --color-accent: light-dark(#f1f5f9, #1e293b);
-  --color-accent-foreground: light-dark(#0f172a, #f8fafc);
-
-  /* Destructive */
-  --color-destructive: light-dark(#ef4444, #7f1d1d);
-  --color-destructive-foreground: light-dark(#ffffff, #ffffff);
-
-  /* Border & Input */
-  --color-border: light-dark(#dbdbdb, #23262e);
-  --color-input: light-dark(#e2e8f0, #1e293b);
-  --color-ring: light-dark(#11cc27, #11cc27);
-
-  /* Border Radius */
-  --radius-lg: 0.5rem;
-  --radius-md: calc(0.5rem - 2px);
-  --radius-sm: calc(0.5rem - 4px);
-
-  /* Icons */
-  --color-icon: light-dark(#000000, #ffffff);
-  --icon-hover: light-dark(#f1f5f9, #171717);
-}
-
 :root {
   color-scheme: light;
   --radius: 0.625rem;
@@ -91,9 +43,6 @@
   --post-grid: oklch(92.797% 0.00011 271.152 / 0.863);
 }
 
-:root.dark {
-  color-scheme: dark;
-}
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

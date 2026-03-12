@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '@/entities/user';
 import { Button, Textarea } from '@/shared';
-import { ArrowLeftIcon, AvatarImage, ImgIcon } from '@/shared/icons';
+import { AvatarImage } from '@/shared';
+import { ArrowLeftIcon, ImgIcon } from '@/shared/icons';
 
 import type { PostAddFormValues } from '../post-add/model/usePostForm';
 

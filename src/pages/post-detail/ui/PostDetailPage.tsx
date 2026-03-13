@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -22,6 +23,7 @@ interface CommentFormValues {
 }
 
 export function PostDetailPage() {
+  const queryClient = useQueryClient();
   const { post_id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,6 +33,7 @@ export function PostDetailPage() {
   const { mutate: heart } = useToggleHeart(post_id!);
   const { mutate: submitComment } = useCreateComment(post_id!);
   const { mutate: deletePost } = useDeletePost();
+
   const { data: user } = useUser();
 
   const isMyPost = !!user && !!post && user.accountname === post.author.accountname;
@@ -58,7 +61,8 @@ export function PostDetailPage() {
     setShowMenu(false);
     deletePost(post_id!, {
       onSuccess: () => {
-        toast.success('게시글이 삭제되었습니다.');
+        queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+        queryClient.invalidateQueries({ queryKey: ['posts'] });
         navigate(-1);
       },
     });

@@ -18,7 +18,7 @@ export function TopBasicNav({ title, onBack, onMore, moreSlot }: TopBasicNavProp
           <ArrowLeftIcon />
         </button>
 
-        {title && <span className="text-base font-medium">{title}</span>}
+        {title && <span className="text-base font-bold">{title}</span>}
 
         {moreSlot ??
           (onMore ? (

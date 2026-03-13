@@ -4,8 +4,7 @@ import { getRefreshToken, getToken, removeToken, saveToken } from '@/shared/lib/
 
 const api = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
-
-  timeout: 30000,
+  timeout: 100000,
 });
 
 // 요청 인터셉터: 토큰 자동 추가

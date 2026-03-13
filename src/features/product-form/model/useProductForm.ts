@@ -24,9 +24,11 @@ export function useProductForm(initialData?: InitialProductData) {
       itemName: name,
       price: Number(price),
       link: saleUrl || 'http://placeholder.com',
-      itemImage: imageUrls[0]?.startsWith('uploadFiles/')
+      itemImage: imageUrls[0]?.startsWith('http')
         ? imageUrls[0]
-        : `uploadFiles/${imageUrls[0]}`,
+        : imageUrls[0]?.startsWith('uploadFiles/')
+          ? imageUrls[0]
+          : `uploadFiles/${imageUrls[0]}`,
     },
   });
 

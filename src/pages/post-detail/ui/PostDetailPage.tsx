@@ -57,7 +57,10 @@ export function PostDetailPage() {
   const handleDelete = () => {
     setShowMenu(false);
     deletePost(post_id!, {
-      onSuccess: () => navigate(-1),
+      onSuccess: () => {
+        toast.success('게시글이 삭제되었습니다.');
+        navigate(-1);
+      },
     });
   };
 

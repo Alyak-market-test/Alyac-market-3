@@ -19,7 +19,7 @@ export function ProfilePage() {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const { data: posts = [] } = useGetUserPosts(user.accountname);
+  const { data: posts = [], isLoading: isPostsLoading } = useGetUserPosts(user.accountname);
 
   const { isFollowing, followerCount, loading, toggleFollow } = useFollow(user.accountname, {
     isFollowing: user.isFollowing,
@@ -94,6 +94,7 @@ export function ProfilePage() {
 
       <PostSection
         posts={posts}
+        isLoading={isPostsLoading}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         isMyProfile={isMyProfile}

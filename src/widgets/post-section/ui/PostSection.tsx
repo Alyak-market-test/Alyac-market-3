@@ -7,13 +7,20 @@ import { imageUrl } from '@/shared/lib';
 
 interface PostSectionProps {
   posts: Post[];
+  isLoading?: boolean;
   viewMode: 'list' | 'grid';
   onViewModeChange: (mode: 'list' | 'grid') => void;
   isMyProfile?: boolean;
   renderPost: (post: Post) => React.ReactNode;
 }
 
-export function PostSection({ posts, viewMode, onViewModeChange, renderPost }: PostSectionProps) {
+export function PostSection({
+  posts,
+  isLoading,
+  viewMode,
+  onViewModeChange,
+  renderPost,
+}: PostSectionProps) {
   const navigate = useNavigate();
 
   return (
@@ -27,7 +34,11 @@ export function PostSection({ posts, viewMode, onViewModeChange, renderPost }: P
         </div>
       </div>
       <main className="flex-1">
-        {posts.length === 0 ? (
+        {isLoading ? (
+          <div className="flex h-full items-center justify-center py-32">
+            <p className="text-muted-foreground text-sm">불러오는 중...</p>
+          </div>
+        ) : posts.length === 0 ? (
           <div className="flex h-full items-center justify-center py-32">
             <p className="text-foreground text-sm">작성한 게시물이 없습니다</p>
           </div>

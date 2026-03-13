@@ -21,7 +21,9 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
   const queryClient = useQueryClient();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { mutate: toggleHeart } = useToggleHeart(post.id, post.hearted);
+  const [isHearted, setIsHearted] = useState(post.hearted);
+  const [heartCount, setHeartCount] = useState(post.heartCount);
+  const { mutate: toggleHeart } = useToggleHeart(post.id);
   const { mutate: deletePost } = useDeletePost();
 
   const handleDeleteClick = () => {
@@ -117,9 +119,16 @@ export function PostCard({ post, isMyPost = false, onReport }: PostCardProps) {
       )}
 
       <div className="mt-3 flex items-center gap-4">
-        <button onClick={() => toggleHeart()} className="flex cursor-pointer items-center gap-1">
-          <HeartIcon filled={post.hearted} />
-          <span className="text-muted-foreground text-xs">{post.heartCount}</span>
+        <button
+          onClick={() => {
+            setIsHearted(!isHearted);
+            setHeartCount(isHearted ? heartCount - 1 : heartCount + 1);
+            toggleHeart(isHearted);
+          }}
+          className="flex cursor-pointer items-center gap-1"
+        >
+          <HeartIcon filled={isHearted} />
+          <span className="text-muted-foreground text-xs">{heartCount}</span>
         </button>
         <button
           onClick={() => navigate(ROUTES.POST.DETAIL(post.id), { state: { from: 'feed' } })}

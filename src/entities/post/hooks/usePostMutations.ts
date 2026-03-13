@@ -29,10 +29,10 @@ export function useDeletePost() {
 }
 
 // 4. 좋아요 토글
-export function useToggleHeart(postId: string, hearted: boolean) {
+export function useToggleHeart(postId: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => toggleHeart(postId, hearted),
+    mutationFn: (hearted: boolean) => toggleHeart(postId, hearted),
 
     // 클릭 즉시 캐시를 낙관적으로 업데이트
     onMutate: async () => {

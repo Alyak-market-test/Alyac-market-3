@@ -39,10 +39,10 @@ export async function deletePost(postId: string): Promise<void> {
   await api.delete(`/post/${postId}`);
 }
 
-// 좋아요 토글 (hearted: 현재 좋아요 상태 - true면 취소, false면 추가)
+// 좋아요 토글
 export async function toggleHeart(postId: string, hearted: boolean): Promise<void> {
   if (hearted) {
-    await api.delete(`/post/${postId}/heart`);
+    await api.delete(`/post/${postId}/unheart`);
   } else {
     await api.post(`/post/${postId}/heart`);
   }
